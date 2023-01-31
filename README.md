@@ -14,7 +14,6 @@ The Software was developed using Visual Studio 2022 in C#/WPF/.NET 6.0. It is wr
 
 The unit test projects requires the following NuGet packages:
 
-* Moq
 * System.IO.Abstractions.TestingHelpers
 * xunit
 * xunit.runner.console
