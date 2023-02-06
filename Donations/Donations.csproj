@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+    <RepositoryUrl>https://github.com/stephening/sda-church-donation-tracker</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Copyright>https://mit-license.org/</Copyright>
+    <Description>SDA church donation tracking software.</Description>
+    <AssemblyName>Donation-tracker</AssemblyName>
+    <BaseOutputPath>$(SolutionDir)bin\</BaseOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="di.Data.cs" />
+    <Compile Remove="Model\TitheEnvelopeBody.cs" />
+    <Compile Remove="RelayCommand.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="app.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
+    <PackageReference Include="System.IO.Abstractions" Version="19.1.14" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Persist.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Persist.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Persist.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Persist.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>
