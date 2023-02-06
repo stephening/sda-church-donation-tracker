@@ -1,0 +1,73 @@
+﻿<Window x:Class="Donations.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Donations"
+		xmlns:view="clr-namespace:Donations.View"
+		mc:Ignorable="d"
+		Loaded="Window_Loaded"
+		Closing="Window_Closing"
+        Title="MainWindow" MinHeight="450" MaxHeight="{Binding System.Windows.SystemParameters.WorkArea.Height}" Width="1010">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+
+		<TabControl Grid.Row="1">
+			<TabItem Header="Batch browser">
+				<view:BatchBrowserView x:Name="BatchBrowserView"/>
+			</TabItem>
+			<TabItem Header="Adventist giving">
+				<view:AdventistGivingView x:Name="AdventistGivingView"/>
+			</TabItem>
+			<TabItem Header="Donor input" Selector.Selected="DonorInputTab_Selected">
+				<view:DonorInputView x:Name="DonorInputView"/>
+			</TabItem>
+			<TabItem Header="Maintenance" Selector.Selected="MaintenanceTab_Selected">
+				<TabControl>
+					<TabItem Header="General">
+						<view:GeneralView/>
+					</TabItem>
+					<TabItem Header="Donor">
+						<view:DonorView/>
+					</TabItem>
+					<TabItem Header="Category">
+						<view:CategoryView x:Name="CategoryView"/>
+					</TabItem>
+					<TabItem Header="Donor map">
+						<view:DonorMapView x:Name="DonorMapView"/>
+					</TabItem>
+					<TabItem Header="Category map">
+						<view:CategoryMapView x:Name="CategoryMapView"/>
+					</TabItem>
+					<TabItem Header="Design tithe envelope">
+						<view:EnvelopeDesignView/>
+					</TabItem>
+					<TabItem Header="Login account management">
+						<view:LoginAccountManagementView/>
+					</TabItem>
+				</TabControl>
+			</TabItem>
+			<TabItem Header="Import data">
+				<TabControl>
+					<TabItem Header="Donors">
+						<view:ImportDonorView/>
+					</TabItem>
+					<TabItem Header="Categories">
+						<view:ImportCategoriesView/>
+					</TabItem>
+					<TabItem Header="Donations">
+						<view:ImportDonationsView/>
+					</TabItem>
+
+				</TabControl>
+			</TabItem>
+			<TabItem Header="About">
+				<view:AboutView/>
+			</TabItem>
+		</TabControl>
+	</Grid>
+</Window>

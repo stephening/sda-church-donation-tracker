@@ -1,0 +1,63 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Donations" GeneratedClassName="Persist">
+  <Profiles />
+  <Settings>
+    <Setting Name="Top" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="Left" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="Width" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">1010</Value>
+    </Setting>
+    <Setting Name="Height" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">960</Value>
+    </Setting>
+    <Setting Name="WindowState" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ReviewWidth" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">1100</Value>
+    </Setting>
+    <Setting Name="ReviewHeight" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">700</Value>
+    </Setting>
+    <Setting Name="ReviewTop" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="ReviewLeft" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="ReviewWindowState" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DonorTop" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="DonorLeft" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="DonorWidth" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="DonorHeight" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="DonorWindowState" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="PrintFontFamily" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Calibri</Value>
+    </Setting>
+    <Setting Name="PrintFontSize" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">12</Value>
+    </Setting>
+    <Setting Name="PrintLeftMargin" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.5</Value>
+    </Setting>
+    <Setting Name="PrintOtherMargins" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.5</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

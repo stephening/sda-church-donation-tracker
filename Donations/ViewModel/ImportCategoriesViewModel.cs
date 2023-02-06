@@ -1,0 +1,147 @@
+﻿using CommunityToolkit.Mvvm.Input;
+using Donations.Model;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.IO;
+using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
+using System.Windows;
+using System.Windows.Data;
+using System.Windows.Input;
+
+namespace Donations.ViewModel
+{
+	/// <summary>
+	/// This view model handles the functionality and the binding to the ImportCategoriesView.xaml which
+	/// is a UserControl occupying the 'Import:Categories' tab. This is a view which wants a *.csv file
+	/// with specific columns, which it will then import into the Category object. Once imported, the
+	/// collection of categories can then be saved for use throughout the application. This import
+	/// will overwrite any existing categories, so make sure that is what you want to do before saving.
+	/// </summary>
+	public class ImportCategoriesViewModel : INotifyPropertyChanged
+	{
+		public event PropertyChangedEventHandler? PropertyChanged;
+		protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+		{
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+		}
+
+		public ObservableCollection<Category> Collection = new ObservableCollection<Category>();
+		public CollectionViewSource CollectionSource { get; set; } = new CollectionViewSource();
+
+		private bool _hasChanges;
+		/// <summary>
+		/// The HasChanges property tracks the changes which allows the 'Save...' button to
+		/// be enabled or disabled accordingly.
+		/// </summary>
+		public bool HasChanges
+		{
+			get { return _hasChanges; }
+			set
+			{
+				_hasChanges = value;
+				OnPropertyChanged();
+			}
+		}
+
+		private string _fileName;
+
+		/// <summary>
+		/// The constructor sets the CollectionViewSource for the imported categories. And it
+		/// initializes the SaveCmd to its handler.
+		/// </summary>
+		public ImportCategoriesViewModel()
+		{
+			HasChanges = false;
+			CollectionSource.Source = Collection;
+		}
+
+		/// <summary>
+		/// The SaveCmd property is bound to the 'Save...' button. This button will save the new
+		/// categories, overwriting the prior ones.
+		/// </summary>
+		public string? Save(bool force)
+		{
+			string? ret = di.Data.SaveCategories(Collection, force);
+			if (null == ret)
+			{
+				di.Data.ReplaceCategoryData(Collection);
+				HasChanges = false;
+			}
+
+			return ret;
+		}
+
+		/// <summary>
+		/// This method will read the csv, parsing the rows according to the column headers in the first
+		/// row. The import is expecting three specific column headers. If yours do not match, the import
+		/// cannot be performed. The simple fix is to rename the first row headers in a text editor before
+		/// importing.
+		/// </summary>
+		/// <param name="filename">Filename of the csv file to import.</param>
+		/// <exception cref="Exception"></exception>
+		public void ReadFile(string filename)
+		{
+			_fileName = filename;
+
+			Collection.Clear();
+
+			using (StreamReader reader = di.FileSystem.File.OpenText(_fileName))
+			{
+				var totalsize = reader.BaseStream.Length;
+				string? line = line = reader.ReadLine(); // read column headers
+				var headers = Regex.Split(line, ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+				var columns = new Dictionary<string, int>();
+
+				for (int i = 0; i < headers?.Length; i++)
+				{
+					columns[headers[i].Trim().Trim('"')] = i;
+				}
+
+				// required columns
+				if (!columns.ContainsKey("Code"))
+				{
+					throw new Exception($"Donation csv file doesn't have a required \"Id\" column");
+				}
+				if (!columns.ContainsKey("Description"))
+				{
+					throw new Exception($"Donation csv file doesn't have a required \"Description\" column");
+				}
+				if (!columns.ContainsKey("TaxDeductible"))
+				{
+					throw new Exception($"Donation csv file doesn't have a required \"TaxDeductible\" column");
+				}
+
+				int lineNumber = 1;
+
+				while (!string.IsNullOrEmpty(line = reader.ReadLine()))
+				{
+					var split = Regex.Split(line, ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+					if (columns.Count == split.Length)
+					{
+						Category category = new Category();
+						category.Code = Helper.ParseInt(lineNumber, split, columns, "Code");
+						category.Description = Helper.ParseString(lineNumber, split, columns, "Description");
+						category.TaxDeductible = Helper.ParseBool(lineNumber, split, columns, true, "TaxDeductible");
+
+						Collection.Add(category);
+					}
+					else
+					{
+						if (MessageBoxResult.Cancel == MessageBox.Show("Problem importing line:", line, MessageBoxButton.OKCancel, MessageBoxImage.Exclamation))
+						{
+							return;
+						}
+					}
+
+					lineNumber++;
+				}
+			}
+
+			HasChanges = true;
+			CollectionSource.View.Refresh();
+		}
+	}
+}

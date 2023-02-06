@@ -1,0 +1,90 @@
+﻿<UserControl x:Class="Donations.View.BatchBrowserView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:local="clr-namespace:Donations.View"
+             xmlns:top="clr-namespace:Donations"
+             xmlns:vm="clr-namespace:Donations.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+	<UserControl.DataContext>
+		<vm:BatchBrowserViewModel/>
+	</UserControl.DataContext>
+	<Grid Margin="20">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<StackPanel Grid.Row="0" Margin="0,0,0,10" Orientation="Horizontal">
+			<StackPanel.Resources>
+				<top:EnumConverter x:Key="BatchFilterOptions" />
+			</StackPanel.Resources>
+			<RadioButton GroupName="BatchFilter" VerticalAlignment="Center" Content="Current year"
+						 IsChecked="{Binding Path=BatchFilterOption, Converter={StaticResource BatchFilterOptions}, ConverterParameter={x:Static vm:enumBatchFilterOptions.CurrentYear}}"/>
+			<RadioButton GroupName="BatchFilter" VerticalAlignment="Center" Content="Previous year" Margin="20,0,0,0"
+						 IsChecked="{Binding Path=BatchFilterOption, Converter={StaticResource BatchFilterOptions}, ConverterParameter={x:Static vm:enumBatchFilterOptions.PreviousYear}}"/>
+			<RadioButton GroupName="BatchFilter" VerticalAlignment="Center" Content="Select year" Margin="20,0,0,0"
+						 IsChecked="{Binding Path=BatchFilterOption, Converter={StaticResource BatchFilterOptions}, ConverterParameter={x:Static vm:enumBatchFilterOptions.SelectYear}}"/>
+			<ComboBox Width="75" Margin="5,0,0,0" VerticalAlignment="Center" IsEnabled="{Binding SelectYearComboBoxEnabled}" ItemsSource="{Binding AvailableYears}"
+					  SelectedItem="{Binding FilterYear}"/>
+			<RadioButton GroupName="BatchFilter" VerticalAlignment="Center" Content="Range" Margin="20,0,0,0"
+						 IsChecked="{Binding Path=BatchFilterOption, Converter={StaticResource BatchFilterOptions}, ConverterParameter={x:Static vm:enumBatchFilterOptions.DateRange}}"/>
+			<DatePicker Width="100" Margin="5,0,0,0" VerticalAlignment="Center" IsEnabled="{Binding DateRangeEnabled}" Text="{Binding FilterStartDate, Mode=TwoWay}"/>
+			<TextBlock Margin="5,0" Text="-" VerticalAlignment="Center"/>
+			<DatePicker Width="100" Margin="5,0,0,0" VerticalAlignment="Center" IsEnabled="{Binding DateRangeEnabled}" Text="{Binding FilterEndDate, Mode=TwoWay}"/>
+		</StackPanel>
+		<DataGrid Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding BatchListSource.View}">
+			<DataGrid.ContextMenu>
+				<ContextMenu>
+					<MenuItem Header="Delete row" Command="{Binding Path=DeleteRowCmd}"/>
+				</ContextMenu>
+			</DataGrid.ContextMenu>
+			<DataGrid.Resources>
+				<Style TargetType="DataGridRow">
+					<EventSetter Event="MouseDoubleClick" Handler="DataGridRow_MouseDoubleClick"/>
+				</Style>
+				<Style x:Key="ColumnStyle" TargetType="TextBlock">
+					<Setter Property="Margin" Value="5,0" />
+				</Style>
+			</DataGrid.Resources>
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Source" Binding="{Binding Source}" IsReadOnly="True" ElementStyle="{StaticResource ColumnStyle}"/>
+				<DataGridTextColumn Header="Date" Binding="{Binding Date}" IsReadOnly="True" ElementStyle="{StaticResource ColumnStyle}"/>
+				<DataGridTextColumn Header="Target total" Binding="{Binding Total,StringFormat={}{0:C2}}" IsReadOnly="True">
+					<DataGridTextColumn.HeaderStyle>
+						<Style TargetType="DataGridColumnHeader">
+							<Setter Property="HorizontalContentAlignment" Value="Right" />
+						</Style>
+					</DataGridTextColumn.HeaderStyle>
+					<DataGridTextColumn.ElementStyle>
+						<Style TargetType="{x:Type TextBlock}">
+							<Setter Property="HorizontalAlignment" Value="Right" />
+							<Setter Property="Margin" Value="5,0" />
+							<Setter Property="Background" Value="{Binding CellBackgroundColor}"/>
+							<Setter Property="Foreground" Value="{Binding CellForegroundColor}"/>
+						</Style>
+					</DataGridTextColumn.ElementStyle>
+				</DataGridTextColumn>
+				<DataGridTextColumn Header="Actual total" Binding="{Binding ActualTotal,StringFormat={}{0:C2}}" IsReadOnly="True">
+					<DataGridTextColumn.HeaderStyle>
+						<Style TargetType="DataGridColumnHeader">
+							<Setter Property="HorizontalContentAlignment" Value="Right" />
+						</Style>
+					</DataGridTextColumn.HeaderStyle>
+					<DataGridTextColumn.ElementStyle>
+						<Style TargetType="{x:Type TextBlock}">
+							<Setter Property="HorizontalAlignment" Value="Right" />
+							<Setter Property="Margin" Value="5,0" />
+							<Setter Property="Background" Value="{Binding CellBackgroundColor}"/>
+							<Setter Property="Foreground" Value="{Binding CellForegroundColor}"/>
+						</Style>
+					</DataGridTextColumn.ElementStyle>
+				</DataGridTextColumn>
+				<DataGridTextColumn Header="Operator" Binding="{Binding Operator}" IsReadOnly="True" ElementStyle="{StaticResource ColumnStyle}"/>
+				<DataGridTextColumn Header="Note" Binding="{Binding Note}" IsReadOnly="True" ElementStyle="{StaticResource ColumnStyle}"/>
+			</DataGrid.Columns>
+		</DataGrid>
+    </Grid>
+</UserControl>
