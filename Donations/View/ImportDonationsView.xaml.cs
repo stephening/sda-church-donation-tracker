@@ -52,13 +52,12 @@ namespace Donations.View
 
 			if (null != ret)
 			{
-				if (MessageBoxResult.No == MessageBox.Show(ret, "Overwrite database?", MessageBoxButton.YesNo, MessageBoxImage.Exclamation))
+				if (MessageBoxResult.Yes == MessageBox.Show(ret, "Overwrite database?", MessageBoxButton.YesNo, MessageBoxImage.Exclamation))
 				{
+					_viewModel.Save(true);
 					return;
 				}
 			}
-
-			_viewModel.Save(true);
 		}
 	}
 }
