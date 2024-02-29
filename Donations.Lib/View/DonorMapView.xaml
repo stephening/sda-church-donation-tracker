@@ -1,0 +1,149 @@
+﻿<UserControl x:Class="Donations.Lib.View.DonorMapView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Donations.Lib.View"
+             xmlns:vm="clr-namespace:Donations.Lib.ViewModel"
+			 DataContextChanged="UserControl_DataContextChanged"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+	<Grid Margin="20">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<StackPanel Grid.Row="0" Orientation="Vertical">
+			<TextBlock>
+				This tab shows and allows editing of the donor maping between the Adventist Giving (AG) record and the local database.
+				You can remove individual mappings, or you can change the donor on the right side that the AG record is currently mapped to.
+			</TextBlock>
+			<BulletDecorator Margin="10,0,0,0">
+				<BulletDecorator.Bullet>
+					<Ellipse Height="5" Width="5" Fill="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					Delete an entry by right-clicking on the the row and selecting 'Delete row' from the context menu.
+				</TextBlock>
+			</BulletDecorator>
+			<BulletDecorator Margin="10,0,0,0">
+				<BulletDecorator.Bullet>
+					<Ellipse Height="5" Width="5" Fill="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Change the local category mapping by clicking anywhere on the row and then selecting a new donor.</TextBlock>
+			</BulletDecorator>
+
+			<StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+				<Button Content="Revert changes" Padding="20,5" Command="{Binding RevertCommand}" IsEnabled="{Binding HasChanges}"/>
+				<Button Content="Save changes" Margin="20,0,0,0" Padding="20,5" Command="{Binding SaveChangesCommand}" IsEnabled="{Binding HasChanges}"/>
+				<Button Content="Delete all" Margin="20,0,0,0" Padding="20,5" Command="{Binding DeleteAllCommand}"/>
+			</StackPanel>
+		</StackPanel>
+		<DataGrid x:Name="DonorMapDataGrid" Grid.Row="1" Margin="0,20,0,0" CanUserAddRows="False" AutoGenerateColumns="False"
+				  ItemsSource="{Binding DonorMapViewSource.View}">
+			<DataGrid.ContextMenu>
+				<ContextMenu>
+					<MenuItem Header="Delete row" Command="{Binding Path=DeleteRowCommand}"/>
+				</ContextMenu>
+			</DataGrid.ContextMenu>
+			<DataGrid.Resources>
+				<SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="LightBlue"/>
+				<SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black"/>
+				<Style TargetType="DataGridRow">
+					<EventSetter Event="MouseLeftButtonUp" Handler="DataGridRow_MouseLeftButtonUp"/>
+				</Style>
+				<Style x:Key="ColumnStyle" TargetType="TextBlock">
+					<Setter Property="Margin" Value="5,0" />
+				</Style>
+			</DataGrid.Resources>
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Donor Id" IsReadOnly="True" Binding="{Binding DonorId}"/>
+				<DataGridTextColumn Header="Last name" IsReadOnly="True" Binding="{Binding LastName}">
+					<DataGridTextColumn.ElementStyle>
+						<Style TargetType="{x:Type TextBlock}">
+							<Setter Property="Background" Value="{Binding LastColor}"/>
+						</Style>
+					</DataGridTextColumn.ElementStyle>
+				</DataGridTextColumn>
+				<DataGridTextColumn Header="First name" IsReadOnly="True" Binding="{Binding FirstName}">
+					<DataGridTextColumn.ElementStyle>
+						<Style TargetType="{x:Type TextBlock}">
+							<Setter Property="Background" Value="{Binding FirstColor}"/>
+						</Style>
+					</DataGridTextColumn.ElementStyle>
+				</DataGridTextColumn>
+				<DataGridTextColumn Header="Address" IsReadOnly="True" Binding="{Binding Address}">
+					<DataGridTextColumn.ElementStyle>
+						<Style TargetType="{x:Type TextBlock}">
+							<Setter Property="Background" Value="{Binding AddressColor}"/>
+						</Style>
+					</DataGridTextColumn.ElementStyle>
+				</DataGridTextColumn>
+				<DataGridTextColumn Header="City" IsReadOnly="True" Binding="{Binding City}">
+					<DataGridTextColumn.ElementStyle>
+						<Style TargetType="{x:Type TextBlock}">
+							<Setter Property="Background" Value="{Binding CityColor}"/>
+						</Style>
+					</DataGridTextColumn.ElementStyle>
+				</DataGridTextColumn>
+				<DataGridTextColumn Header="State" IsReadOnly="True" Binding="{Binding State}">
+					<DataGridTextColumn.ElementStyle>
+						<Style TargetType="{x:Type TextBlock}">
+							<Setter Property="Background" Value="{Binding StateColor}"/>
+						</Style>
+					</DataGridTextColumn.ElementStyle>
+				</DataGridTextColumn>
+				<DataGridTextColumn Header="Zip" IsReadOnly="True" Binding="{Binding Zip}">
+					<DataGridTextColumn.ElementStyle>
+						<Style TargetType="{x:Type TextBlock}">
+							<Setter Property="Background" Value="{Binding ZipColor}"/>
+						</Style>
+					</DataGridTextColumn.ElementStyle>
+				</DataGridTextColumn>
+				<DataGridTextColumn Width="10" IsReadOnly="True"/>
+				<DataGridTextColumn Header="AG Last name" IsReadOnly="True" Binding="{Binding AGLastName}">
+					<DataGridTextColumn.ElementStyle>
+						<Style TargetType="{x:Type TextBlock}">
+							<Setter Property="Background" Value="{Binding LastColor}"/>
+						</Style>
+					</DataGridTextColumn.ElementStyle>
+				</DataGridTextColumn>
+				<DataGridTextColumn Header="AG First name" IsReadOnly="True" Binding="{Binding AGFirstName}">
+					<DataGridTextColumn.ElementStyle>
+						<Style TargetType="{x:Type TextBlock}">
+							<Setter Property="Background" Value="{Binding FirstColor}"/>
+						</Style>
+					</DataGridTextColumn.ElementStyle>
+				</DataGridTextColumn>
+				<DataGridTextColumn Header="AG Address" IsReadOnly="True" Binding="{Binding AGAddress}">
+					<DataGridTextColumn.ElementStyle>
+						<Style TargetType="{x:Type TextBlock}">
+							<Setter Property="Background" Value="{Binding AddressColor}"/>
+						</Style>
+					</DataGridTextColumn.ElementStyle>
+				</DataGridTextColumn>
+				<DataGridTextColumn Header="AG City" IsReadOnly="True" Binding="{Binding AGCity}">
+					<DataGridTextColumn.ElementStyle>
+						<Style TargetType="{x:Type TextBlock}">
+							<Setter Property="Background" Value="{Binding CityColor}"/>
+						</Style>
+					</DataGridTextColumn.ElementStyle>
+				</DataGridTextColumn>
+				<DataGridTextColumn Header="AG State" IsReadOnly="True" Binding="{Binding AGState}">
+					<DataGridTextColumn.ElementStyle>
+						<Style TargetType="{x:Type TextBlock}">
+							<Setter Property="Background" Value="{Binding StateColor}"/>
+						</Style>
+					</DataGridTextColumn.ElementStyle>
+				</DataGridTextColumn>
+				<DataGridTextColumn Header="AG Zip" IsReadOnly="True" Binding="{Binding AGZip}">
+					<DataGridTextColumn.ElementStyle>
+						<Style TargetType="{x:Type TextBlock}">
+							<Setter Property="Background" Value="{Binding ZipColor}"/>
+						</Style>
+					</DataGridTextColumn.ElementStyle>
+				</DataGridTextColumn>
+			</DataGrid.Columns>
+		</DataGrid>
+	</Grid>
+</UserControl>

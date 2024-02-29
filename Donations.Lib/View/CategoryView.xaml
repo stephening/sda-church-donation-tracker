@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="Donations.Lib.View.CategoryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Donations.Lib.View"
+             xmlns:vm="clr-namespace:Donations.Lib.ViewModel"
+			 DataContextChanged="UserControl_DataContextChanged"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+	<Grid Margin="20">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<StackPanel Grid.Row="0" Orientation="Vertical">
+			<TextBlock>
+				On this tab you can edit the Category table.
+				These categories should be the active ones expected by the General Ledger program.
+				Deleting categories here will not affect historical donation data, since category descriptions are included in each donation record.
+			</TextBlock>
+			<BulletDecorator Margin="10,0,0,0">
+				<BulletDecorator.Bullet>
+					<Ellipse Height="5" Width="5" Fill="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					Use the right-click context menu to insert and delete rows.
+				</TextBlock>
+			</BulletDecorator>
+			<BulletDecorator Margin="10,0,0,0">
+				<BulletDecorator.Bullet>
+					<Ellipse Height="5" Width="5" Fill="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Changes made on this page are not save or put into use unless the 'Save changes' button is clicked.</TextBlock>
+			</BulletDecorator>
+
+			<StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+				<Button Content="Revert changes" Padding="20,5" Command="{Binding RevertCommand}" IsEnabled="{Binding HasChanges}"/>
+				<Button Content="Save changes" Margin="20,0,0,0" Padding="20,5" Command="{Binding SaveChangesCommand}" IsEnabled="{Binding HasChanges}"/>
+				<Button Content="Delete all" Margin="20,0,0,0" Padding="20,5" Command="{Binding DeleteAllCommand}"/>
+			</StackPanel>
+		</StackPanel>
+		<DataGrid x:Name="CategoryGrid" Grid.Row="2" Margin="0,20,0,0" ItemsSource="{Binding CollectionSource.View}" CanUserAddRows="True" AutoGenerateColumns="False"
+				  CellEditEnding="DataGrid_CellEditEnding">
+			<DataGrid.ContextMenu>
+				<ContextMenu>
+					<MenuItem Header="Delete row" Command="{Binding Path=DeleteRowCommand}"/>
+					<MenuItem Header="Insert row below" Command="{Binding Path=InsertRowBelowCommand}"/>
+					<MenuItem Header="Insert row above" Command="{Binding Path=InsertRowAboveCommand}"/>
+				</ContextMenu>
+			</DataGrid.ContextMenu>
+			<DataGrid.Resources>
+				<Style x:Key="ColumnStyle" TargetType="TextBlock">
+					<Setter Property="Margin" Value="5,0" />
+				</Style>
+			</DataGrid.Resources>
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Code" Binding="{Binding Code}"/>
+				<DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+				<DataGridTemplateColumn Header="Tax deductible">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<CheckBox IsChecked="{Binding TaxDeductible}" HorizontalAlignment="Center"/>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+			</DataGrid.Columns>
+		</DataGrid>
+	</Grid>
+</UserControl>

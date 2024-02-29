@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="Donations.Lib.View.AboutView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Donations.Lib.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+	<FlowDocumentScrollViewer Grid.Row="1">
+		<FlowDocument>
+			<Paragraph>
+				<Image Source="/Donations.Lib;component/Resources/logo.png" Width="90" Height="90"/>
+				<Run FontSize="60">Donation tracker</Run>
+				<Run FontSize="16">Version:</Run>
+				<Run x:Name="Version" FontSize="16"/>
+			</Paragraph>
+			<Paragraph>
+				This application is an open source project.
+				Please feel free to get the source code and make whatever modification you want to it.
+				<Hyperlink NavigateUri="https://github.com/stephening/sda-church-donation-tracker" RequestNavigate="Hyperlink_RequestNavigate">
+					https://github.com/stephening/sda-church-donation-tracker
+				</Hyperlink>
+			</Paragraph>
+			<Paragraph>
+				This program is a Windows (C#/WPF) desktop application for tracking donations and outputting category subtotals for entry to GL software.
+				It is a simple tab based application with a few subtabs.
+			</Paragraph>
+			<Paragraph>
+				The open source title contains sda (Seventh-Day Adventist) because one of the input methods is a *.csv from a giving platform called Adventist Giving (AG).
+				The import from an AG csv file will be partially automated at first as new donors and donation categories are added or mapped.
+				After that, imports will generally be extremely easy, with the occasional mapping of a new donor or donation category.
+				The other input method is a manual process centered around a tithe envelope.
+				Donations collected in an offering plate that are from specific donors, to specific categories will usually be given in a tithe envelope with details supplied.
+			</Paragraph>
+			<Paragraph>
+				Donations will be entered in batches, and the category subtotals from a batch will be entered into a General Ledger (GL) accounting program.
+				Batches can be viewed or edited after they are entered.
+				There will be two types of batches, AG and manually entered donations collected at church.
+			</Paragraph>
+			<Paragraph>
+				This application as is writes all data to the local file system in xml format file.
+				You can start with no data files and build up your donor database by adding donors as AG batches are entered.
+				Of course donors can also be added or edited within the application.
+				Donors, donations, and categories can be imported via csv files to form a starting point for the database going forward.
+				There are future plans to enhance this software to work with a Microsoft SQL database backend to allow multiuser access.
+			</Paragraph>
+		</FlowDocument>
+	</FlowDocumentScrollViewer>
+</UserControl>

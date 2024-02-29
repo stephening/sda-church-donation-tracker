@@ -1,0 +1,98 @@
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Donations.Lib.Extensions;
+using Serilog;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.IO.Abstractions;
+using System.Text.Json;
+using System.Windows.Controls;
+
+namespace Donations.Lib.ViewModel;
+
+public partial class HelpViewModel : ObservableObject
+{
+	private readonly ILogger _logger;
+	private readonly IFileSystem _fileSystem;
+
+	[ObservableProperty]
+	private string _htmlContent;
+
+	[ObservableProperty]
+	private ObservableCollection<HelpNavigationViewModel> _helpNavigation;
+
+	[ObservableProperty]
+	private Dictionary<string, string> _anchors;
+
+	public HelpViewModel(
+		ILogger logger,
+		IFileSystem fileSystem
+	)
+	{
+		_logger = logger;
+		_fileSystem = fileSystem;
+
+		if (_fileSystem.File.Exists(Persist.Default.NavTreeJsonFile))
+		{
+			using (var reader = _fileSystem.File.OpenText(Persist.Default.NavTreeJsonFile))
+			{
+				var jstring = reader.ReadToEnd();
+#pragma warning disable CS8601 // Possible null reference assignment.
+				HelpNavigation = JsonSerializer.Deserialize<ObservableCollection<HelpNavigationViewModel>>(jstring);
+#pragma warning restore CS8601 // Possible null reference assignment.
+			}
+		}
+		else
+		{
+			HelpNavigation = new ObservableCollection<HelpNavigationViewModel>();
+		}
+
+		if (_fileSystem.File.Exists(Persist.Default.NavAnchorsJsonFile))
+		{
+			using (var reader = _fileSystem.File.OpenText(Persist.Default.NavAnchorsJsonFile))
+			{
+				var jstring = reader.ReadToEnd();
+#pragma warning disable CS8601 // Possible null reference assignment.
+				Anchors = JsonSerializer.Deserialize<Dictionary<string, string>>(jstring);
+#pragma warning restore CS8601 // Possible null reference assignment.
+			}
+		}
+		else
+		{
+			Anchors = new Dictionary<string, string>();
+		}
+
+		HtmlContent = "file://" + Directory.GetCurrentDirectory().Replace("\\", "/") + "/" + Persist.Default.HtmlHelpFile.Replace("\\", "/");
+	}
+
+	public void JumpToAnchor(WebBrowser webBrowser, string? target)
+	{
+		if (!string.IsNullOrEmpty(target))
+		{
+			foreach (var key in Anchors.Keys)
+			{
+				if (key.EndsWith(target))
+				{
+					target = key;
+					break;
+				}
+			}
+			try
+			{
+				if (_fileSystem.File.Exists(HtmlContent.Replace("file://", "")))
+				{
+					webBrowser.Navigate(HtmlContent + target);
+				}
+			}
+			catch (Exception ex)
+			{
+				_logger.Err(ex, $"Exception trying to navigate to tager: {target}");
+				if (_fileSystem.File.Exists(HtmlContent.Replace("file://", "")))
+				{
+					webBrowser.Navigate(HtmlContent);
+				}
+			}
+		}
+	}
+}

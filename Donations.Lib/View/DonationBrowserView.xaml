@@ -1,0 +1,133 @@
+﻿<UserControl x:Class="Donations.Lib.View.DonationBrowserView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Donations.Lib.View"
+             mc:Ignorable="d" 
+			 DataContextChanged="UserControl_DataContextChanged"
+             d:DesignHeight="450" d:DesignWidth="800">
+	<Grid Margin="20">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<local:TimeSelectionView Grid.Row="0" Margin="0,0,0,10"
+								 SelectionEnabled="{Binding SelectionEnabled, Mode=OneWay}"
+								 FilterOption="{Binding DateFilterOption, Mode=TwoWay}"
+								 AvailableYears="{Binding AvailableYears, Mode=TwoWay}"
+								 FilterYear="{Binding FilterYear, Mode=TwoWay}"
+								 StartDate="{Binding FilterStartDate, Mode=TwoWay}"
+								 EndDate="{Binding FilterEndDate, Mode=TwoWay}"
+								 TimeSelectionChanged="{Binding InternalTimeWindowChangedCommand}"/>
+
+		<Grid Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+			<Grid Grid.Column="0">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<Label Grid.Row="0" Content="Filter:" HorizontalAlignment="Left"/>
+				<TextBox Grid.Row="1" x:Name="CategoryFilterText" Text="{Binding CategoryFilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					TextChanged="CategoryFilterText_TextChanged"/>
+				<DataGrid x:Name="CategoryList" Grid.Row="2" AutoGenerateColumns="False" ItemsSource="{Binding CategorySource.View}"
+					CanUserAddRows="False">
+					<DataGrid.Resources>
+						<Style TargetType="DataGridRow">
+							<EventSetter Event="MouseDoubleClick" Handler="DoubleClick_CategoryRow"/>
+						</Style>
+						<Style x:Key="ColumnStyle" TargetType="TextBlock">
+							<Setter Property="Margin" Value="5,0" />
+						</Style>
+					</DataGrid.Resources>
+					<DataGrid.Columns>
+						<DataGridTextColumn Header="Code" IsReadOnly="True" Binding="{Binding Code}"/>
+						<DataGridTextColumn Header="Description" IsReadOnly="True" Binding="{Binding Description}"/>
+						<DataGridTextColumn Header="Sub total" IsReadOnly="True" Binding="{Binding Sum,StringFormat={}{0:C2}}">
+							<DataGridTextColumn.HeaderStyle>
+								<Style TargetType="DataGridColumnHeader">
+									<Setter Property="HorizontalContentAlignment" Value="Right" />
+								</Style>
+							</DataGridTextColumn.HeaderStyle>
+							<DataGridTextColumn.ElementStyle>
+								<Style TargetType="TextBlock">
+									<Setter Property="HorizontalAlignment" Value="Right" />
+								</Style>
+							</DataGridTextColumn.ElementStyle>
+						</DataGridTextColumn>
+					</DataGrid.Columns>
+				</DataGrid>
+			</Grid>
+			<GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch"/>
+			<Grid Grid.Column="2">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<StackPanel Grid.Row="0" Orientation="Horizontal">
+					<Label Content="Filter:" HorizontalAlignment="Left"/>
+					<CheckBox Content="Name" VerticalAlignment="Center" Margin="20,0,0,0" IsChecked="{Binding SearchName}" Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" ToolTip="Apply filter to Name column"/>
+					<CheckBox Content="Category" VerticalAlignment="Center" Margin="10,0,0,0" IsChecked="{Binding SearchCategory}" Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" ToolTip="Apply filter to Category column"/>
+					<CheckBox Content="Date" VerticalAlignment="Center" Margin="10,0,0,0" IsChecked="{Binding SearchDate}" Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" ToolTip="Apply filter to Date column"/>
+					<CheckBox Content="Method" VerticalAlignment="Center" Margin="10,0,0,0" IsChecked="{Binding SearchMethod}" Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" ToolTip="Apply filter to Method column"/>
+					<CheckBox Content="Amount" VerticalAlignment="Center" Margin="10,0,0,0" IsChecked="{Binding SearchAmount}" Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" ToolTip="Apply filter to Amount column"/>
+					<CheckBox Content="Note" VerticalAlignment="Center" Margin="10,0,0,0" IsChecked="{Binding SearchNote}" Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" ToolTip="Apply filter to Note column"/>
+				</StackPanel>
+				<TextBox Grid.Row="1" x:Name="DonationFilterText" Text="{Binding DonationFilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+					TextChanged="DonationFilterText_TextChanged"/>
+				<DataGrid Grid.Row="2" ItemsSource="{Binding DonationSource.View}" CanUserAddRows="False" AutoGenerateColumns="False">
+					<DataGrid.Resources>
+						<Style TargetType="DataGridRow">
+							<EventSetter Event="MouseDoubleClick" Handler="DoubleClick_DonationRow"/>
+						</Style>
+						<Style x:Key="ColumnStyle" TargetType="TextBlock">
+							<Setter Property="Margin" Value="5,0" />
+						</Style>
+					</DataGrid.Resources>
+					<DataGrid.Columns>
+						<DataGridTextColumn Header="Name" IsReadOnly="True" Binding="{Binding Name}"/>
+						<DataGridTextColumn Header="Category" IsReadOnly="True" Binding="{Binding Category}"/>
+						<DataGridTextColumn Header="EnvelopeId" IsReadOnly="True" Binding="{Binding EnvelopeId}"/>
+						<DataGridTextColumn Header="Tax deductible" IsReadOnly="True" Binding="{Binding TaxDeductible}"/>
+						<DataGridTextColumn Header="Date" IsReadOnly="True" Binding="{Binding Date}"/>
+						<DataGridTextColumn Header="Method" IsReadOnly="True" Binding="{Binding Method}"/>
+						<DataGridTextColumn Header="Transaction Id" IsReadOnly="True" Binding="{Binding TransactionNumber}">
+							<DataGridTextColumn.HeaderStyle>
+								<Style TargetType="DataGridColumnHeader">
+									<Setter Property="HorizontalContentAlignment" Value="Right" />
+								</Style>
+							</DataGridTextColumn.HeaderStyle>
+							<DataGridTextColumn.ElementStyle>
+								<Style TargetType="{x:Type TextBlock}">
+									<Setter Property="HorizontalAlignment" Value="Right" />
+									<Setter Property="Margin" Value="5,0" />
+								</Style>
+							</DataGridTextColumn.ElementStyle>
+						</DataGridTextColumn>
+						<DataGridTextColumn Header="Amount" IsReadOnly="True" Binding="{Binding Value,StringFormat={}{0:C2}}">
+							<DataGridTextColumn.HeaderStyle>
+								<Style TargetType="DataGridColumnHeader">
+									<Setter Property="HorizontalContentAlignment" Value="Right" />
+								</Style>
+							</DataGridTextColumn.HeaderStyle>
+							<DataGridTextColumn.ElementStyle>
+								<Style TargetType="{x:Type TextBlock}">
+									<Setter Property="HorizontalAlignment" Value="Right" />
+									<Setter Property="Margin" Value="5,0" />
+								</Style>
+							</DataGridTextColumn.ElementStyle>
+						</DataGridTextColumn>
+						<DataGridTextColumn Header="Note" IsReadOnly="True" Binding="{Binding Note}"/>
+					</DataGrid.Columns>
+				</DataGrid>
+			</Grid>
+		</Grid>
+	</Grid>
+</UserControl>

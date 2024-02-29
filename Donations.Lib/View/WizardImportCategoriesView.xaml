@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="Donations.Lib.View.WizardImportCategoriesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Donations.Lib.View"
+             xmlns:vm="clr-namespace:Donations.Lib.ViewModel"
+			 DataContextChanged="UserControl_DataContextChanged"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+	<Grid Margin="20">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<StackPanel Grid.Row="0" Orientation="Vertical">
+			<TextBlock>
+				On this tab you can import a table of donation categories which can then be used going forward for mapping donations to the accounting software.
+					Only (*.csv) text file import is supported at this time.
+			</TextBlock>
+			<BulletDecorator Margin="10,0,0,0">
+				<BulletDecorator.Bullet>
+					<Ellipse Height="5" Width="5" Fill="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					First make sure your csv column headers matching the table below.
+					If they don't match, rename them accordingly.
+					Order does not matter.
+				</TextBlock>
+			</BulletDecorator>
+			<BulletDecorator Margin="25,0,0,0">
+				<BulletDecorator.Bullet>
+					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					Code - This is a number associated with a department or a fund used in the accounting software.
+				</TextBlock>
+			</BulletDecorator>
+			<BulletDecorator Margin="25,0,0,0">
+				<BulletDecorator.Bullet>
+					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Description - this is simply text that described the category in words.</TextBlock>
+			</BulletDecorator>
+			<BulletDecorator Margin="25,0,0,0">
+				<BulletDecorator.Bullet>
+					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					TaxDeductible - this field is also something that is stored in the Donation table, but it originated here.
+					This field should be true/false (case insensetive).
+				</TextBlock>
+			</BulletDecorator>
+			<BulletDecorator Margin="10,0,0,0">
+				<BulletDecorator.Bullet>
+					<Ellipse Height="5" Width="5" Fill="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Finally, choose the file to import from.</TextBlock>
+			</BulletDecorator>
+		</StackPanel>
+		<StackPanel Grid.Row="1" Margin="0,20,0,0" Orientation="Horizontal">
+			<Button Content="Choose file (probably *.csv)" Click="ChooseFile_Click" Padding="20,5"/>
+			<Button Content="Save (will replace existing categories database)" Margin="20,0,0,0" Padding="20,5"
+					Click="Save" IsEnabled="{Binding HasChanges}"/>
+		</StackPanel>
+		<DataGrid Grid.Row="2" Margin="0,20,0,0" ItemsSource="{Binding CollectionSource.View}" CanUserAddRows="False" AutoGenerateColumns="False">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Code" IsReadOnly="True" Binding="{Binding Code}"/>
+				<DataGridTextColumn Header="Description" IsReadOnly="True" Binding="{Binding Description}"/>
+				<DataGridTextColumn Header="TaxDeductible" IsReadOnly="True" Binding="{Binding TaxDeductible}"/>
+			</DataGrid.Columns>
+		</DataGrid>
+	</Grid>
+</UserControl>

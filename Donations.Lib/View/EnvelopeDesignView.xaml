@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="Donations.Lib.View.EnvelopeDesignView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Donations.Lib.View"
+             xmlns:vm="clr-namespace:Donations.Lib.ViewModel"
+			 DataContextChanged="UserControl_DataContextChanged"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+	<Grid Margin="20">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<StackPanel Grid.Row="0" Orientation="Vertical">
+			<TextBlock>
+				This tab shows and allows editing of the categories shown in the default tithe envelope for manual donor entry.
+				You can leave blank lines between entires if you want which will be reflected on the entry page.
+				When entering data, those blank lines can be filled with write-ins if needed.
+			</TextBlock>
+			<BulletDecorator Margin="10,0,0,0">
+				<BulletDecorator.Bullet>
+					<Ellipse Height="5" Width="5" Fill="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					Delete an entry by right-clicking on the the row and selecting 'Delete row' from the context menu.
+				</TextBlock>
+			</BulletDecorator>
+
+			<StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+				<Button Content="Revert changes" Padding="20,5" Command="{Binding RevertCommand}" IsEnabled="{Binding HasChanges}"/>
+				<Button Content="Save changes" Margin="20,0,0,0" Padding="20,5" Command="{Binding SaveChangesCommand}" IsEnabled="{Binding HasChanges}"/>
+				<Button Content="Delete all" Margin="20,0,0,0" Padding="20,5" Command="{Binding DeleteAllCommand}"/>
+			</StackPanel>
+		</StackPanel>
+		<DataGrid x:Name="EnvelopeDesignDataGrid" Grid.Row="1" Margin="0,20,0,0" CanUserAddRows="False" AutoGenerateColumns="False"
+				   ItemsSource="{Binding EnvelopeBody.View}">
+			<DataGrid.ContextMenu>
+				<ContextMenu>
+					<MenuItem Header="Delete row" Command="{Binding Path=DeleteRowCommand}"/>
+					<MenuItem Header="Insert row below" Command="{Binding Path=InsertRowBelowCommand}"/>
+					<MenuItem Header="Insert row above" Command="{Binding Path=InsertRowAboveCommand}"/>
+				</ContextMenu>
+			</DataGrid.ContextMenu>
+			<DataGrid.Resources>
+				<Style TargetType="DataGridRow">
+					<EventSetter Event="MouseLeftButtonUp" Handler="DataGridRow_MouseLeftButtonUp"/>
+				</Style>
+				<Style x:Key="ColumnStyle" TargetType="TextBlock">
+					<Setter Property="Margin" Value="5,0" />
+				</Style>
+			</DataGrid.Resources>
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Description" Binding="{Binding Category}" IsReadOnly="True" Width="*"/>
+			</DataGrid.Columns>
+		</DataGrid> 
+    </Grid>
+</UserControl>

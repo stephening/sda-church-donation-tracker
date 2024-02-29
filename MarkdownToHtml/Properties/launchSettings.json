@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MarkdownToHtml": {
+      "commandName": "Project",
+      "commandLineArgs": "$(SolutionDir)README.md"
+    }
+  }
+}

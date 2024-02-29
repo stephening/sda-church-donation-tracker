@@ -1,0 +1,41 @@
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+	<system:String x:Key="BatchBrowserTabHeader">Batch browser</system:String>
+	<system:String x:Key="DonationBrowserTabHeader">Donation browser</system:String>
+	<system:String x:Key="AdventistGivingTabHeader">Adventist giving</system:String>
+		<system:String x:Key="AdventistGivingDonorResolutionTabHeader">Donor resolution</system:String>
+		<system:String x:Key="AdventistGivingCategoryResolutionTabHeader">Category resolution</system:String>
+		<system:String x:Key="AdventistGivingVerifyAndSubmitTabHeader">Verify and submit</system:String>
+	<system:String x:Key="DonorInputTabHeader">Donor input</system:String>
+	<system:String x:Key="ReportsTabHeader">Reports</system:String>
+		<system:String x:Key="ReportsTabDonorReceipt">Donor receipt</system:String>
+		<system:String x:Key="ReportsTabCategoryReport">Category report</system:String>
+	<system:String x:Key="MaintenanceTabHeader">Maintenance</system:String>
+		<system:String x:Key="MaintenanceDonorTabHeader">Donor</system:String>
+		<system:String x:Key="MaintenanceCategoryTabHeader">Categories</system:String>
+		<system:String x:Key="MaintenanceCategoryMapTabHeader">Category map</system:String>
+		<system:String x:Key="MaintenanceDonorMapTabHeader">Donor map</system:String>
+		<system:String x:Key="MaintenanceDesignTitheEnvelopeTabHeader">Design tithe envelope</system:String>
+		<system:String x:Key="MaintenanceGeneralTabHeader">General</system:String>
+	<system:String x:Key="AboutTabHeader">About</system:String>
+
+	<system:String x:Key="BatchReviewByCategoryTabHeader">By category</system:String>
+	<system:String x:Key="BatchReviewByDonorTabHeader">By donor</system:String>
+	<system:String x:Key="BatchReviewPrintTabHeader">Print</system:String>
+
+	<system:String x:Key="WizardIntroductionHeader">Database wizard introduction</system:String>
+	<system:String x:Key="WizardSqlChoiceHeader">Choose how your database will be configured</system:String>
+	<system:String x:Key="WizardCloudInstallHeader">Suggested steps for installing SQL on a server</system:String>
+	<system:String x:Key="WizardLocalhostInstallHeader">Suggested steps for installing SQL on the local system</system:String>
+	<system:String x:Key="WizardConnectionStringHeader">Connection string for access to the SQL database</system:String>
+	<system:String x:Key="WizardCreateDatabaseAndTablesHeader">Create the database and tables</system:String>
+	<system:String x:Key="WizardSpecifyLogoHeader">Specify a logo file for your organization</system:String>
+	<system:String x:Key="WizardImportCategoriesHeader">Import donation categories</system:String>
+	<system:String x:Key="WizardImportDonorsHeader">Import donors</system:String>
+	<system:String x:Key="WizardImportDonationsHeader">Import donations</system:String>
+	<system:String x:Key="WizardFinishedHeader">Finished</system:String>
+
+</ResourceDictionary>

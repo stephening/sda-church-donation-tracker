@@ -1,0 +1,12 @@
+﻿<Window x:Class="Donors.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Donors"
+		xmlns:view="clr-namespace:Donations.Lib.View;assembly=Donations.Lib"
+        mc:Ignorable="d"
+		Closing="Window_Closing"
+        Title="Beaverton SDA church donor maintenance" MinHeight="450" MaxHeight="{Binding System.Windows.SystemParameters.WorkArea.Height}" Width="1010">
+	<view:DonorView x:Name="DonorView" DataContext="{Binding DonorViewModel}"/>
+</Window>

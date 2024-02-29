@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="Donations.Lib.View.WizardFinishedView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Donations.Lib.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="..\Resources\ResourceDictionary.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</UserControl.Resources>
+	<FlowDocumentScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+		<FlowDocument Style="{StaticResource WizardFlowDocumentStyle}">
+			<Paragraph>
+				<BulletDecorator Margin="10,0,0,0">
+					<BulletDecorator.Bullet>
+						<Ellipse Height="5" Width="5" Fill="Black"/>
+					</BulletDecorator.Bullet>
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+						If you want to run this wizard again, copy the connection string from Donation-tracker.dll.config then delete the file.
+						Then right-click on Donation-tracker.exe and run as Administrator.
+						At some point the connection string that was copied will be pasted and the database connection made.
+					</TextBlock>
+				</BulletDecorator>
+			</Paragraph>
+			<Paragraph>
+				<BulletDecorator Margin="10,0,0,0">
+					<BulletDecorator.Bullet>
+						<Ellipse Height="5" Width="5" Fill="Black"/>
+					</BulletDecorator.Bullet>
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+						If starting from scratch, the import steps can be done from the Import tab on the main application.
+					</TextBlock>
+				</BulletDecorator>
+			</Paragraph>
+			<Paragraph>
+				<BulletDecorator Margin="10,0,0,0">
+					<BulletDecorator.Bullet>
+						<Ellipse Height="5" Width="5" Fill="Black"/>
+					</BulletDecorator.Bullet>
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+						Run the setup file that was downloaded.
+					</TextBlock>
+				</BulletDecorator>
+			</Paragraph>
+			<Paragraph>
+				<BulletDecorator Margin="10,0,0,0">
+					<BulletDecorator.Bullet>
+						<Ellipse Height="5" Width="5" Fill="Black"/>
+					</BulletDecorator.Bullet>
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+						Click Quit or Finish and then re-launch Donation-tracker.exe (in user mode).
+					</TextBlock>
+				</BulletDecorator>
+			</Paragraph>
+		</FlowDocument>
+	</FlowDocumentScrollViewer>
+</UserControl>

@@ -1,0 +1,169 @@
+﻿<UserControl x:Class="Donations.Lib.View.WizardSqlCloudInstallView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Donations.Lib.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="..\Resources\ResourceDictionary.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</UserControl.Resources>
+	<FlowDocumentScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+		<FlowDocument Style="{StaticResource WizardFlowDocumentStyle}">
+			<Paragraph>
+				<BulletDecorator Margin="10,0,0,0">
+					<BulletDecorator.Bullet>
+						<Ellipse Height="5" Width="5" Fill="Black"/>
+					</BulletDecorator.Bullet>
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+						Ideally, ask a qualified IT person to perform the MS SQL install for you.
+					</TextBlock>
+				</BulletDecorator>
+			</Paragraph>
+			<Paragraph>
+				<BulletDecorator Margin="10,0,0,0">
+					<BulletDecorator.Bullet>
+						<Ellipse Height="5" Width="5" Fill="Black"/>
+					</BulletDecorator.Bullet>
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+						If you do not have someone that can do this for you,
+						setup or get administrator access to a system that will be accessible on the Internet.
+					</TextBlock>
+				</BulletDecorator>
+			</Paragraph>
+			<Paragraph>
+				<BulletDecorator Margin="10,0,0,0">
+					<BulletDecorator.Bullet>
+						<Ellipse Height="5" Width="5" Fill="Black"/>
+					</BulletDecorator.Bullet>
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+						The following steps are to be followed on the cloud based system.
+					</TextBlock>
+				</BulletDecorator>
+				<LineBreak/>
+				<BulletDecorator Margin="25,0,0,0">
+					<BulletDecorator.Bullet>
+						<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
+					</BulletDecorator.Bullet>
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+						Browse to the following URL:<LineBreak/>
+						<Hyperlink NavigateUri="https://www.microsoft.com/en-us/sql-server/sql-server-downloads?rtc=1" RequestNavigate="Hyperlink_RequestNavigate">
+							https://www.microsoft.com/en-us/sql-server/sql-server-downloads?rtc=1
+						</Hyperlink><LineBreak/>
+						If the above URL doesn't work, search the Internet for "ms sql download" and select the option titled "SQL Server Downloads" which should be a Microsoft URL.
+					</TextBlock>
+				</BulletDecorator>
+				<LineBreak/>
+				<BulletDecorator Margin="25,0,0,0">
+					<BulletDecorator.Bullet>
+						<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
+					</BulletDecorator.Bullet>
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+						Then under "download a free specialized edition," click on the blue "Download now" button under Express.
+					</TextBlock>
+				</BulletDecorator>
+				<LineBreak/>
+				<BulletDecorator Margin="25,0,0,0">
+					<BulletDecorator.Bullet>
+						<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
+					</BulletDecorator.Bullet>
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+						Select the "Basic" installation type.
+					</TextBlock>
+				</BulletDecorator>
+				<LineBreak/>
+				<BulletDecorator Margin="25,0,0,0">
+					<BulletDecorator.Bullet>
+						<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
+					</BulletDecorator.Bullet>
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+						When the Installation has completed successfully! you will be notified with a screen telling you that.
+						On that screen, there will be a CONNECTION STRING, and 3 folders for logs, media, and resources.
+						It may be useful to install SSMS, one of the four buttons at the bottom of the page.
+					</TextBlock>
+				</BulletDecorator>
+				<LineBreak/>
+				<BulletDecorator Margin="25,0,0,0">
+					<BulletDecorator.Bullet>
+						<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
+					</BulletDecorator.Bullet>
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+						The connection string will probably need to be assembled from the following:
+					</TextBlock>
+				</BulletDecorator>
+				<LineBreak/>
+				<BulletDecorator Margin="40,0,0,0">
+					<BulletDecorator.Bullet>
+						<Rectangle Height="5" Width="5" Fill="Black"/>
+					</BulletDecorator.Bullet>
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+						Server&lt;server name&gt;,&lt;port number&gt;
+					</TextBlock>
+				</BulletDecorator>
+				<LineBreak/>
+				<BulletDecorator Margin="40,0,0,0">
+					<BulletDecorator.Bullet>
+						<Rectangle Height="5" Width="5" Fill="Black"/>
+					</BulletDecorator.Bullet>
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+						Database=master;
+					</TextBlock>
+				</BulletDecorator>
+				<LineBreak/>
+				<BulletDecorator Margin="40,0,0,0">
+					<BulletDecorator.Bullet>
+						<Rectangle Height="5" Width="5" Fill="Black"/>
+					</BulletDecorator.Bullet>
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+						TrustServerCertificate=True; if your server is self signed.
+					</TextBlock>
+				</BulletDecorator>
+				<LineBreak/>
+				<BulletDecorator Margin="40,0,0,0">
+					<BulletDecorator.Bullet>
+						<Rectangle Height="5" Width="5" Fill="Black"/>
+					</BulletDecorator.Bullet>
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+						Encrypt=True;
+					</TextBlock>
+				</BulletDecorator>
+				<LineBreak/>
+				<BulletDecorator Margin="40,0,0,0">
+					<BulletDecorator.Bullet>
+						<Rectangle Height="5" Width="5" Fill="Black"/>
+					</BulletDecorator.Bullet>
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+						Connection Timeout=30;
+					</TextBlock>
+				</BulletDecorator>
+				<LineBreak/>
+				<BulletDecorator Margin="40,0,0,0">
+					<BulletDecorator.Bullet>
+						<Rectangle Height="5" Width="5" Fill="Black"/>
+					</BulletDecorator.Bullet>
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+						User ID&lt;user name&gt;;
+					</TextBlock>
+				</BulletDecorator>
+				<LineBreak/>
+				<BulletDecorator Margin="40,0,0,0">
+					<BulletDecorator.Bullet>
+						<Rectangle Height="5" Width="5" Fill="Black"/>
+					</BulletDecorator.Bullet>
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+						Password&lt;password&gt;;
+					</TextBlock>
+				</BulletDecorator>
+			</Paragraph>
+			<Paragraph>
+			</Paragraph>
+			<Paragraph>
+			</Paragraph>
+		</FlowDocument>
+	</FlowDocumentScrollViewer>
+</UserControl>

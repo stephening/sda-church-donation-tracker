@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="Donations.Lib.View.AGCategoryResolutionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Donations.Lib.View"
+             xmlns:vm="clr-namespace:Donations.Lib.ViewModel"
+			 DataContextChanged="UserControl_DataContextChanged"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+	<Grid>
+		<Grid Margin="20" Visibility="{Binding CategoryDiffsVisibility}">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="1*"/>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="1*"/>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+
+			<TextBlock Grid.Row="0" Grid.Column="0" Margin="0,0,0,5" TextAlignment="Right" Text="Local category codes" Padding="5,0" VerticalAlignment="Center"/>
+			<TextBlock Grid.Row="0" Grid.Column="2" Margin="0,0,0,5" TextAlignment="Left" Text="Adventist Giving category codes" Padding="5,0" VerticalAlignment="Center"/>
+
+			<Border Grid.Row="1" Grid.Column="0" BorderThickness="0.5" BorderBrush="Black">
+				<TextBlock TextAlignment="Right" Text="{Binding Cat.Code}" Background="White" Padding="5,0" VerticalAlignment="Center"/>
+			</Border>
+			<Border Grid.Row="2" Grid.Column="0" BorderThickness="0.5" BorderBrush="Black">
+				<TextBlock TextAlignment="Right" Text="{Binding Cat.Description}" Background="White" Padding="5,0" VerticalAlignment="Center"/>
+			</Border>
+
+			<Label Grid.Row="1" Grid.Column="1" Content="Code" HorizontalAlignment="Center"/>
+			<Label Grid.Row="2" Grid.Column="1" Content="Description" HorizontalAlignment="Center" Margin="10,0"/>
+
+			<Border Grid.Row="1" Grid.Column="2" BorderThickness="0.5" BorderBrush="Black">
+				<TextBlock Text="{Binding Transaction.CategoryCode}" Background="White" Padding="5,0" VerticalAlignment="Center"/>
+			</Border>
+			<Border Grid.Row="2" Grid.Column="2" BorderThickness="0.5" BorderBrush="Black">
+				<TextBlock Text="{Binding Transaction.CategoryName}" Background="White" Padding="5,0" VerticalAlignment="Center"/>
+			</Border>
+			<Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" ToolTip="Updates values in Donor database" Padding="20,5" Content="&lt;&lt; _Import category, and continue &lt;&lt;" Margin="0,10" HorizontalAlignment="Center"
+					Click="ImportCategory" Visibility="{Binding ImportCategoryVisible}"/>
+
+			<Button Content="_Browse for category" Click="ChooseCategory" Padding="20,5" Grid.Row="4" Grid.Column="0" Margin="20,10"
+									ToolTip="Click if no categoty was found or you would like change the selected Category, or simply if you want to see if any better options are available."/>
+
+			<TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding ProgressText}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+			<StackPanel Grid.Row="5" Grid.ColumnSpan="3" Orientation="Vertical" Margin="20">
+				<Button Content="_Continue with selected category without updating fields"
+						Command="{Binding ContinueCategoryResolutionCommand}"
+						IsEnabled="{Binding ContinueEnabled}" Padding="20,5" Margin="0,10,0,0"
+						ToolTip="Doesn't update Donor database, but creates link between Adventist Giving account and Donor database"/>
+			</StackPanel>
+		</Grid>
+
+		<Grid Visibility="{Binding CategoryResolutionComplete}" HorizontalAlignment="Center" VerticalAlignment="Center">
+			<StackPanel Orientation="Vertical" Width="300">
+				<TextBlock Text="Category resolution is complete, click on the 'Summary and submit' tab." FontSize="18" TextWrapping="Wrap"/>
+			</StackPanel>
+		</Grid>
+	</Grid>
+</UserControl>

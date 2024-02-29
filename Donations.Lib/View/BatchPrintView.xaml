@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="Donations.Lib.View.BatchPrintView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Donations.Lib.View"
+             xmlns:vm="clr-namespace:Donations.Lib.ViewModel"
+			 DataContextChanged="UserControl_DataContextChanged"
+             mc:Ignorable="d"
+			 Unloaded="UserControl_Unloaded"
+             d:DesignHeight="450" d:DesignWidth="1000">
+	<Grid Margin="20">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,20">
+			<local:PrintOptionsView SelectedFont="{Binding SelectedFont, Mode=TwoWay}" SelectedSize="{Binding SelectedSize, Mode=TwoWay}" LeftMargin="{Binding LeftMargin, Mode=TwoWay}" OtherMargins="{Binding OtherMargins, Mode=TwoWay}"/>
+			<Button Content="Print ..." Click="Print" VerticalAlignment="Top" Padding="20,5" Margin="20,0,0,0"/>
+		</StackPanel>
+		<FlowDocumentScrollViewer Grid.Row="1">
+			<FlowDocument x:Name="PrintArea"/>
+		</FlowDocumentScrollViewer>
+	</Grid>
+</UserControl>

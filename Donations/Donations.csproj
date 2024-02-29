@@ -1,0 +1,83 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+    <RepositoryUrl>https://github.com/stephening/sda-church-donation-tracker</RepositoryUrl>
+    <Copyright>https://mit-license.org/</Copyright>
+    <Description>SDA church donation tracking software.</Description>
+    <AssemblyName>Donation-tracker</AssemblyName>
+    <BaseOutputPath>$(SolutionDir)bin\</BaseOutputPath>
+	  <AssemblyVersion>1.0.6.0</AssemblyVersion>
+	  <FileVersion>1.0.6.0</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Converters\**" />
+    <Compile Remove="Resources\**" />
+    <EmbeddedResource Remove="Converters\**" />
+    <EmbeddedResource Remove="Resources\**" />
+    <None Remove="Converters\**" />
+    <None Remove="Resources\**" />
+    <Page Remove="Converters\**" />
+    <Page Remove="Resources\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <COMReference Include="{215d64d2-031c-33c7-96e3-61794cd1ee61}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>4</VersionMinor>
+      <VersionMajor>2</VersionMajor>
+      <Guid>215d64d2-031c-33c7-96e3-61794cd1ee61</Guid>
+    </COMReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="app.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md" Link="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="8.0.0" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="Dapper" Version="2.1.28" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+    <PackageReference Include="System.IO.Abstractions" Version="20.0.15" />
+    <PackageReference Include="WPFFolderBrowser" Version="1.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Donations.Lib\Donations.Lib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Persist.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Persist.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Persist.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Persist.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="pushd &quot;$(TargetDir)&quot;&#xD;&#xA;&#xD;&#xA;if not exist &quot;$(TargetDir)Help&quot; mkdir &quot;$(TargetDir)Help&quot;&#xD;&#xA;&#xD;&#xA;if $(ConfigurationName) == Release (&#xD;&#xA;  &quot;$(TargetDir)$(TargetName).exe&quot; -screens &quot;$(TargetDir)Help&quot;&#xD;&#xA;) ELSE (&#xD;&#xA;  echo &quot;why, Microsoft, why&quot;.&#xD;&#xA;)&#xD;&#xA;&#xD;&#xA;&quot;$(TargetDir)MarkdownToHtml.exe&quot; &quot;$(SolutionDir)README.md&quot;&#xD;&#xA;&#xD;&#xA;popd&#xD;&#xA;" />
+  </Target>
+
+</Project>

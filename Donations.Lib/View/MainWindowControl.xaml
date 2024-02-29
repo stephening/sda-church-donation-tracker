@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="Donations.Lib.View.MainWindowControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Donations.Lib.View"
+             mc:Ignorable="d" 
+			 KeyDown="UserControl_KeyDown"
+			 DataContextChanged="UserControl_DataContextChanged"
+             d:DesignHeight="450" d:DesignWidth="800">
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="..\Resources\Strings.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</UserControl.Resources>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+
+		<TabControl Grid.Row="1" x:Name="MainTabControl">
+			<TabItem Header="{StaticResource BatchBrowserTabHeader}" Selector.Selected="BatchBrowserView_Selected">
+				<local:BatchBrowserView x:Name="BatchBrowserView" DataContext="{Binding BatchBrowserViewModel}"/>
+			</TabItem>
+			<TabItem Header="{StaticResource DonationBrowserTabHeader}" x:Name="DonationBrowserTab" Selector.Selected="DonationBrowserView_Selected">
+				<local:DonationBrowserView x:Name="DonationBrowserView" DataContext="{Binding DonationBrowserViewModel}"/>
+			</TabItem>
+			<TabItem Header="{StaticResource AdventistGivingTabHeader}" x:Name="AdventistGivingMainTab">
+				<local:AdventistGivingView x:Name="AdventistGivingView" DataContext="{Binding AdventistGivingViewModel}"/>
+			</TabItem>
+			<TabItem Header="{StaticResource DonorInputTabHeader}" x:Name="DonorInputTab" Selector.Selected="DonorInputTab_Selected">
+				<local:DonorInputView x:Name="DonorInputView" DataContext="{Binding DonorInputViewModel}"/>
+			</TabItem>
+			<TabItem Header="{StaticResource ReportsTabHeader}" x:Name="ReportsTab" Selector.Selected="ReportsTab_Selected" Selector.Unselected="ReportsTab_Unselected">
+				<local:ReportsView x:Name="ReportsView" DataContext="{Binding ReportsViewModel}"/>
+			</TabItem>
+			<TabItem Header="{StaticResource MaintenanceTabHeader}" x:Name="MaintenanceMainTab" Selector.Selected="MaintenanceTab_Selected" Selector.Unselected="MaintenanceTab_Unselected">
+				<TabControl x:Name="MaintenanceTabs">
+					<TabItem Header="{StaticResource MaintenanceDonorTabHeader}" x:Name="MaintenanceDonorTab">
+						<local:DonorView x:Name="DonorView" DataContext="{Binding DonorViewModel}"/>
+					</TabItem>
+					<TabItem Header="{StaticResource MaintenanceCategoryTabHeader}" x:Name="MaintenanceCategoryTab" Selector.Selected="MaintenanceCategoryTab_Selected" Selector.Unselected="MaintenanceCategoryTab_Unselected">
+						<local:CategoryView x:Name="CategoryView" DataContext="{Binding CategoryViewModel}"/>
+					</TabItem>
+					<TabItem Header="{StaticResource MaintenanceDonorMapTabHeader}" x:Name="MaintenanceDonorMapTab" Selector.Selected="MaintenanceDonorMapTab_Selected" Selector.Unselected="MaintenanceDonorMapTab_Unselected">
+						<local:DonorMapView x:Name="DonorMapView" DataContext="{Binding DonorMapViewModel}"/>
+					</TabItem>
+					<TabItem Header="{StaticResource MaintenanceCategoryMapTabHeader}" x:Name="MaintenanceCategoryMapTab" Selector.Selected="MaintenanceCategorymapTab_Selected" Selector.Unselected="MaintenanceCategorymapTab_Unselected">
+						<local:CategoryMapView x:Name="CategoryMapView" DataContext="{Binding CategoryMapViewModel}"/>
+					</TabItem>
+					<TabItem Header="{StaticResource MaintenanceDesignTitheEnvelopeTabHeader}" x:Name="MaintenanceTitheEnvelopeDesignTab">
+						<local:EnvelopeDesignView DataContext="{Binding EnvelopeDesignViewModel}"/>
+					</TabItem>
+					<TabItem Header="{StaticResource MaintenanceGeneralTabHeader}" x:Name="MaintenanceGeneralTab" Selector.Selected="MaintenanceGeneralTab_Selected" Selector.Unselected="MaintenanceGeneralTab_Unselected">
+						<local:GeneralView x:Name="GeneralView" DataContext="{Binding GeneralViewModel}"/>
+					</TabItem>
+				</TabControl>
+			</TabItem>
+			<TabItem Header="{StaticResource AboutTabHeader}" x:Name="AboutTab"/>
+		</TabControl>
+	</Grid>
+</UserControl>

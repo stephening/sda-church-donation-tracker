@@ -1,0 +1,20 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:clr="clr-namespace:System;assembly=mscorlib">
+	<Style TargetType="{x:Type TextBlock}" x:Key="WizardTextBlockStyle">
+		<Setter Property="FontFamily" Value="Calibri"/>
+		<Setter Property="FontSize" Value="16"/>
+	</Style>
+	<Style TargetType="{x:Type TextBox}" x:Key="WizardTextBoxStyle">
+		<Setter Property="FontFamily" Value="Calibri"/>
+		<Setter Property="FontSize" Value="16"/>
+	</Style>
+	<Style TargetType="{x:Type Control}" x:Key="WizardControlStyle">
+		<Setter Property="FontFamily" Value="Calibri"/>
+		<Setter Property="FontSize" Value="16"/>
+	</Style>
+	<Style TargetType="{x:Type FlowDocument}" x:Key="WizardFlowDocumentStyle">
+		<Setter Property="FontFamily" Value="Calibri"/>
+		<Setter Property="FontSize" Value="16"/>
+	</Style>
+</ResourceDictionary>

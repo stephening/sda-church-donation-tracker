@@ -1,0 +1,200 @@
+﻿<UserControl x:Class="Donations.Lib.View.WizardImportDonationsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Donations.Lib.View"
+             xmlns:vm="clr-namespace:Donations.Lib.ViewModel"
+			 DataContextChanged="UserControl_DataContextChanged"
+             mc:Ignorable="d" 
+             d:DesignHeight="650" d:DesignWidth="800">
+	<Grid Margin="20">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		<StackPanel Grid.Row="0" Orientation="Vertical">
+			<TextBlock>
+				On this tab you can import a pre-existing donation database which can then be used and added to using this program.
+					Only (*.csv) text file import is supported at this time.
+			</TextBlock>
+			<BulletDecorator Margin="10,0,0,0">
+				<BulletDecorator.Bullet>
+					<Ellipse Height="5" Width="5" Fill="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					First make sure your csv column headers matching the table below.
+					If they don't match, rename them accordingly.
+					Order does not matter.
+				</TextBlock>
+			</BulletDecorator>
+			<BulletDecorator Margin="25,0,0,0">
+				<BulletDecorator.Bullet>
+					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">DonorId - Corresponds to the Id in the donor table.</TextBlock>
+			</BulletDecorator>
+			<BulletDecorator Margin="25,0,0,0">
+				<BulletDecorator.Bullet>
+					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">BatchId - this will be assigned automatically based on dates.</TextBlock>
+			</BulletDecorator>
+			<BulletDecorator Margin="40,0,0,0">
+				<BulletDecorator.Bullet>
+					<Rectangle Height="5" Width="5" Fill="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">All Adventist Giving donations from the first of the month through the 15th will be assigned to a batch.</TextBlock>
+			</BulletDecorator>
+			<BulletDecorator Margin="40,0,0,0">
+				<BulletDecorator.Bullet>
+					<Rectangle Height="5" Width="5" Fill="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Adventist Giving donations from the 16th through the end of the month will be assigned to another batch.</TextBlock>
+			</BulletDecorator>
+			<BulletDecorator Margin="40,0,0,0">
+				<BulletDecorator.Bullet>
+					<Rectangle Height="5" Width="5" Fill="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">All other types of donations will be grouped into batches by date.</TextBlock>
+			</BulletDecorator>
+			<BulletDecorator Margin="25,0,0,0">
+				<BulletDecorator.Bullet>
+					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					First/LastName - while this seems redundant given the DonorId field, this data allows for the donation record to
+					stand on it's own even if the DonorId was purged from the database.
+				</TextBlock>
+			</BulletDecorator>
+			<BulletDecorator Margin="25,0,0,0">
+				<BulletDecorator.Bullet>
+					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Value - dollar amount of the donation to the specified category.</TextBlock>
+			</BulletDecorator>
+			<BulletDecorator Margin="25,0,0,0">
+				<BulletDecorator.Bullet>
+					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					Category - this field is a string containing the CategoryCode and Description to which the donation was designated.
+					One might wonder, why not just store the CategoryCode and look up the description when making the report.
+					The reason for this is that, in the event donation categories are retired, the donation record is still functional.
+				</TextBlock>
+			</BulletDecorator>
+			<BulletDecorator Margin="25,0,0,0">
+				<BulletDecorator.Bullet>
+					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					TaxDeductible - this field is also something that is stored in the Category table, but it is duplicated here for
+					the same reason that the category description is included.
+					This field should be true/false (case insensetive).
+				</TextBlock>
+			</BulletDecorator>
+			<BulletDecorator Margin="25,0,0,0">
+				<BulletDecorator.Bullet>
+					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					TransactionNumber - this field is not required, but if available, should contain the Adventist Giving "Transaction ID,"
+					or check number.
+				</TextBlock>
+			</BulletDecorator>
+			<BulletDecorator Margin="25,0,0,0">
+				<BulletDecorator.Bullet>
+					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					Method - this field is also not required, but if available, should contain:
+				</TextBlock>
+			</BulletDecorator>
+			<BulletDecorator Margin="40,0,0,0">
+				<BulletDecorator.Bullet>
+					<Rectangle Height="5" Width="5" Fill="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">AdventistGiving</TextBlock>
+			</BulletDecorator>
+			<BulletDecorator Margin="40,0,0,0">
+				<BulletDecorator.Bullet>
+					<Rectangle Height="5" Width="5" Fill="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Check</TextBlock>
+			</BulletDecorator>
+			<BulletDecorator Margin="40,0,0,0">
+				<BulletDecorator.Bullet>
+					<Rectangle Height="5" Width="5" Fill="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Cash</TextBlock>
+			</BulletDecorator>
+			<BulletDecorator Margin="40,0,0,0">
+				<BulletDecorator.Bullet>
+					<Rectangle Height="5" Width="5" Fill="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Mixed</TextBlock>
+			</BulletDecorator>
+			<BulletDecorator Margin="40,0,0,0">
+				<BulletDecorator.Bullet>
+					<Rectangle Height="5" Width="5" Fill="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Card</TextBlock>
+			</BulletDecorator>
+			<BulletDecorator Margin="40,0,0,0">
+				<BulletDecorator.Bullet>
+					<Rectangle Height="5" Width="5" Fill="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Online</TextBlock>
+			</BulletDecorator>
+			<BulletDecorator Margin="40,0,0,0">
+				<BulletDecorator.Bullet>
+					<Rectangle Height="5" Width="5" Fill="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Unknown</TextBlock>
+			</BulletDecorator>
+			<BulletDecorator Margin="25,0,0,0">
+				<BulletDecorator.Bullet>
+					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					Note - this field is also not required, but if available, can contain any text describing the donation.
+				</TextBlock>
+			</BulletDecorator>
+			<BulletDecorator Margin="10,0,0,0">
+				<BulletDecorator.Bullet>
+					<Ellipse Height="5" Width="5" Fill="Black"/>
+				</BulletDecorator.Bullet>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Finally, choose the file to import from.</TextBlock>
+			</BulletDecorator>
+		</StackPanel>
+		<StackPanel Grid.Row="1" Margin="0,20,0,0" Orientation="Horizontal">
+			<Button Content="Choose (*.csv) file" Click="ChooseFile_Click" Padding="20,5"/>
+			<Button Content="Save (will replace existing donation database)" Margin="20,0,0,0" Padding="20,5"
+					Click="Save" IsEnabled="{Binding HasChanges}"/>
+			<Label Content="Starting cut-off date:" Margin="20,0,0,0" VerticalAlignment="Center"/>
+			<DatePicker Width="100" VerticalAlignment="Center" Text="{Binding StartDate, Mode=TwoWay}"/>
+		</StackPanel>
+		<DataGrid Grid.Row="2" Margin="0,20,0,0" ItemsSource="{Binding CollectionSource.View}" CanUserAddRows="False" AutoGenerateColumns="False">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+				<DataGridTextColumn Header="DonorId" Binding="{Binding DonorId}"/>
+				<DataGridTextColumn Header="BatchId" Binding="{Binding BatchId}"/>
+				<DataGridTextColumn Header="EnvelopeId" Binding="{Binding EnvelopeId}"/>
+				<DataGridTextColumn Header="LastName" Binding="{Binding LastName}"/>
+				<DataGridTextColumn Header="FirstName" Binding="{Binding FirstName}"/>
+				<DataGridTextColumn Header="Value" Binding="{Binding Value}"/>
+				<DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
+				<DataGridTextColumn Header="Category" Binding="{Binding Category}"/>
+				<DataGridTextColumn Header="Taxdeductible" Binding="{Binding TaxDeductible}"/>
+				<DataGridTextColumn Header="TransactionNumber" Binding="{Binding TransactionNumber}"/>
+				<DataGridTextColumn Header="Method" Binding="{Binding Method}"/>
+				<DataGridTextColumn Header="Note" Binding="{Binding Note}"/>
+			</DataGrid.Columns>
+		</DataGrid>
+		<ProgressBar Grid.Row="3" Value="{Binding Progress, Mode=TwoWay}" Margin="0,3,0,0" Height="10" Minimum="0" Maximum="100"/>
+		<TextBlock Grid.Row="4" Text="{Binding Status, Mode=TwoWay}" Margin="0,3,0,0"/>
+	</Grid>
+</UserControl>

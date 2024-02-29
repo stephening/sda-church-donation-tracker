@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="Donations.Lib.View.TimeSelectionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Donations.Lib.View"
+             xmlns:enumhelpers="clr-namespace:Donations.Lib.EnumHelpers"
+             xmlns:m="clr-namespace:Donations.Lib.Model"
+             mc:Ignorable="d" 
+			 x:Name="TimeSelection">
+	<StackPanel Orientation="Horizontal">
+		<StackPanel.Resources>
+			<enumhelpers:EnumConverter x:Key="DateFilterOptions" />
+		</StackPanel.Resources>
+		<RadioButton VerticalAlignment="Center" Content="Current year" IsEnabled="{Binding SelectionEnabled, ElementName=TimeSelection}"
+						 IsChecked="{Binding Path=FilterOption, ElementName=TimeSelection, Converter={StaticResource DateFilterOptions}, ConverterParameter={x:Static m:enumDateFilterOptions.CurrentYear}}"/>
+		<RadioButton VerticalAlignment="Center" Content="Previous year" Margin="20,0,0,0" IsEnabled="{Binding SelectionEnabled, ElementName=TimeSelection}"
+						 IsChecked="{Binding Path=FilterOption, ElementName=TimeSelection, Converter={StaticResource DateFilterOptions}, ConverterParameter={x:Static m:enumDateFilterOptions.PreviousYear}}"/>
+		<RadioButton VerticalAlignment="Center" Content="Select year" Margin="20,0,0,0" IsEnabled="{Binding SelectionEnabled, ElementName=TimeSelection}"
+						 IsChecked="{Binding Path=FilterOption, ElementName=TimeSelection, Converter={StaticResource DateFilterOptions}, ConverterParameter={x:Static m:enumDateFilterOptions.SelectYear}}"/>
+		<ComboBox Width="75" Margin="5,0,0,0" VerticalAlignment="Center" IsEnabled="{Binding SelectYearComboBoxEnabled, ElementName=TimeSelection}" ItemsSource="{Binding AvailableYears, ElementName=TimeSelection}"
+					  SelectedItem="{Binding FilterYear, ElementName=TimeSelection}" SelectionChanged="ComboBox_SelectionChanged"/>
+		<RadioButton VerticalAlignment="Center" Content="Range" Margin="20,0,0,0" IsEnabled="{Binding SelectionEnabled, ElementName=TimeSelection}"
+						 IsChecked="{Binding Path=FilterOption, ElementName=TimeSelection, Converter={StaticResource DateFilterOptions}, ConverterParameter={x:Static m:enumDateFilterOptions.DateRange}}"/>
+		<DatePicker Width="100" Margin="5,0,0,0" VerticalAlignment="Center" IsEnabled="{Binding DateRangeEnabled, ElementName=TimeSelection}" Text="{Binding StartDate, ElementName=TimeSelection, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedDateChanged="DatePicker_SelectedStartDateChanged"/>
+		<TextBlock Margin="5,0" Text="-" VerticalAlignment="Center"/>
+		<DatePicker Width="100" Margin="5,0,0,0" VerticalAlignment="Center" IsEnabled="{Binding DateRangeEnabled, ElementName=TimeSelection}" Text="{Binding EndDate, ElementName=TimeSelection, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedDateChanged="DatePicker_SelectedEndDateChanged"/>
+	</StackPanel>
+</UserControl>

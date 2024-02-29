@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="Donations.Lib.View.AdventistGivingView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Donations.Lib.View"
+             xmlns:vm="clr-namespace:Donations.Lib.ViewModel"
+			 DataContextChanged="UserControl_DataContextChanged"
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="1000">
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="..\Resources\Strings.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</UserControl.Resources>
+	<Grid Margin="20">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+		<StackPanel Grid.Row="0" Orientation="Horizontal">
+			<Label VerticalAlignment="Center" Content="Target total: $"/>
+			<TextBox x:Name="BatchTotal" Height="20" Width="100" TextAlignment="Right" VerticalAlignment="Center" Background="LightGreen"
+					 Text="{Binding TargetTotal, StringFormat={}{0:n2}}"
+					 MouseDoubleClick="BatchTotal_SelectAll" GotKeyboardFocus="BatchTotal_SelectAll"
+				     PreviewMouseLeftButtonDown="BatchTotal_SelectivelyIgnoreMouseClick"/>
+			<Label VerticalAlignment="Center" Content="Batch note:" Margin="20,0,0,0"/>
+			<TextBox Height="20" Width="300"  HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding BatchNote, UpdateSourceTrigger=PropertyChanged}"/>
+			<Button Content="_Select Adventist giving csv" Margin="20,0,0,0" Padding="20,5" Click="SelectFile_Click"
+					ToolTip="Click to bring up a file open dialog box to select an Adventist Giving *.csv file for import."/>
+		</StackPanel>
+
+		<TabControl Grid.Row="1" Margin="0,20,0,0" x:Name="AdventistGivingTabs">
+			<TabItem Header="{StaticResource AdventistGivingDonorResolutionTabHeader}" x:Name="DonorResolutionTab">
+				<local:AGDonorResolutionView x:Name="DonorResolutionView" DataContext="{Binding AGDonorResolutionViewModel}"/>
+			</TabItem>
+			
+			<TabItem Header="{StaticResource AdventistGivingCategoryResolutionTabHeader}" x:Name="CategoryResolutionTab">
+				<local:AGCategoryResolutionView x:Name="CategoryResolutionView" DataContext="{Binding AGCategoryResolutionViewModel}"/>
+			</TabItem>
+			
+			<TabItem Header="{StaticResource AdventistGivingVerifyAndSubmitTabHeader}" x:Name="VerifyAndSubmitTab" Selector.Selected="DonationSummaryTab_Selected">
+				<local:AGDonationSummaryView x:Name="DonationSummaryView" DataContext="{Binding AGDonationSummaryViewModel}"/>
+			</TabItem>
+		</TabControl>
+	</Grid>
+</UserControl>

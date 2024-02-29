@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+	  <ApplicationIcon>app.ico</ApplicationIcon>
+	  <RepositoryUrl>https://github.com/stephening/sda-church-donation-tracker</RepositoryUrl>
+	  <Copyright>https://mit-license.org/</Copyright>
+	  <Description>SDA church donation tracking software.</Description>
+	  <AssemblyName>DatabaseSetupWizard</AssemblyName>
+	  <BaseOutputPath>$(SolutionDir)bin\</BaseOutputPath>
+	  <AssemblyVersion>1.0.3.0</AssemblyVersion>
+	  <FileVersion>1.0.3.0</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="app.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="app.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="7.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Donations.Lib\Donations.Lib.csproj" />
+  </ItemGroup>
+
+</Project>

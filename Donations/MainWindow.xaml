@@ -1,0 +1,16 @@
+﻿<Window x:Class="Donations.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Donations"
+		xmlns:view="clr-namespace:Donations.Lib.View;assembly=Donations.Lib"
+		mc:Ignorable="d"
+		Loaded="Window_Loaded"
+		Closing="Window_Closing"
+		KeyDown="Window_KeyDown"
+        Title="Beaverton SDA church donations" MinHeight="450" MaxHeight="{Binding MaximumHeight}" Width="1010">
+	<Grid>
+		<view:MainWindowControl x:Name="MainControl"/>
+	</Grid>
+</Window>

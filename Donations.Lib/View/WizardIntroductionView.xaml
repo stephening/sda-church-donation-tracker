@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="Donations.Lib.View.WizardIntroductionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Donations.Lib.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="..\Resources\ResourceDictionary.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</UserControl.Resources>
+	<FlowDocumentScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+		<FlowDocument Style="{StaticResource WizardFlowDocumentStyle}">
+			<Paragraph>
+				This database setup wizard is part of a donor tracking open source software package.
+				Please feel free to get the source code and make whatever modification you want to it.
+				<Hyperlink NavigateUri="https://github.com/stephening/sda-church-donation-tracker" RequestNavigate="Hyperlink_RequestNavigate">
+					https://github.com/stephening/sda-church-donation-tracker
+				</Hyperlink>
+			</Paragraph>
+			<Paragraph>
+				The primary application for this package is Donation-tracker.exe,
+				which is a Windows desktop application designed to track donors and donations to tax-exempt organizations.
+				It was actually designed with churches in mind.
+				The Donation-tracker application uses a Microsoft SQL database for storing the data.
+				The database can exist either on the same system the application is run from,
+				or it can be maintained on a server accessible through the Internet.
+			</Paragraph>
+			<Paragraph>
+				This wizard will ask a question up fron after which it will guide you through some steps toward setting up or connecting to a database.
+				After successful connection to a database server, you can optionally create the database and tables.
+				Then if you were able to export some data from your previous system, you may be able to, with a little massaging, import your data.
+				There are three different tables that can be imported.
+			</Paragraph>
+			<Paragraph>
+				<BulletDecorator Margin="10,0,0,0">
+					<BulletDecorator.Bullet>
+						<Ellipse Height="5" Width="5" Fill="Black"/>
+					</BulletDecorator.Bullet>
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+						Categories - money that comes into tax exempt organizations are usually designated for certain causes.
+						Each of these causes will have a numeric code and a word description.
+						For this import, the csv file should have a number column and a description column.
+					</TextBlock>
+				</BulletDecorator>
+				<LineBreak/>
+				<BulletDecorator Margin="10,0,0,0">
+					<BulletDecorator.Bullet>
+						<Ellipse Height="5" Width="5" Fill="Black"/>
+					</BulletDecorator.Bullet>
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+						Donors - donors that give to tax exempt organizations need to get receipts for their tax filing purposes.
+						So contact information is needed along with the amounts given, in order to provide a year end giving report.
+						Details of the format required will be specified later, but hopefully you will be able to rename columns and massage data in a spreadsheet before exporting a suitable csv file.
+					</TextBlock>
+				</BulletDecorator>
+				<LineBreak/>
+				<BulletDecorator Margin="10,0,0,0">
+					<BulletDecorator.Bullet>
+						<Ellipse Height="5" Width="5" Fill="Black"/>
+					</BulletDecorator.Bullet>
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+						Donations - of course there should a a database table for donations which also tracks the funds they are destined for.
+						Donations will be tied back to donors, and hence should have either a donor id mapping back to a donor record, or at the very least should have donor name and contact information.
+						Details of the format required will be specified later, but hopefully you will be able to rename columns and massage data in a spreadsheet before exporting a suitable csv file.
+					</TextBlock>
+				</BulletDecorator>
+			</Paragraph>
+		</FlowDocument>
+	</FlowDocumentScrollViewer>
+</UserControl>

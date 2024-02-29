@@ -1,0 +1,55 @@
+﻿<Window x:Class="Donations.Lib.View.ConfirmDonorMergeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Donations.Lib.View"
+        xmlns:vm="clr-namespace:Donations.Lib.ViewModel"
+		DataContextChanged="Window_DataContextChanged"
+        mc:Ignorable="d"
+		KeyDown="Window_KeyDown"
+		Closing="Window_Closing"
+        Title="Confirm donor merge" Height="600" Width="600">
+	<Window.DataContext>
+		<vm:ConfirmDonorMergeViewModel/>
+	</Window.DataContext>
+	<Grid Margin="20">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		<StackPanel Grid.Row="0" Orientation="Horizontal">
+			<TextBlock Text="Donor to be merged: " VerticalAlignment="Center"/>
+			<TextBlock Text="{Binding MergeFrom}" VerticalAlignment="Center"/>
+		</StackPanel>
+		<TextBlock Grid.Row="1" Margin="0,20,0,0" Text="{Binding Message}" TextWrapping="Wrap"/>
+		<DataGrid CanUserAddRows="False" Grid.Row="2" AutoGenerateColumns="False" Margin="0,20,0,0"
+				  ItemsSource="{Binding Donations.View}" Visibility="{Binding GridVisibility}">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Date" IsReadOnly="True" Binding="{Binding Date}"/>
+				<DataGridTextColumn Header="Category" IsReadOnly="True" Binding="{Binding Category}"/>
+				<DataGridTextColumn Header="Ck/tx #" IsReadOnly="True" Binding="{Binding TransactionNumber}"/>
+				<DataGridTextColumn Header="Amount" IsReadOnly="True" Binding="{Binding Value,StringFormat={}{0:C2}}">
+					<DataGridTextColumn.HeaderStyle>
+						<Style TargetType="DataGridColumnHeader">
+							<Setter Property="HorizontalContentAlignment" Value="Right" />
+						</Style>
+					</DataGridTextColumn.HeaderStyle>
+					<DataGridTextColumn.ElementStyle>
+						<Style TargetType="TextBlock">
+							<Setter Property="HorizontalAlignment" Value="Right" />
+						</Style>
+					</DataGridTextColumn.ElementStyle>
+				</DataGridTextColumn>
+				<DataGridCheckBoxColumn Header="Deductible" IsReadOnly="True" Binding="{Binding TaxDeductible}"/>
+				<DataGridTextColumn Header="Note" IsReadOnly="True" Binding="{Binding Note}"/>
+			</DataGrid.Columns>
+		</DataGrid>
+		<StackPanel Grid.Row="3" Margin="0,20,0,0" Orientation="Horizontal" HorizontalAlignment="Right">
+			<Button Content="Cancel" IsCancel="True" Padding="20,5"/>
+			<Button Content="_Continue with merge" Padding="20,5" Margin="30,0,0,0" Click="Merge_Click"/>
+		</StackPanel>
+	</Grid>
+</Window>

@@ -1,0 +1,125 @@
+﻿<UserControl x:Class="Donations.Lib.View.AGDonorResolutionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Donations.Lib.View"
+             xmlns:vm="clr-namespace:Donations.Lib.ViewModel"
+			 DataContextChanged="UserControl_DataContextChanged"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+	<Grid>
+		<Grid Margin="20" Visibility="{Binding DonorDiffsVisibility}">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="1*"/>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="1*"/>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+
+
+			<TextBlock Grid.Row="0" Grid.Column="0" Margin="0,0,0,5" TextAlignment="Right" Text="Local donor" Padding="5,0" VerticalAlignment="Center"/>
+			<TextBlock Grid.Row="0" Grid.Column="2" Margin="0,0,0,5" TextAlignment="Left" Text="Adventist Giving donor" Padding="5,0" VerticalAlignment="Center"/>
+
+			<Border Grid.Row="1" Grid.Column="0" BorderThickness="0.5" BorderBrush="Black">
+				<TextBlock TextAlignment="Right" Text="{Binding Donor.LastName}" Background="White" Padding="5,0" VerticalAlignment="Center"/>
+			</Border>
+			<Border Grid.Row="2" Grid.Column="0" BorderThickness="0.5" BorderBrush="Black">
+				<TextBlock Grid.Row="2" Grid.Column="0" TextAlignment="Right" Text="{Binding Donor.FirstName}" Background="White" Padding="5,0" VerticalAlignment="Center"/>
+			</Border>
+			<Border Grid.Row="3" Grid.Column="0" BorderThickness="0.5" BorderBrush="Black">
+				<TextBlock TextAlignment="Right" Text="{Binding Donor.Address}" Background="White" Padding="5,0" VerticalAlignment="Center"/>
+			</Border>
+			<Border Grid.Row="4" Grid.Column="0" BorderThickness="0.5" BorderBrush="Black">
+				<TextBlock TextAlignment="Right" Text="{Binding Donor.Address2}" Background="White" Padding="5,0" VerticalAlignment="Center"/>
+			</Border>
+			<Border Grid.Row="5" Grid.Column="0" BorderThickness="0.5" BorderBrush="Black">
+				<TextBlock TextAlignment="Right" Text="{Binding Donor.City}" Background="White" Padding="5,0" VerticalAlignment="Center"/>
+			</Border>
+			<Border Grid.Row="6" Grid.Column="0" BorderThickness="0.5" BorderBrush="Black">
+				<TextBlock TextAlignment="Right" Text="{Binding Donor.State}" Background="White" Padding="5,0" VerticalAlignment="Center"/>
+			</Border>
+			<Border Grid.Row="7" Grid.Column="0" BorderThickness="0.5" BorderBrush="Black">
+				<TextBlock TextAlignment="Right" Text="{Binding Donor.Zip}" Background="White" Padding="5,0" VerticalAlignment="Center"/>
+			</Border>
+
+			<Label Grid.Row="1" Grid.Column="1" Content="Last name" HorizontalAlignment="Center"/>
+			<Label Grid.Row="2" Grid.Column="1" Content="First name" HorizontalAlignment="Center"/>
+			<Label Grid.Row="3" Grid.Column="1" Content="Address" HorizontalAlignment="Center"/>
+			<Label Grid.Row="4" Grid.Column="1" Content="Address line 2" HorizontalAlignment="Center" Margin="20,0"/>
+			<Label Grid.Row="5" Grid.Column="1" Content="City" HorizontalAlignment="Center"/>
+			<Label Grid.Row="6" Grid.Column="1" Content="State" HorizontalAlignment="Center"/>
+			<Label Grid.Row="7" Grid.Column="1" Content="Zip" HorizontalAlignment="Center"/>
+			<Button Grid.Row="1" Grid.Column="1" ToolTip="Updates values in Donor database" Padding="20,5" Content="&lt;&lt; Last Name &lt;&lt;" HorizontalAlignment="Center"
+					Command="{Binding CopyLastNameCommand}" Visibility="{Binding LastNameCopyVisible}"/>
+			<Button Grid.Row="2" Grid.Column="1" ToolTip="Updates values in Donor database" Padding="20,5" Content="&lt;&lt; First Name &lt;&lt;" HorizontalAlignment="Center"
+					Command="{Binding CopyFirstNameCommand}" Visibility="{Binding FirstNameCopyVisible}"/>
+			<Button Grid.Row="3" Grid.Column="1" ToolTip="Updates values in Donor database" Padding="20,5" Content="&lt;&lt; Address &lt;&lt;" HorizontalAlignment="Center"
+					Command="{Binding CopyAddressCommand}" Visibility="{Binding AddressCopyVisible}"/>
+			<Button Grid.Row="4" Grid.Column="1" ToolTip="Updates values in Donor database" Padding="20,5" Content="&lt;&lt; Address line 2 &lt;&lt;" HorizontalAlignment="Center"
+					Command="{Binding CopyAddress2Command}" Visibility="{Binding Address2CopyVisible}"/>
+			<Button Grid.Row="5" Grid.Column="1" ToolTip="Updates values in Donor database" Padding="20,5" Content="&lt;&lt; City &lt;&lt;" HorizontalAlignment="Center"
+					Command="{Binding CopyCityCommand}" Visibility="{Binding CityCopyVisible}"/>
+			<Button Grid.Row="6" Grid.Column="1" ToolTip="Updates values in Donor database" Padding="20,5" Content="&lt;&lt; State &lt;&lt;" HorizontalAlignment="Center"
+					Command="{Binding CopyStateCommand}" Visibility="{Binding StateCopyVisible}"/>
+			<Button Grid.Row="7" Grid.Column="1" ToolTip="Updates values in Donor database" Padding="20,5" Content="&lt;&lt; Zip &lt;&lt;" HorizontalAlignment="Center"
+					Command="{Binding CopyZipCommand}" Visibility="{Binding ZipCopyVisible}"/>
+			<Button Grid.Row="8" Grid.ColumnSpan="3" ToolTip="Updates values in Donor database" Padding="20,5" Content="&lt;&lt; Copy _all, and continue &lt;&lt;" Margin="0,5,0,0" HorizontalAlignment="Center"
+					Command="{Binding CopyAllCommand}" Visibility="{Binding CopyAllVisible}"/>
+
+			<Border Grid.Row="1" Grid.Column="2" BorderThickness="0.5" BorderBrush="Black">
+				<TextBlock Text="{Binding Transaction.LastName}" Background="White" Padding="5,0" VerticalAlignment="Center"/>
+			</Border>
+			<Border Grid.Row="2" Grid.Column="2" BorderThickness="0.5" BorderBrush="Black">
+				<TextBlock Text="{Binding Transaction.FirstName}" Background="White" Padding="5,0" VerticalAlignment="Center"/>
+			</Border>
+			<Border Grid.Row="3" Grid.Column="2" BorderThickness="0.5" BorderBrush="Black">
+				<TextBlock Text="{Binding Transaction.Address}" Background="White" Padding="5,0" VerticalAlignment="Center"/>
+			</Border>
+			<Border Grid.Row="4" Grid.Column="2" BorderThickness="0.5" BorderBrush="Black">
+				<TextBlock Text="{Binding Transaction.Address2}" Background="White" Padding="5,0" VerticalAlignment="Center"/>
+			</Border>
+			<Border Grid.Row="5" Grid.Column="2" BorderThickness="0.5" BorderBrush="Black" Background="White">
+				<TextBlock Text="{Binding Transaction.City}" Background="White" Padding="5,0" VerticalAlignment="Center"/>
+			</Border>
+			<Border Grid.Row="6" Grid.Column="2" BorderThickness="0.5" BorderBrush="Black">
+				<TextBlock Text="{Binding Transaction.State}" Background="White" Padding="5,0" VerticalAlignment="Center"/>
+			</Border>
+			<Border Grid.Row="7" Grid.Column="2" BorderThickness="0.5" BorderBrush="Black">
+				<TextBlock Text="{Binding Transaction.Zip}" Background="White" Padding="5,0" VerticalAlignment="Center"/>
+			</Border>
+
+			<StackPanel Grid.Row="9" Grid.Column="0" Orientation="Vertical" Margin="20">
+				<Button Content="Browse for _donor" Click="ChooseDonor" Padding="20,5"
+									ToolTip="Click if no Donor was found or you would like change the selected Donor, or simply if you want to see if any better options are available."/>
+			</StackPanel>
+
+			<TextBlock Grid.Row="9" Grid.Column="2" Text="{Binding ProgressText}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+			<StackPanel Grid.Row="10" Grid.ColumnSpan="3" Orientation="Vertical" Margin="20">
+				<Button Content="_Continue with selected donor without updating fields"
+						Command="{Binding ContinueDonorResolutionCommand}"
+						IsEnabled="{Binding ContinueEnabled}" Padding="20,5" Margin="0,10,0,0"
+						ToolTip="Doesn't update Donor database, but creates link between Adventist Giving account and Donor database"/>
+			</StackPanel>
+		</Grid>
+
+		<Grid Visibility="{Binding DonorResolutionComplete}" HorizontalAlignment="Center" VerticalAlignment="Center">
+			<StackPanel Orientation="Vertical" Width="300">
+				<TextBlock Text="Donor resolution is complete, click on the 'Category resolution' tab." FontSize="18" TextWrapping="Wrap"/>
+			</StackPanel>
+		</Grid>
+	</Grid>
+</UserControl>
