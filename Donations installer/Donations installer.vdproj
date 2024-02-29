@@ -1457,15 +1457,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Donation tracker"
-        "ProductCode" = "8:{0B0AC393-2234-45E0-80D9-51B42006965E}"
-        "PackageCode" = "8:{9B350979-FEBF-4B4B-96C6-B61BE8D0AE37}"
+        "ProductCode" = "8:{31B59BAA-6E01-4CAB-931D-C0E974E8A055}"
+        "PackageCode" = "8:{E4AF7887-3DC6-4CD1-843D-1C26B6E57F41}"
         "UpgradeCode" = "8:{5CC5032D-8249-430A-BFBA-3C323F4ADB89}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.0.10"
+        "ProductVersion" = "8:1.0.11"
         "Manufacturer" = "8:SDA Church Donation Tracker"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -2060,7 +2060,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_CDA7A7594F5A469AB72F7D6F9CEB6CC2"
             {
-            "SourcePath" = "8:..\\Donations\\obj\\Release\\net6.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\Donations\\obj\\Release\\net8.0-windows7.0\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_ED6F9BB0DDDA4F519DB3C658308A84A1"

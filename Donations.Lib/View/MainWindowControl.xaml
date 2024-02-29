@@ -60,7 +60,9 @@
 					</TabItem>
 				</TabControl>
 			</TabItem>
-			<TabItem Header="{StaticResource AboutTabHeader}" x:Name="AboutTab"/>
+			<TabItem Header="{StaticResource AboutTabHeader}" x:Name="AboutTab">
+				<local:AboutView/>
+			</TabItem>
 		</TabControl>
 	</Grid>
 </UserControl>
