@@ -53,7 +53,7 @@ There is a single visual studio solution file which contains six projects.
 * MarkdownToHtml - used at build time to create Help.html and some json data for navigating the help
 
 ## Source code
-The Software was developed using Visual Studio 2022 in C#/WPF/.NET 6.0. It is written with an MVVM pattern. It also has, at this time, about 375 unit tests written to work with xunit. File system mocking is done by using System.IO.Abstractions and the accompanying System.IO.Abstractions.TestingHelpers. Current NuGet packages added:
+The Software was developed using Visual Studio 2022 in C#/WPF/.NET 8.0. It is written with an MVVM pattern. It also has, at this time, about 375 unit tests written to work with xunit. File system mocking is done by using System.IO.Abstractions and the accompanying System.IO.Abstractions.TestingHelpers. Current NuGet packages added:
 
 * Autofac
 * CommunityToolkit.Mvvm
