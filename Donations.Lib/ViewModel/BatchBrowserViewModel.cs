@@ -41,9 +41,7 @@ public partial class BatchBrowserViewModel : BaseTimeWindowViewModel
 	/// that may need access to its public members. It also adds the year or date range Filter to the
 	/// CollectionViewSource object. The it calls BatchListUpdated() to further perform initialization.
 	/// </summary>
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 	public BatchBrowserViewModel(
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 		IDispatcherWrapper dispatcherWrapper,
 		BatchReviewView.Factory batchReviewFactory,
 		IBatchServices batchServices,
@@ -55,13 +53,9 @@ public partial class BatchBrowserViewModel : BaseTimeWindowViewModel
 		_batchServices = batchServices;
 		_donationServices = donationServices;
 
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 		BatchListUpdated();
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
-#pragma warning disable CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
 		_timer.Tick += new EventHandler(Timer_Tick);
-#pragma warning restore CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
 		_timer.Interval = new TimeSpan(0, 0, 1);
 
 		_timer.Start();
@@ -143,9 +137,7 @@ public partial class BatchBrowserViewModel : BaseTimeWindowViewModel
 				break;
 		}
 
-#pragma warning disable CS8604 // Possible null reference argument.
 		_batches = await _batchServices.FilterBatch(DateFilterOption, date, date2);
-#pragma warning restore CS8604 // Possible null reference argument.
 		if (null != _batches)
 		{
 			BatchListSource.Source = _batches;

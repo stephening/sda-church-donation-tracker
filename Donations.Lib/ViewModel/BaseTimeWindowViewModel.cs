@@ -21,9 +21,7 @@ public abstract partial class BaseTimeWindowViewModel : BaseViewModel
 	public BaseTimeWindowViewModel()
 	{
 		_dispatcherWrapper = DependencyInjection.Resolve<IDispatcherWrapper>();
-#pragma warning disable CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
 		_debounceTimer.Tick += new EventHandler(Debounce_Handler);
-#pragma warning restore CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
 		_debounceTimer.Interval = new TimeSpan(0, 0, 1);
 	}
 
@@ -43,9 +41,7 @@ public abstract partial class BaseTimeWindowViewModel : BaseViewModel
 	private double _sum = 0;
 
 	[ObservableProperty]
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 	private string _selectedCategory = null;
-#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 
 	[ObservableProperty]
 	private bool _printPreviewEnabled = false;

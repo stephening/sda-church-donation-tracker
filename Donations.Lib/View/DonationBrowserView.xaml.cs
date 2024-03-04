@@ -45,9 +45,7 @@ public partial class DonationBrowserView : UserControl
 
 		try
 		{
-#pragma warning disable CS8604 // Possible null reference argument.
 			CategoryReviewView dlg = _viewModel?.CreateCategoryReviewView(catsum);
-#pragma warning restore CS8604 // Possible null reference argument.
 
 			dlg.ShowDialog();
 		}

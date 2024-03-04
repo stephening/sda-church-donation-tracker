@@ -28,9 +28,7 @@ public class TestDataCategoryServices : ICategoryServices
 		}
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async Task<string?> SaveCategories(ObservableCollection<Category> categories, bool force = false)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		CatList = new ObservableCollection<Category>(categories);
 		CatDict!.Clear();

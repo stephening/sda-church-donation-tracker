@@ -22,8 +22,6 @@ public partial class DonationPopupViewModel : BaseViewModel
 
 		DonationSource.Source = _donations;
 
-#pragma warning disable CS8604 // Possible null reference argument.
 		TotalDonation = _donations.Sum(x => x.Value);
-#pragma warning restore CS8604 // Possible null reference argument.
 	}
 }

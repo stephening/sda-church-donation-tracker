@@ -60,13 +60,9 @@ public partial class WizardImportDonationsViewModel : ObservableObject
 			CollectionSource.Source = Collection;
 		});
 
-#pragma warning disable CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
 		_donationStatusTimer.Tick += new EventHandler(Donations_Progress_Status);
-#pragma warning restore CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
 		_donationStatusTimer.Interval = new TimeSpan(0, 0, 1);
-#pragma warning disable CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
 		_batchStatusTimer.Tick += new EventHandler(Batch_Progress_Status);
-#pragma warning restore CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
 		_batchStatusTimer.Interval = new TimeSpan(0, 0, 1);
 	}
 
@@ -197,9 +193,7 @@ public partial class WizardImportDonationsViewModel : ObservableObject
 			{
 				var totalsize = reader.BaseStream.Length;
 				string? line = line = reader.ReadLine(); // read column headers
-#pragma warning disable CS8604 // Possible null reference argument.
 				var headers = Regex.Split(line, ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-#pragma warning restore CS8604 // Possible null reference argument.
 				var columns = new Dictionary<string, int>();
 
 				for (int i = 0; i < headers?.Length; i++)
@@ -318,9 +312,7 @@ public partial class WizardImportDonationsViewModel : ObservableObject
 					{
 						if (MessageBoxResult.Cancel == MessageBox.Show("Problem importing line:", line, MessageBoxButton.OKCancel, MessageBoxImage.Exclamation))
 						{
-#pragma warning disable CS8603 // Possible null reference return.
 							return null;
-#pragma warning restore CS8603 // Possible null reference return.
 						}
 					}
 
@@ -337,8 +329,6 @@ public partial class WizardImportDonationsViewModel : ObservableObject
 
 		HasChanges = true;
 
-#pragma warning disable CS8603 // Possible null reference return.
 		return message;
-#pragma warning restore CS8603 // Possible null reference return.
 	}
 }

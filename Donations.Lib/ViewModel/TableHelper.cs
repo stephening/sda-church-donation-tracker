@@ -49,12 +49,8 @@ public class TableHelper
 
 			currentRow.Background = (0 == (i % 2)) ? new SolidColorBrush(Color.FromArgb(0xff, 0xdf, 0xef, 0xdf)) : Brushes.White;
 
-#pragma warning disable CS8604 // Possible null reference argument.
 			AddCell(currentRow, colsize, 0, catsum?.Category);
-#pragma warning restore CS8604 // Possible null reference argument.
-#pragma warning disable CS8604 // Possible null reference argument.
 			AddCell(currentRow, colsize, 1, catsum?.Sum.ToString("C2"), TextAlignment.Right);
-#pragma warning restore CS8604 // Possible null reference argument.
 
 			i++;
 		}
@@ -122,29 +118,17 @@ public class TableHelper
 			// Add cells with content to the row.
 			i = 0;
 
-#pragma warning disable CS8604 // Possible null reference argument.
 			AddCell(currentRow, colsize, i++, donation?.Date);
-#pragma warning restore CS8604 // Possible null reference argument.
-#pragma warning disable CS8604 // Possible null reference argument.
 			AddCell(currentRow, colsize, i++, donation?.Category);
-#pragma warning restore CS8604 // Possible null reference argument.
-#pragma warning disable CS8604 // Possible null reference argument.
 			AddCell(currentRow, colsize, i++, donation?.Value.ToString("C2"), TextAlignment.Right);
-#pragma warning restore CS8604 // Possible null reference argument.
-#pragma warning disable CS8604 // Possible null reference argument.
 			AddCell(currentRow, colsize, i++, donation?.Method.ToString(), TextAlignment.Right);
-#pragma warning restore CS8604 // Possible null reference argument.
-#pragma warning disable CS8604 // Possible null reference argument.
 			AddCell(currentRow, colsize, i++, donation?.TransactionNumber);
-#pragma warning restore CS8604 // Possible null reference argument.
 			string note = "";
 			if ("Adventist Giving" != donation?.Note)
 			{
 				note = donation?.Note;
 			}
-#pragma warning disable CS8604 // Possible null reference argument.
 			AddCell(currentRow, colsize, i++, note);
-#pragma warning restore CS8604 // Possible null reference argument.
 
 			row++;
 		}
@@ -201,9 +185,7 @@ public class TableHelper
 		// Add cells with content to the second row.
 		for (i = 0; i < numCols; i++)
 		{
-#pragma warning disable CS8604 // Possible null reference argument.
 			AddCell(currentRow, colsize, i, columns[i].ColumnHeader, columns[i].Alignment);
-#pragma warning restore CS8604 // Possible null reference argument.
 		}
 
 		int row = 0;
@@ -221,9 +203,7 @@ public class TableHelper
 			// Add cells with content to the row.
 			for (i = 0; i < numCols; i++)
 			{
-#pragma warning disable CS8604 // Possible null reference argument.
 				AddCell(currentRow, colsize, i, columns[i].GetValue(donation), columns[i].Alignment);
-#pragma warning restore CS8604 // Possible null reference argument.
 			}
 
 			row++;

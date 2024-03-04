@@ -38,9 +38,7 @@ public partial class WizardSpecifyLogoViewModel : ObservableObject
 			}
 			OrganizationLogo.Image = _fileSystem.File.ReadAllBytes(dlg.FileName);
 
-#pragma warning disable CS8604 // Possible null reference argument.
 			_pictureServices.SaveLogo(_organizationLogo);
-#pragma warning restore CS8604 // Possible null reference argument.
 
 			OnPropertyChanged(nameof(OrganizationLogo));
 		}

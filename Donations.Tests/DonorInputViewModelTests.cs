@@ -62,9 +62,7 @@ public class DonorInputViewModelTests : TestBase
 	{
 		// Arrange
 		DonorInputViewModel obj = DependencyInjection.Resolve<DonorInputViewModel>();
-#pragma warning disable CS8601 // Possible null reference assignment.
 		obj.BatchDate = param;
-#pragma warning restore CS8601 // Possible null reference assignment.
 
 		// Assert
 		Assert.Equal(expected, obj.BatchDate);
@@ -78,9 +76,7 @@ public class DonorInputViewModelTests : TestBase
 	{
 		// Arrange
 		DonorInputViewModel obj = DependencyInjection.Resolve<DonorInputViewModel>();
-#pragma warning disable CS8601 // Possible null reference assignment.
 		obj.BatchNote = expected;
-#pragma warning restore CS8601 // Possible null reference assignment.
 
 		// Assert
 		Assert.Equal(expected, obj.BatchNote);
@@ -502,9 +498,7 @@ public class DonorInputViewModelTests : TestBase
 
 		// Act
 		var donations = await donationServices.LoadDonations();
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 		obj.Review(await batchServices.GetBatchById(1), donations, () => { });
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
 		// Assert
 		int summaryIdx = 0;
@@ -584,9 +578,7 @@ public class DonorInputViewModelTests : TestBase
 
 		// Act
 		var donations = await donationServices.LoadDonations();
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 		obj.Review(await batchServices.GetBatchById(1), donations, () => { });
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
 		// Assert
 		int summaryIdx = 0;

@@ -41,9 +41,7 @@ public partial class DonorInputViewModel : BaseViewModel
 	private bool _review = false;
 	private Batch? _batch;
 	private bool _donorChanges = false;
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 	private Action _closeDialog = null;
-#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 	private readonly IDispatcherWrapper _dispatcherWrapper;
 	private readonly IFileSystem _fileSystem;
 	private readonly IReflectionHelpers _reflectionHelpers;
@@ -59,11 +57,7 @@ public partial class DonorInputViewModel : BaseViewModel
 	/// makes sure the BatchDate is clear so it will have to be specified. It also sets
 	/// the Source property of the CollectionViewSource for the donations and the summary.
 	/// </summary>
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 	public DonorInputViewModel(
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 		IDispatcherWrapper dispatcherWrapper,
 		IFileSystem fileSystem,
 		IReflectionHelpers reflectionHelpers,
@@ -98,9 +92,7 @@ public partial class DonorInputViewModel : BaseViewModel
 			throw new InsufficientMemoryException("IndividualDonations is null");
 		}
 
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 		SubmitDonor();
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
 		HasChanges = false;
 
@@ -114,12 +106,8 @@ public partial class DonorInputViewModel : BaseViewModel
 
 				using var reader = _fileSystem.File.OpenText("date_total.txt");
 
-#pragma warning disable CS8601 // Possible null reference assignment.
 				BatchDate = reader.ReadLine();
-#pragma warning restore CS8601 // Possible null reference assignment.
-#pragma warning disable CS8604 // Possible null reference argument.
 				BatchTotal = double.Parse(reader.ReadLine());
-#pragma warning restore CS8604 // Possible null reference argument.
 			}
 			catch
 			{
@@ -365,9 +353,7 @@ public partial class DonorInputViewModel : BaseViewModel
 
 		HasChanges = false;
 
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 		Loading();
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 	}
 
 	/// <summary>
@@ -472,9 +458,7 @@ public partial class DonorInputViewModel : BaseViewModel
 		SummaryDict?.Clear();
 		IndividualDonations?.Clear();
 		BatchTotal = 0;
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 		BatchNote = null;
-#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 		BatchDate = "";
 		OnPropertyChanged(nameof(SubmitEnabled));
 		await SubmitDonor();
@@ -500,9 +484,7 @@ public partial class DonorInputViewModel : BaseViewModel
 	public void UpdateBatchParams(string date, string? note, double total)
 	{
 		BatchDate = date;
-#pragma warning disable CS8601 // Possible null reference assignment.
 		BatchNote = note;
-#pragma warning restore CS8601 // Possible null reference assignment.
 		BatchTotal = total;
 		OnPropertyChanged(nameof(RunningTotal));
 		OnPropertyChanged(nameof(DiffValue));
@@ -550,7 +532,6 @@ public partial class DonorInputViewModel : BaseViewModel
 
 			var key = (donation.Method == enumMethod.AdventistGiving) ? donation.TransactionNumber : (donation.EnvelopeId?.ToString() ?? donation.DonorId.ToString() + (donation.TransactionNumber?.ToString() ?? ""));
 
-#pragma warning disable CS8604 // Possible null reference argument.
 			if (SummaryDict.ContainsKey(key))
 			{
 				// use DonorId to collate donations under same donor
@@ -590,7 +571,6 @@ public partial class DonorInputViewModel : BaseViewModel
 				_dispatcherWrapper.Invoke(() => SummaryList.Add(summaryEntry));
 				SummaryDict[key] = summaryEntry;
 			}
-#pragma warning restore CS8604 // Possible null reference argument.
 			await _dispatcherWrapper.Yield();
 		}
 
@@ -713,9 +693,7 @@ public partial class DonorInputViewModel : BaseViewModel
 	/// This method is called when the 'Donor input' tab is selected. This allows it to update itself if the
 	/// tithe envelope design changed.
 	/// </summary>
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public new async Task Loading()
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		int i = _titheEnvelopeServices.TitheEnvelopeDesign!.Count - 1;
 

@@ -30,9 +30,7 @@ public class BatchReviewViewModelTests : TestBase
 	{
 		// Arrange
 		BatchReviewViewModel obj = DependencyInjection.Resolve<BatchReviewViewModel>();
-#pragma warning disable CS8601 // Possible null reference assignment.
 		obj.BatchDate = param;
-#pragma warning restore CS8601 // Possible null reference assignment.
 
 		// Assert
 		Assert.Equal(expected, obj.BatchDate);

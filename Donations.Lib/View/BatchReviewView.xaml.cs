@@ -36,16 +36,12 @@ public partial class BatchReviewView : Window
 		DataContext = _viewModel;
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	private async void DataGridRow_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		DataGridRow row = (DataGridRow)sender;
 		CategorySum? categorySum = (CategorySum?)row?.DataContext;
 
-#pragma warning disable CS8604 // Possible null reference argument.
 		var dlg = _viewModel?.CreateCategoryReviewView(categorySum);
-#pragma warning restore CS8604 // Possible null reference argument.
 
 		dlg.ShowDialog();
 	}
@@ -61,11 +57,7 @@ public partial class BatchReviewView : Window
 
 		await _viewModel?.Review(_batch, _batchDonations, () => { Close(); });
 		await (ReviewDonationSummary.DataContext as DonorInputViewModel)?.Review(_batch, _batchDonations, Close);
-#pragma warning disable CS8604 // Possible null reference argument.
-#pragma warning disable CS8604 // Possible null reference argument.
 		await (PrintBatch.DataContext as BatchPrintViewModel)?.Loaded(PrintBatch.PrintArea, _batch, _batchDonations);
-#pragma warning restore CS8604 // Possible null reference argument.
-#pragma warning restore CS8604 // Possible null reference argument.
 	}
 
 	private void Window_Unloaded(object sender, RoutedEventArgs e)

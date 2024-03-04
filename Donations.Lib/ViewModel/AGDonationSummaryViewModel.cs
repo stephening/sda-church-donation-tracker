@@ -171,21 +171,15 @@ public partial class AGDonationSummaryViewModel : BaseViewModel
 
 		_donationList = null;
 		Total = 0;
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 		BatchDate = null;
-#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 		CategorySums?.Clear();
 		_categorySumDict.Clear();
 		TransactionList?.Clear();
 		_adventistGivingViewModel?.Reset(); // this sets the visual state of the donor/category resolution tabs
 		OnPropertyChanged(nameof(SubmitEnabled));
 
-#pragma warning disable CS8604 // Possible null reference argument.
 		await _categoryMapServices.SaveCategoryMap(_categoryMapServices.AGCategoryMapList, true);
-#pragma warning restore CS8604 // Possible null reference argument.
-#pragma warning disable CS8604 // Possible null reference argument.
 		await _donorMapServices.SaveDonorMap(_donorMapServices.AGDonorMapList, true);
-#pragma warning restore CS8604 // Possible null reference argument.
 
 		_submitting = false;
 	}
@@ -203,7 +197,6 @@ public partial class AGDonationSummaryViewModel : BaseViewModel
 		{
 			Total += donation.Value;
 
-#pragma warning disable CS8604 // Possible null reference argument.
 			if (_categorySumDict.ContainsKey(donation.Category))
 			{
 				_categorySumDict[donation.Category].Sum += donation.Value;
@@ -218,7 +211,6 @@ public partial class AGDonationSummaryViewModel : BaseViewModel
 				CategorySums.Add(sum);
 				_categorySumDict[sum.Category] = sum;
 			}
-#pragma warning restore CS8604 // Possible null reference argument.
 		}
 
 		CategorySumSource.View.Refresh();
@@ -244,14 +236,12 @@ public partial class AGDonationSummaryViewModel : BaseViewModel
 				int txCatCode = MapCategory(tx.CategoryCode);
 				Donation donation = new Donation();
 				donation.Id = donationId;
-#pragma warning disable CS8604 // Possible null reference argument.
 				if (null != tx.DonorId)
 					donation.DonorId = tx.DonorId.Value;
 				else if (_donorMapServices.AGDonorMap.ContainsKey(tx.DonorHash))
 					donation.DonorId = _donorMapServices.AGDonorMap[tx.DonorHash].DonorId;
 				else
 					throw new Exception($"This shouldn't happen, but there was no donor id or map for this transaction {tx.FirstName} {tx.LastName} TransactionId: {tx.TransactionId} Category: {tx.CategoryName}, Amount: {tx.Amount}");
-#pragma warning restore CS8604 // Possible null reference argument.
 
 				string lastName = tx.LastName;
 				string firstName = tx.FirstName;
@@ -271,9 +261,7 @@ public partial class AGDonationSummaryViewModel : BaseViewModel
 				donation.FirstName = firstName;
 				donation.Category = $"{txCatCode} {_categoryServices.CatDict[txCatCode].Description}";
 				donation.Value = tx.Amount;
-#pragma warning disable CS8604 // Possible null reference argument.
 				donation.Date = DateOnly.Parse(tx.TransactionDate).ToString("yyyy/MM/dd");
-#pragma warning restore CS8604 // Possible null reference argument.
 				donation.Method = enumMethod.AdventistGiving;
 				donation.TransactionNumber = tx.TransactionId;
 				donation.TaxDeductible = _categoryServices.CatDict[txCatCode].TaxDeductible;

@@ -19,9 +19,7 @@ public class TestDataPrintSettingsServices : IPrintSettingsServices
 		return _printSettingsDict?[printoutType];
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async Task<string?> Save(PrintSettings printSettings)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		if (null != _printSettingsDict)
 		{

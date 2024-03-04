@@ -16,9 +16,7 @@ namespace Donations.Lib.Services;
 public class SqlHelper
 {
 	public static string DbKey = "production";
-#pragma warning disable CS8601 // Possible null reference assignment.
 	protected static string _connString = ConfigurationManager.ConnectionStrings[DbKey]?.ConnectionString;
-#pragma warning restore CS8601 // Possible null reference assignment.
 	protected readonly ILogger _logger;
 
 	public SqlHelper(ILogger logger)
@@ -28,9 +26,7 @@ public class SqlHelper
 
 	public static void UpdateConnectionString()
 	{
-#pragma warning disable CS8601 // Possible null reference assignment.
 		_connString = ConfigurationManager.ConnectionStrings[DbKey]?.ConnectionString;
-#pragma warning restore CS8601 // Possible null reference assignment.
 	}
 
 	public async Task DropTable(string tableName)
@@ -61,7 +57,6 @@ public class SqlHelper
 				{
 					// this task is not awaited, so that the following sql query will start.
 					// when it starts, the following task will begin reporting progress updates.
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 					Task.Run(() =>
 					{
 						try
@@ -73,9 +68,7 @@ public class SqlHelper
 							using IDbConnection conn2 = new SqlConnection(_connString);
 							do
 							{
-#pragma warning disable CS8605 // Unboxing a possibly null value.
 								cnt = (int)conn2.ExecuteScalar(selCountQuery);
-#pragma warning restore CS8605 // Unboxing a possibly null value.
 
 								progUpdate.Invoke(cnt, total);
 								Thread.Sleep(500);
@@ -86,7 +79,6 @@ public class SqlHelper
 							_logger.Err(ex, $"Exception getting number of records written to {dbName}.");
 						}
 					});
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 				}
 
 				// finally write full collection to db table

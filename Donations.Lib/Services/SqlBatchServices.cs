@@ -36,9 +36,7 @@ public class SqlBatchServices : SqlHelper, IBatchServices
 		catch (Exception ex)
 		{
 			_logger.Err(ex, "Exception caught while deserializing {_batchesDbName}.");
-#pragma warning disable CS8603 // Possible null reference return.
 			return null;
-#pragma warning restore CS8603 // Possible null reference return.
 		}
 	}
 
@@ -83,9 +81,7 @@ public class SqlBatchServices : SqlHelper, IBatchServices
 		catch (Exception ex)
 		{
 			_logger.Err(ex, $"Exception caught while deserializing {_batchesDbName}.");
-#pragma warning disable CS8603 // Possible null reference return.
 			return null;
-#pragma warning restore CS8603 // Possible null reference return.
 		}
 	}
 
@@ -93,9 +89,7 @@ public class SqlBatchServices : SqlHelper, IBatchServices
 	{
 		try
 		{
-#pragma warning disable CS0168 // Variable is declared but never used
 			ObservableCollection<string>? ret;
-#pragma warning restore CS0168 // Variable is declared but never used
 
 			using IDbConnection conn = new SqlConnection(_connString);
 			{
@@ -107,9 +101,7 @@ public class SqlBatchServices : SqlHelper, IBatchServices
 		catch (Exception ex)
 		{
 			_logger.Err(ex, $"Exception caught getting batch years from {_batchesDbName}.");
-#pragma warning disable CS8603 // Possible null reference return.
 			return null;
-#pragma warning restore CS8603 // Possible null reference return.
 		}
 	}
 
@@ -127,9 +119,7 @@ public class SqlBatchServices : SqlHelper, IBatchServices
 		catch (Exception ex)
 		{
 			_logger.Err(ex, $"Exception caught getting earliest date from {_batchesDbName}.");
-#pragma warning disable CS8603 // Possible null reference return.
 			return null;
-#pragma warning restore CS8603 // Possible null reference return.
 		}
 	}
 
@@ -147,9 +137,7 @@ public class SqlBatchServices : SqlHelper, IBatchServices
 		catch (Exception ex)
 		{
 			_logger.Err(ex, $"Exception caught getting most recent date from {_batchesDbName}.");
-#pragma warning disable CS8603 // Possible null reference return.
 			return null;
-#pragma warning restore CS8603 // Possible null reference return.
 		}
 	}
 

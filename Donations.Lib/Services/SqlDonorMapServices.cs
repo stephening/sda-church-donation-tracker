@@ -26,9 +26,7 @@ public class SqlDonorMapServices : SqlHelper, IDonorMapServices
 			{
 				var donor = donorServices.GetDonorById(AGDonorMapList[i].DonorId);
 				AGDonorMapList[i].RefreshDonorFields(donor);
-#pragma warning disable CS8604 // Possible null reference argument.
 				AGDonorMap[AGDonorMapList[i].AGDonorHash] = AGDonorMapList[i];
-#pragma warning restore CS8604 // Possible null reference argument.
 			}
 		}
 		catch (Exception ex)

@@ -36,9 +36,7 @@ public partial class ImportCategoriesViewModelTests : TestWizardBase
 		categoryServices.CatList!.Clear();
 		categoryServices.CatDict!.Clear();
 
-#pragma warning disable CS8604 // Possible null reference argument.
 		obj.Collection = new ObservableCollection<Category>(td.CatList);
-#pragma warning restore CS8604 // Possible null reference argument.
 
 		// Act
 		await obj.Save(true);

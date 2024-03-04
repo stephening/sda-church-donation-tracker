@@ -116,9 +116,7 @@ public class DonationBrowserViewModelTests : TestBase
 	{
 		// Arrange
 		var td = new TestData();
-#pragma warning disable CS8604 // Possible null reference argument.
 		var donationsIn2023 = td.DonationList.Where(x => x.Date.StartsWith("2023"));
-#pragma warning restore CS8604 // Possible null reference argument.
 		var categoriesIn2023 = donationsIn2023.Select(x => x.Category);
 		var donationIdsIn2023 = donationsIn2023.Select(x => x.Id);
 		DonationBrowserViewModel viewModel = DependencyInjection.Resolve<DonationBrowserViewModel>();

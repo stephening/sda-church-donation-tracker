@@ -17,9 +17,7 @@ public class TestDataDonorServices : IDonorServices
 		_donors = td.DonorList;
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async Task<int> AddDonor(Donor donor)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		var newId = ((0 == _donors!.Count)
 								? 0
@@ -31,20 +29,14 @@ public class TestDataDonorServices : IDonorServices
 		return donor.Id;
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async Task DeleteDonor(Donor donor)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		_donors.Remove(donor);
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async Task<ObservableCollection<Donor>> FilterDonors(int count = 100, string last = "", string first = "")
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
-#pragma warning disable CS8604 // Possible null reference argument.
 		return new ObservableCollection<Donor>(_donors.Where(x => (string.IsNullOrEmpty(last) || x.LastName.StartsWith(last, StringComparison.OrdinalIgnoreCase)) && (string.IsNullOrEmpty(first) || x.FirstName.StartsWith(first, StringComparison.OrdinalIgnoreCase))));
-#pragma warning restore CS8604 // Possible null reference argument.
 	}
 
 	public Donor FindDonor(ref string? comment, ref int? partial, string? last, string? first, string? address, string? address2, string? city, string? state, string? zip)
@@ -70,9 +62,7 @@ public class TestDataDonorServices : IDonorServices
 				return donor;
 			}
 		}
-#pragma warning disable CS8603 // Possible null reference return.
 		return null;
-#pragma warning restore CS8603 // Possible null reference return.
 	}
 
 	public Donor GetDonorById(int id)
@@ -88,9 +78,7 @@ public class TestDataDonorServices : IDonorServices
 		}
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async Task<Donor> GetDonorByIdAsync(int id)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		var list = _donors!.Where(x => x.Id == id);
 		if (list.Count() > 0)
@@ -103,30 +91,20 @@ public class TestDataDonorServices : IDonorServices
 		}
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async Task<ObservableCollection<Donor>> GetDonorsByFamilyId(int id)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		return new ObservableCollection<Donor>(_donors!.Where(x => x.FamilyId == id));
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async Task<int> GetNextFamilyId()
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
-#pragma warning disable CS8604 // Possible null reference argument.
 		var ret = _donors.Any() ? _donors!.Select(x => x.FamilyId).Max() : 0;
-#pragma warning restore CS8604 // Possible null reference argument.
 		return null != ret ? ret.Value : 0;
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async Task<ObservableCollection<Donor>> LoadDonors()
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
-#pragma warning disable CS8603 // Possible null reference return.
 		return _donors;
-#pragma warning restore CS8603 // Possible null reference return.
 	}
 
 	public void ReplaceDonorData(ObservableCollection<Donor> donorList)
@@ -134,16 +112,12 @@ public class TestDataDonorServices : IDonorServices
 		_donors = new ObservableCollection<Donor>(donorList);
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async Task<string?> SaveDonors(ObservableCollection<Donor> donors, bool force = false, Action<long, long>? progUpdate = null)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		return null;
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async Task UpdateDonor(Donor donor)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		for (int i = 0; i < _donors.Count; i++)
 		{

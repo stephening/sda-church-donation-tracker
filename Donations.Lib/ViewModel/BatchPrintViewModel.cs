@@ -49,9 +49,7 @@ public partial class BatchPrintViewModel : BaseViewModel
 							$"Batch source: {_batch?.Source.GetDescription()}\r\n" +
 							$"Batch note: {_batch?.Note}\r\n" +
 							$"Created by: {Created}";
-#pragma warning disable CS8604 // Possible null reference argument.
 	private string? BatchDate => (null == _batch) ? null : DateOnly.Parse(_batch.Date).ToLongDateString();
-#pragma warning restore CS8604 // Possible null reference argument.
 	private string? Created => WindowsIdentity.GetCurrent().Name + " on " + DateTime.Now.ToString("G");
 
 
@@ -199,7 +197,6 @@ public partial class BatchPrintViewModel : BaseViewModel
 	/// </summary>
 	public void Unloaded()
 	{
-#pragma warning disable CS8601 // Possible null reference assignment.
 		PrintSettings settings = new PrintSettings()
 		{
 			PrintoutType = (int)enumPrintout.BatchReport,
@@ -208,7 +205,6 @@ public partial class BatchPrintViewModel : BaseViewModel
 			LeftMargin = LeftMargin,
 			OtherMargins = OtherMargins
 		};
-#pragma warning restore CS8601 // Possible null reference assignment.
 		_printSettingsServices?.Save(settings);
 	}
 
@@ -229,15 +225,11 @@ public partial class BatchPrintViewModel : BaseViewModel
 			_doc.Blocks.Add(_tableHelper.CreateCategorySumsTable(CategorySumSource, SelectedFont, SelectedSize));
 			if (_batch.Source == enumSource.AdventistGiving)
 			{
-#pragma warning disable CS8604 // Possible null reference argument.
 				_doc.Blocks.Add(_tableHelper.CreateDonationDetailsTable(DonationDetailsSource, SelectedFont, SelectedSize, _printAreaWidth, _donationTableColumnDescriptorsAG, (int)DonationTableColumnDescriptor.EnumDonationcolumns.Category));
-#pragma warning restore CS8604 // Possible null reference argument.
 			}
 			else
 			{
-#pragma warning disable CS8604 // Possible null reference argument.
 				_doc.Blocks.Add(_tableHelper.CreateDonationDetailsTable(DonationDetailsSource, SelectedFont, SelectedSize, _printAreaWidth, _donationTableColumnDescriptors, (int)DonationTableColumnDescriptor.EnumDonationcolumns.Category));
-#pragma warning restore CS8604 // Possible null reference argument.
 			}
 		}
 		catch { }
@@ -255,7 +247,6 @@ public partial class BatchPrintViewModel : BaseViewModel
 
 		foreach (var donation in _batchDonations)
 		{
-#pragma warning disable CS8604 // Possible null reference argument.
 			if (_categorySumDict.ContainsKey(donation.Category))
 			{
 				_categorySumDict[donation.Category].Sum += donation.Value;
@@ -270,7 +261,6 @@ public partial class BatchPrintViewModel : BaseViewModel
 				CategorySums.Add(sum);
 				_categorySumDict[sum.Category] = sum;
 			}
-#pragma warning restore CS8604 // Possible null reference argument.
 			_total += donation.Value;
 
 			await _dispatcherWrapper.Yield();

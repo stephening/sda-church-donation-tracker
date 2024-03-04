@@ -54,7 +54,6 @@ CREATE TABLE [dbo].[AppSettings](
 ) ON [PRIMARY]
 ";
 
-#pragma warning disable CS0168 // Variable is declared but never used
 		try
 		{
 			using IDbConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[SqlHelper.DbKey]?.ConnectionString);
@@ -66,7 +65,6 @@ CREATE TABLE [dbo].[AppSettings](
 		{
 
 		}
-#pragma warning restore CS0168 // Variable is declared but never used
 	}
 
 	public async Task CreateBatchTable()
@@ -87,7 +85,6 @@ CREATE TABLE [dbo].[Batches](
 ) ON [PRIMARY]
 ";
 
-#pragma warning disable CS0168 // Variable is declared but never used
 		try
 		{
 			using IDbConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[SqlHelper.DbKey]?.ConnectionString);
@@ -99,7 +96,6 @@ CREATE TABLE [dbo].[Batches](
 		{
 
 		}
-#pragma warning restore CS0168 // Variable is declared but never used
 	}
 
 	public async Task CreateCategoryMapTable()
@@ -116,7 +112,6 @@ CREATE TABLE [dbo].[CategoryMap](
 ) ON [PRIMARY]
 ";
 
-#pragma warning disable CS0168 // Variable is declared but never used
 		try
 		{
 			using IDbConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[SqlHelper.DbKey]?.ConnectionString);
@@ -128,7 +123,6 @@ CREATE TABLE [dbo].[CategoryMap](
 		{
 
 		}
-#pragma warning restore CS0168 // Variable is declared but never used
 	}
 
 	public async Task CreateCategoriesTable()
@@ -145,7 +139,6 @@ CREATE TABLE [dbo].[Categories](
 ) ON [PRIMARY]
 ";
 
-#pragma warning disable CS0168 // Variable is declared but never used
 		try
 		{
 			using IDbConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[SqlHelper.DbKey]?.ConnectionString);
@@ -157,7 +150,6 @@ CREATE TABLE [dbo].[Categories](
 		{
 
 		}
-#pragma warning restore CS0168 // Variable is declared but never used
 	}
 
 	public async Task CreateDonationsTable()
@@ -184,7 +176,6 @@ CREATE TABLE [dbo].[Donations](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 ";
 
-#pragma warning disable CS0168 // Variable is declared but never used
 		try
 		{
 			using IDbConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[SqlHelper.DbKey]?.ConnectionString);
@@ -196,7 +187,6 @@ CREATE TABLE [dbo].[Donations](
 		{
 
 		}
-#pragma warning restore CS0168 // Variable is declared but never used
 	}
 
 	public async Task CreateDonorMapTable()
@@ -218,7 +208,6 @@ CREATE TABLE [dbo].[DonorMap](
 ) ON [PRIMARY]
 ";
 
-#pragma warning disable CS0168 // Variable is declared but never used
 		try
 		{
 			using IDbConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[SqlHelper.DbKey]?.ConnectionString);
@@ -230,7 +219,6 @@ CREATE TABLE [dbo].[DonorMap](
 		{
 
 		}
-#pragma warning restore CS0168 // Variable is declared but never used
 	}
 
 	public async Task CreateDonorsTable()
@@ -308,7 +296,6 @@ GO
 ALTER TABLE [dbo].[Donors] CHECK CONSTRAINT [FK_MaritalStatus]
 ";
 
-#pragma warning disable CS0168 // Variable is declared but never used
 		try
 		{
 			using IDbConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[SqlHelper.DbKey]?.ConnectionString);
@@ -316,7 +303,6 @@ ALTER TABLE [dbo].[Donors] CHECK CONSTRAINT [FK_MaritalStatus]
 				var queries = create_script.Split("GO");
 				foreach (var q in queries)
 				{
-#pragma warning disable CS0168 // Variable is declared but never used
 					try
 					{
 						await conn.ExecuteAsync(q);
@@ -324,7 +310,6 @@ ALTER TABLE [dbo].[Donors] CHECK CONSTRAINT [FK_MaritalStatus]
 					catch (Exception e)
 					{
 					}
-#pragma warning restore CS0168 // Variable is declared but never used
 				}
 			}
 		}
@@ -332,7 +317,6 @@ ALTER TABLE [dbo].[Donors] CHECK CONSTRAINT [FK_MaritalStatus]
 		{
 
 		}
-#pragma warning restore CS0168 // Variable is declared but never used
 	}
 
 	public async Task CreateDonorReportsTable()
@@ -355,7 +339,6 @@ ALTER TABLE [dbo].[DonorReports] CHECK CONSTRAINT [FK_DonorId]
 GO
 ";
 
-#pragma warning disable CS0168 // Variable is declared but never used
 		try
 		{
 			using IDbConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[SqlHelper.DbKey]?.ConnectionString);
@@ -363,7 +346,6 @@ GO
 				var queries = create_script.Split("GO");
 				foreach (var q in queries)
 				{
-#pragma warning disable CS0168 // Variable is declared but never used
 					try
 					{
 						await conn.ExecuteAsync(q);
@@ -371,7 +353,6 @@ GO
 					catch (Exception e)
 					{
 					}
-#pragma warning restore CS0168 // Variable is declared but never used
 				}
 			}
 		}
@@ -379,7 +360,6 @@ GO
 		{
 
 		}
-#pragma warning restore CS0168 // Variable is declared but never used
 	}
 
 	public async Task CreateIndividualReportTable()
@@ -398,7 +378,6 @@ CREATE TABLE [dbo].[IndividualReport](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 ";
 
-#pragma warning disable CS0168 // Variable is declared but never used
 		try
 		{
 			using IDbConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[SqlHelper.DbKey]?.ConnectionString);
@@ -410,7 +389,6 @@ CREATE TABLE [dbo].[IndividualReport](
 		{
 
 		}
-#pragma warning restore CS0168 // Variable is declared but never used
 	}
 
 	public async Task CreatePrintSettingsTable()
@@ -434,7 +412,6 @@ GO
 ALTER TABLE [dbo].[PrintSettings] CHECK CONSTRAINT [FK_Printout]
 ";
 
-#pragma warning disable CS0168 // Variable is declared but never used
 		try
 		{
 			using IDbConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[SqlHelper.DbKey]?.ConnectionString);
@@ -442,7 +419,6 @@ ALTER TABLE [dbo].[PrintSettings] CHECK CONSTRAINT [FK_Printout]
 				var queries = create_script.Split("GO");
 				foreach (var q in queries)
 				{
-#pragma warning disable CS0168 // Variable is declared but never used
 					try
 					{
 						await conn.ExecuteAsync(q);
@@ -450,7 +426,6 @@ ALTER TABLE [dbo].[PrintSettings] CHECK CONSTRAINT [FK_Printout]
 					catch (Exception e)
 					{
 					}
-#pragma warning restore CS0168 // Variable is declared but never used
 				}
 			}
 		}
@@ -458,7 +433,6 @@ ALTER TABLE [dbo].[PrintSettings] CHECK CONSTRAINT [FK_Printout]
 		{
 
 		}
-#pragma warning restore CS0168 // Variable is declared but never used
 	}
 
 	public async Task CreateOrganizationLogoTable()
@@ -474,7 +448,6 @@ CREATE TABLE [dbo].[OrganizationLogo](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 ";
 
-#pragma warning disable CS0168 // Variable is declared but never used
 		try
 		{
 			using IDbConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[SqlHelper.DbKey]?.ConnectionString);
@@ -486,7 +459,6 @@ CREATE TABLE [dbo].[OrganizationLogo](
 		{
 
 		}
-#pragma warning restore CS0168 // Variable is declared but never used
 	}
 
 	public async Task CreateEnvelopeDesignTable()
@@ -502,7 +474,6 @@ CREATE TABLE [dbo].[EnvelopeDesign](
 ) ON [PRIMARY]
 ";
 
-#pragma warning disable CS0168 // Variable is declared but never used
 		try
 		{
 			using IDbConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[SqlHelper.DbKey]?.ConnectionString);
@@ -514,7 +485,6 @@ CREATE TABLE [dbo].[EnvelopeDesign](
 		{
 
 		}
-#pragma warning restore CS0168 // Variable is declared but never used
 	}
 
 	public async Task CreateenumAddressTypeTable()
@@ -543,7 +513,6 @@ GO
 INSERT [dbo].[enumAddressType] ([Id], [Value]) VALUES (3, N'Residential')
 ";
 
-#pragma warning disable CS0168 // Variable is declared but never used
 		try
 		{
 			using IDbConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[SqlHelper.DbKey]?.ConnectionString);
@@ -552,7 +521,6 @@ INSERT [dbo].[enumAddressType] ([Id], [Value]) VALUES (3, N'Residential')
 				var queries = create_script.Split("GO");
 				foreach (var q in queries)
 				{
-#pragma warning disable CS0168 // Variable is declared but never used
 					try
 					{
 						await conn.ExecuteAsync(q);
@@ -560,7 +528,6 @@ INSERT [dbo].[enumAddressType] ([Id], [Value]) VALUES (3, N'Residential')
 					catch (Exception e)
 					{
 					}
-#pragma warning restore CS0168 // Variable is declared but never used
 				}
 			}
 			else
@@ -570,7 +537,6 @@ INSERT [dbo].[enumAddressType] ([Id], [Value]) VALUES (3, N'Residential')
 		catch (Exception)
 		{
 		}
-#pragma warning restore CS0168 // Variable is declared but never used
 	}
 
 	public async Task CreateenumFamilyRelationshipTable()
@@ -624,7 +590,6 @@ GO
 INSERT [dbo].[enumFamilyRelationship] ([Id], [Value]) VALUES (15, N'Stepdaughter')
 ";
 
-#pragma warning disable CS0168 // Variable is declared but never used
 		try
 		{
 			using IDbConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[SqlHelper.DbKey]?.ConnectionString);
@@ -633,7 +598,6 @@ INSERT [dbo].[enumFamilyRelationship] ([Id], [Value]) VALUES (15, N'Stepdaughter
 				var queries = create_script.Split("GO");
 				foreach (var q in queries)
 				{
-#pragma warning disable CS0168 // Variable is declared but never used
 					try
 					{
 						await conn.ExecuteAsync(q);
@@ -641,7 +605,6 @@ INSERT [dbo].[enumFamilyRelationship] ([Id], [Value]) VALUES (15, N'Stepdaughter
 					catch (Exception e)
 					{
 					}
-#pragma warning restore CS0168 // Variable is declared but never used
 				}
 			}
 			else
@@ -651,7 +614,6 @@ INSERT [dbo].[enumFamilyRelationship] ([Id], [Value]) VALUES (15, N'Stepdaughter
 		catch (Exception)
 		{
 		}
-#pragma warning restore CS0168 // Variable is declared but never used
 	}
 
 	public async Task CreateenumGenderTable()
@@ -678,7 +640,6 @@ GO
 INSERT [dbo].[enumGender] ([Id], [Value]) VALUES (2, N'Female')
 ";
 
-#pragma warning disable CS0168 // Variable is declared but never used
 		try
 		{
 			using IDbConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[SqlHelper.DbKey]?.ConnectionString);
@@ -687,7 +648,6 @@ INSERT [dbo].[enumGender] ([Id], [Value]) VALUES (2, N'Female')
 				var queries = create_script.Split("GO");
 				foreach (var q in queries)
 				{
-#pragma warning disable CS0168 // Variable is declared but never used
 					try
 					{
 						await conn.ExecuteAsync(q);
@@ -695,7 +655,6 @@ INSERT [dbo].[enumGender] ([Id], [Value]) VALUES (2, N'Female')
 					catch (Exception e)
 					{
 					}
-#pragma warning restore CS0168 // Variable is declared but never used
 				}
 			}
 			else
@@ -705,7 +664,6 @@ INSERT [dbo].[enumGender] ([Id], [Value]) VALUES (2, N'Female')
 		catch (Exception)
 		{
 		}
-#pragma warning restore CS0168 // Variable is declared but never used
 	}
 
 	public async Task CreateenumMaritalStatusTable()
@@ -732,7 +690,6 @@ GO
 INSERT [dbo].[enumMaritalStatus] ([Id], [Value]) VALUES (2, N'Married')
 ";
 
-#pragma warning disable CS0168 // Variable is declared but never used
 		try
 		{
 			using IDbConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[SqlHelper.DbKey]?.ConnectionString);
@@ -741,7 +698,6 @@ INSERT [dbo].[enumMaritalStatus] ([Id], [Value]) VALUES (2, N'Married')
 				var queries = create_script.Split("GO");
 				foreach (var q in queries)
 				{
-#pragma warning disable CS0168 // Variable is declared but never used
 					try
 					{
 						await conn.ExecuteAsync(q);
@@ -749,7 +705,6 @@ INSERT [dbo].[enumMaritalStatus] ([Id], [Value]) VALUES (2, N'Married')
 					catch (Exception e)
 					{
 					}
-#pragma warning restore CS0168 // Variable is declared but never used
 				}
 			}
 			else
@@ -759,7 +714,6 @@ INSERT [dbo].[enumMaritalStatus] ([Id], [Value]) VALUES (2, N'Married')
 		catch (Exception)
 		{
 		}
-#pragma warning restore CS0168 // Variable is declared but never used
 	}
 
 	public async Task CreateenumMethodTable()
@@ -794,7 +748,6 @@ GO
 INSERT [dbo].[enumMethod] ([Id], [Value]) VALUES (6, N'AdventistGiving')
 ";
 
-#pragma warning disable CS0168 // Variable is declared but never used
 		try
 		{
 			using IDbConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[SqlHelper.DbKey]?.ConnectionString);
@@ -803,7 +756,6 @@ INSERT [dbo].[enumMethod] ([Id], [Value]) VALUES (6, N'AdventistGiving')
 				var queries = create_script.Split("GO");
 				foreach (var q in queries)
 				{
-#pragma warning disable CS0168 // Variable is declared but never used
 					try
 					{
 						await conn.ExecuteAsync(q);
@@ -811,7 +763,6 @@ INSERT [dbo].[enumMethod] ([Id], [Value]) VALUES (6, N'AdventistGiving')
 					catch (Exception e)
 					{
 					}
-#pragma warning restore CS0168 // Variable is declared but never used
 				}
 			}
 			else
@@ -821,7 +772,6 @@ INSERT [dbo].[enumMethod] ([Id], [Value]) VALUES (6, N'AdventistGiving')
 		catch (Exception)
 		{
 		}
-#pragma warning restore CS0168 // Variable is declared but never used
 	}
 
 	public async Task CreateenumSourceTable()
@@ -846,7 +796,6 @@ GO
 INSERT [dbo].[enumSource] ([Id], [Value]) VALUES (1, N'DonorInput')
 ";
 
-#pragma warning disable CS0168 // Variable is declared but never used
 		try
 		{
 			using IDbConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[SqlHelper.DbKey]?.ConnectionString);
@@ -855,7 +804,6 @@ INSERT [dbo].[enumSource] ([Id], [Value]) VALUES (1, N'DonorInput')
 				var queries = create_script.Split("GO");
 				foreach (var q in queries)
 				{
-#pragma warning disable CS0168 // Variable is declared but never used
 					try
 					{
 						await conn.ExecuteAsync(q);
@@ -863,7 +811,6 @@ INSERT [dbo].[enumSource] ([Id], [Value]) VALUES (1, N'DonorInput')
 					catch (Exception e)
 					{
 					}
-#pragma warning restore CS0168 // Variable is declared but never used
 				}
 			}
 			else
@@ -873,7 +820,6 @@ INSERT [dbo].[enumSource] ([Id], [Value]) VALUES (1, N'DonorInput')
 		catch (Exception)
 		{
 		}
-#pragma warning restore CS0168 // Variable is declared but never used
 	}
 
 	public async Task CreateenumPrintoutTable()
@@ -902,7 +848,6 @@ GO
 INSERT [dbo].[enumPrintout] ([Id], [Value]) VALUES (2, N'CategoryReport')
 ";
 
-#pragma warning disable CS0168 // Variable is declared but never used
 		try
 		{
 			using IDbConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[SqlHelper.DbKey]?.ConnectionString);
@@ -911,7 +856,6 @@ INSERT [dbo].[enumPrintout] ([Id], [Value]) VALUES (2, N'CategoryReport')
 				var queries = create_script.Split("GO");
 				foreach (var q in queries)
 				{
-#pragma warning disable CS0168 // Variable is declared but never used
 					try
 					{
 						await conn.ExecuteAsync(q);
@@ -919,7 +863,6 @@ INSERT [dbo].[enumPrintout] ([Id], [Value]) VALUES (2, N'CategoryReport')
 					catch (Exception e)
 					{
 					}
-#pragma warning restore CS0168 // Variable is declared but never used
 				}
 			}
 			else
@@ -929,7 +872,6 @@ INSERT [dbo].[enumPrintout] ([Id], [Value]) VALUES (2, N'CategoryReport')
 		catch (Exception)
 		{
 		}
-#pragma warning restore CS0168 // Variable is declared but never used
 	}
 
 	public async Task CreateDonorChangesTable()
@@ -949,7 +891,6 @@ CREATE TABLE[dbo].[DonorChanges] (
 ) ON[PRIMARY] TEXTIMAGE_ON[PRIMARY]
 ";
 
-#pragma warning disable CS0168 // Variable is declared but never used
 		try
 		{
 			using IDbConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[SqlHelper.DbKey]?.ConnectionString);
@@ -958,7 +899,6 @@ CREATE TABLE[dbo].[DonorChanges] (
 				var queries = create_script.Split("GO");
 				foreach (var q in queries)
 				{
-#pragma warning disable CS0168 // Variable is declared but never used
 					try
 					{
 						await conn.ExecuteAsync(q);
@@ -966,7 +906,6 @@ CREATE TABLE[dbo].[DonorChanges] (
 					catch (Exception e)
 					{
 					}
-#pragma warning restore CS0168 // Variable is declared but never used
 				}
 			}
 			else
@@ -976,6 +915,5 @@ CREATE TABLE[dbo].[DonorChanges] (
 		catch (Exception)
 		{
 		}
-#pragma warning restore CS0168 // Variable is declared but never used
 	}
 }

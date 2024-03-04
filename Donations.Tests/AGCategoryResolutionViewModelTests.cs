@@ -49,9 +49,7 @@ public class AGCategoryResolutionViewModelTests : TestBase
 	public void Cat_NullDescription(string? param)
 	{
 		// Arrange
-#pragma warning disable CS8601 // Possible null reference assignment.
 		Category category = new Category() { Code = 101, Description = param, TaxDeductible = true };
-#pragma warning restore CS8601 // Possible null reference assignment.
 		AGCategoryResolutionViewModel obj = DependencyInjection.Resolve<AGCategoryResolutionViewModel>();
 		obj.Cat = category;
 		Category expected = category;
@@ -282,9 +280,7 @@ public class AGCategoryResolutionViewModelTests : TestBase
 		categoryServices.CatDict[ag.TransactionList[4].CategoryCode] = new Category() { Code = ag.TransactionList[4].CategoryCode, Description = "Some other fund", TaxDeductible = false };
 		categoryServices.CatList.Add(categoryServices.CatDict[ag.TransactionList[4].CategoryCode]);
 		// exact match
-#pragma warning disable CS8601 // Possible null reference assignment.
 		categoryServices.CatDict[ag.TransactionList[5].CategoryCode] = new Category() { Code = ag.TransactionList[5].CategoryCode, Description = ag.TransactionList[5].CategoryName, TaxDeductible = true };
-#pragma warning restore CS8601 // Possible null reference assignment.
 		categoryServices.CatList.Add(categoryServices.CatDict[ag.TransactionList[5].CategoryCode]);
 		// different code, but superset of split name
 		categoryServices.CatDict[ag.TransactionList[7].CategoryCode * 100] = new Category() { Code = ag.TransactionList[7].CategoryCode * 100, Description = "pre " + ag.TransactionList[7].CategoryName + " post", TaxDeductible = true };

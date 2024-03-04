@@ -75,9 +75,7 @@ public partial class CategoryViewModel : BaseViewModel
 	/// This method is called when the tab is clicked on. This member allows for things
 	/// to be refreshed incase new categories were imported since this page was last viewed.
 	/// </summary>
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public new async Task Loading()
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		Revert();
 		CollectionSource.View.Refresh();
@@ -87,18 +85,14 @@ public partial class CategoryViewModel : BaseViewModel
 	/// This method is called when another tab clicked on. This member allows for a reminder
 	/// to save changes.
 	/// </summary>
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public new async Task Leaving()
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		if (HasChanges)
 		{
 			var res = MessageBox.Show("If you leave the tab without saving changes, you will loose them. Do you want to save your changes?", "Categories", MessageBoxButton.YesNo);
 			if (MessageBoxResult.Yes == res)
 			{
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-				SaveChanges();
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+				await SaveChanges();
 			}
 		}
 	}
@@ -184,9 +178,7 @@ public partial class CategoryViewModel : BaseViewModel
 	[RelayCommand]
 	public async Task SaveChanges()
 	{
-#pragma warning disable CS8604 // Possible null reference argument.
 		_categoryServices.ReplaceCategoryData(CategoryList);
-#pragma warning restore CS8604 // Possible null reference argument.
 
 		HasChanges = false;
 
@@ -198,9 +190,7 @@ public partial class CategoryViewModel : BaseViewModel
 		}
 
 		// refresh category map in maintenance tab
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 		_categoryMapViewModel.Loading();
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 	}
 
 	/// <summary>

@@ -38,9 +38,7 @@ public partial class HelpViewModel : ObservableObject
 			using (var reader = _fileSystem.File.OpenText(Persist.Default.NavTreeJsonFile))
 			{
 				var jstring = reader.ReadToEnd();
-#pragma warning disable CS8601 // Possible null reference assignment.
 				HelpNavigation = JsonSerializer.Deserialize<ObservableCollection<HelpNavigationViewModel>>(jstring);
-#pragma warning restore CS8601 // Possible null reference assignment.
 			}
 		}
 		else
@@ -53,9 +51,7 @@ public partial class HelpViewModel : ObservableObject
 			using (var reader = _fileSystem.File.OpenText(Persist.Default.NavAnchorsJsonFile))
 			{
 				var jstring = reader.ReadToEnd();
-#pragma warning disable CS8601 // Possible null reference assignment.
 				Anchors = JsonSerializer.Deserialize<Dictionary<string, string>>(jstring);
-#pragma warning restore CS8601 // Possible null reference assignment.
 			}
 		}
 		else

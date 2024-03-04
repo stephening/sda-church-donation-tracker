@@ -186,7 +186,6 @@ public partial class AGDonorResolutionViewModel : BaseViewModel
 
 		// Check to see if a previous match between and AG donor and the local donor database has been made.
 		// If it has, we can immeditely return the donot ID for use.
-#pragma warning disable CS8604 // Possible null reference argument.
 		if (_donorMapServices.AGDonorMap.ContainsKey(transaction.DonorHash))
 		{
 			// null comment assures it is treated as an exact match
@@ -194,7 +193,6 @@ public partial class AGDonorResolutionViewModel : BaseViewModel
 			_internalDonor = _donorServices.GetDonorById(_donorMapServices.AGDonorMap[transaction.DonorHash].DonorId);
 			return _internalDonor.Id;
 		}
-#pragma warning restore CS8604 // Possible null reference argument.
 
 		comment = null;
 		_internalDonor = _donorServices.FindDonor(ref comment, ref partial,
@@ -246,9 +244,7 @@ public partial class AGDonorResolutionViewModel : BaseViewModel
 					TransactionList[_txIdx.Value].DonorId = donorId;
 					if (null != _adventistGivingViewModel)
 					{
-#pragma warning disable CS8601 // Possible null reference assignment.
 						_adventistGivingViewModel._quickDonorLookup[donorId.Value] = _internalDonor;
-#pragma warning restore CS8601 // Possible null reference assignment.
 					}
 				}
 				else
@@ -319,7 +315,6 @@ public partial class AGDonorResolutionViewModel : BaseViewModel
 		await Task.Run(() =>
 		{
 			// store selected donor id with Adventist Giving AGDonorMapItem record
-#pragma warning disable CS8604 // Possible null reference argument.
 			if (!_donorMapServices.AGDonorMap.ContainsKey(Transaction.DonorHash))
 			{
 				// add to dictionary if not there already
@@ -346,16 +341,13 @@ public partial class AGDonorResolutionViewModel : BaseViewModel
 					_adventistGivingViewModel._quickDonorLookup[Donor.Id] = Donor;
 				}
 			}
-#pragma warning restore CS8604 // Possible null reference argument.
 			_donorMapServices.AGDonorMap[Transaction.DonorHash].DonorId = Donor.Id;
 
 			_txIdx++;
 
 			if (null != TransactionList)
 			{
-#pragma warning disable CS8629 // Nullable value type may be null.
 				DonorResolutionLoop(_txIdx.Value);
-#pragma warning restore CS8629 // Nullable value type may be null.
 			}
 		});
 	}
@@ -407,9 +399,7 @@ public partial class AGDonorResolutionViewModel : BaseViewModel
 	{
 		CopyFields();
 
-#pragma warning disable CS8604 // Possible null reference argument.
 		await _donorServices.UpdateDonor(Donor);
-#pragma warning restore CS8604 // Possible null reference argument.
 
 		if (createMapEntry)
 			await ContinueDonorResolution();
@@ -419,9 +409,7 @@ public partial class AGDonorResolutionViewModel : BaseViewModel
 
 			if (null != TransactionList)
 			{
-#pragma warning disable CS8629 // Nullable value type may be null.
 				DonorResolutionLoop(_txIdx.Value);
-#pragma warning restore CS8629 // Nullable value type may be null.
 			}
 		}
 	}
@@ -560,9 +548,7 @@ public partial class AGDonorResolutionViewModel : BaseViewModel
 
 			if (null != TransactionList)
 			{
-#pragma warning disable CS8629 // Nullable value type may be null.
 				DonorResolutionLoop(_txIdx.Value);
-#pragma warning restore CS8629 // Nullable value type may be null.
 			}
 		}
 		else

@@ -44,16 +44,12 @@ public class SqlPictureServices : SqlHelper, IPictureServices
 				return _pictureCache;
 			}
 
-#pragma warning disable CS8603 // Possible null reference return.
 			return null;
-#pragma warning restore CS8603 // Possible null reference return.
 		}
 		catch (Exception ex)
 		{
 			_logger.Err(ex, $"Exception caught while deserializing {_pictureDbName}.");
-#pragma warning disable CS8603 // Possible null reference return.
 			return null;
-#pragma warning restore CS8603 // Possible null reference return.
 		}
 	}
 

@@ -37,9 +37,7 @@ namespace Donations.Lib.View
 				var answer = MessageBox.Show($"Is this the category \"{description}\" tax deductible?", "Import new caetgory",
 					MessageBoxButton.YesNo, MessageBoxImage.Question, defaultResult: MessageBoxResult.Yes);
 
-#pragma warning disable CS8601 // Possible null reference assignment.
 				Category cat = new Category() { Code = code, Description = description };
-#pragma warning restore CS8601 // Possible null reference assignment.
 
 				if (MessageBoxResult.No == answer)
 				{

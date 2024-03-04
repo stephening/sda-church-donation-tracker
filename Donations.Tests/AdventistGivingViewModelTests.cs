@@ -16,9 +16,7 @@ public class AdventistGivingViewModelTests : TestBase
 	{
 		// Arrange
 		AdventistGivingViewModel agvm = DependencyInjection.Resolve<AdventistGivingViewModel>();
-#pragma warning disable CS8601 // Possible null reference assignment.
 		agvm.BatchNote = param;
-#pragma warning restore CS8601 // Possible null reference assignment.
 		string? expected = param;
 
 		// Act
@@ -86,9 +84,7 @@ public class AdventistGivingViewModelTests : TestBase
 		var collection = obj.TransactionList;
 
 		// Assert
-#pragma warning disable CS8604 // Possible null reference argument.
 		Assert.Empty(collection);
-#pragma warning restore CS8604 // Possible null reference argument.
 	}
 
 	[Fact]

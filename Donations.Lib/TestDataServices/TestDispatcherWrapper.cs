@@ -16,9 +16,7 @@ public class TestDispatcherWrapper : IDispatcherWrapper
 		callback.Invoke();
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async Task Yield()
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 	}
 }

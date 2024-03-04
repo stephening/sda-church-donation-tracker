@@ -174,9 +174,7 @@ public partial class DonorViewModel : BaseViewModel
 	/// if a donor is double clicked on from the family list.
 	/// </summary>
 	/// <param name="donor">Donor object chosen from the DonorSelectionView modal dialog.</param>
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async Task SetDonor(Donor? donor)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		_dontCheckWhenChangingDonor = true;
 		SelectedDonor = donor;
@@ -234,9 +232,7 @@ public partial class DonorViewModel : BaseViewModel
 	/// <returns></returns>
 	private async Task<int?> CheckForCloseExistingMatch()
 	{
-#pragma warning disable CS8604 // Possible null reference argument.
 		ObservableCollection<Donor>? donors = await _donorServices.FilterDonors(last: SelectedDonor.LastName);
-#pragma warning restore CS8604 // Possible null reference argument.
 
 		if (0 == donors?.Count || null == SelectedDonor)
 			return null;
@@ -327,9 +323,7 @@ public partial class DonorViewModel : BaseViewModel
 				}
 
 				// refresh donor mappings in maint. tab
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 				_donorMapViewModel.Loading();
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
 				_updating = false;
 				Clear();
@@ -425,16 +419,12 @@ public partial class DonorViewModel : BaseViewModel
 				return collection;
 			}
 
-#pragma warning disable CS8604 // Possible null reference argument.
 			Donor newDonor = _reflectionHelpers.CopyModel<Donor>(SelectedDonor);
-#pragma warning restore CS8604 // Possible null reference argument.
 
 			if (newDonor.FamilyId != donorToMerge.FamilyId)
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.FamilyId} with {donorToMerge.FamilyId}?", "FamilyId different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.FamilyId = donorToMerge.FamilyId;
@@ -444,9 +434,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (newDonor.FamilyRelationship != donorToMerge.FamilyRelationship)
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.FamilyRelationship} with {donorToMerge.FamilyRelationship}?", "FamilyRelationship different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.FamilyRelationship = donorToMerge.FamilyRelationship;
@@ -456,9 +444,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (!Helper.Equal(newDonor.FirstName, donorToMerge.FirstName))
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.FirstName} with {donorToMerge.FirstName}?", "First name different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.FirstName = donorToMerge.FirstName;
@@ -468,9 +454,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (!Helper.Equal(newDonor.PreferredName, donorToMerge.PreferredName))
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.PreferredName} with {donorToMerge.PreferredName}?", "Preferred name different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.PreferredName = donorToMerge.PreferredName;
@@ -480,9 +464,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (!Helper.Equal(newDonor.LastName, donorToMerge.LastName))
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.LastName} with {donorToMerge.LastName}?", "Last name different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.LastName = donorToMerge.LastName;
@@ -492,9 +474,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (newDonor.Gender != donorToMerge.Gender)
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.Gender} with {donorToMerge.Gender}?", "Gender different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.Gender = donorToMerge.Gender;
@@ -504,9 +484,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (!Helper.Equal(newDonor.Email, donorToMerge.Email))
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.Email} with {donorToMerge.Email}?", "Email different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.Email = donorToMerge?.Email;
@@ -516,9 +494,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (!Helper.Equal(newDonor.Email2, donorToMerge.Email2))
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.Email2} with {donorToMerge.Email2}?", "Email2 different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.Email2 = donorToMerge.Email2;
@@ -528,9 +504,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (!Helper.Equal(newDonor.HomePhone, donorToMerge.HomePhone))
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.HomePhone} with {donorToMerge.HomePhone}?", "HomePhone different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.HomePhone = donorToMerge?.HomePhone;
@@ -540,9 +514,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (!Helper.Equal(newDonor.MobilePhone, donorToMerge.MobilePhone))
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.MobilePhone} with {donorToMerge.MobilePhone}?", "MobilePhone different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.MobilePhone = donorToMerge.MobilePhone;
@@ -552,9 +524,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (!Helper.Equal(newDonor.WorkPhone, donorToMerge.WorkPhone))
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.WorkPhone} with {donorToMerge.WorkPhone}?", "WorkPhone different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.WorkPhone = donorToMerge.WorkPhone;
@@ -564,9 +534,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (newDonor.AddressType != donorToMerge.AddressType)
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.AddressType} with {donorToMerge.AddressType}?", "AddressType different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.AddressType = donorToMerge.AddressType;
@@ -576,9 +544,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (!Helper.Equal(newDonor.Address, donorToMerge.Address))
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.Address} with {donorToMerge.Address}?", "Address different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.Address = donorToMerge?.Address;
@@ -588,9 +554,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (!Helper.Equal(newDonor.Address2, donorToMerge.Address2))
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.Address2} with {donorToMerge.Address2}?", "Address2 different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.Address2 = donorToMerge?.Address2;
@@ -600,9 +564,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (!Helper.Equal(newDonor.City, donorToMerge.City))
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.City} with {donorToMerge.City}?", "City different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.City = donorToMerge?.City;
@@ -612,9 +574,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (!Helper.Equal(newDonor.State, donorToMerge.State, eFlags.State))
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.State} with {donorToMerge.State}?", "State different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.State = donorToMerge?.State;
@@ -624,9 +584,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (!Helper.Equal(newDonor.Zip, donorToMerge.Zip, eFlags.Length, len: 5))
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.Zip} with {donorToMerge.Zip}?", "Zip different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.Zip = donorToMerge?.Zip;
@@ -636,9 +594,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (!Helper.Equal(newDonor.Country, donorToMerge.Country))
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.Country} with {donorToMerge.Country}?", "Country different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.Country = donorToMerge?.Country;
@@ -648,9 +604,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (newDonor.AltAddressType != donorToMerge.AltAddressType)
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.AltAddressType} with {donorToMerge.AltAddressType}?", "AltAddressType different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.AltAddressType = donorToMerge?.AltAddressType;
@@ -660,9 +614,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (!Helper.Equal(newDonor.AltAddress, donorToMerge.AltAddress))
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.AltAddress} with {donorToMerge.AltAddress}?", "AltAddress different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.AltAddress = donorToMerge?.AltAddress;
@@ -672,9 +624,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (!Helper.Equal(newDonor.AltAddress2, donorToMerge.AltAddress2))
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.AltAddress2} with {donorToMerge.AltAddress2}?", "AltAddress2 different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.AltAddress2 = donorToMerge?.AltAddress2;
@@ -684,9 +634,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (!Helper.Equal(newDonor.AltCity, donorToMerge.AltCity))
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.AltCity} with {donorToMerge.AltCity}?", "AltCity different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.AltCity = donorToMerge?.AltCity;
@@ -696,9 +644,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (!Helper.Equal(newDonor.AltState, donorToMerge.AltState, eFlags.State))
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.AltState} with {donorToMerge.AltState}?", "AltState different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.AltState = donorToMerge?.AltState;
@@ -708,9 +654,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (!Helper.Equal(newDonor.AltZip, donorToMerge.AltZip, eFlags.Length, len: 5))
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.AltZip} with {donorToMerge.AltZip}?", "AltZip different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.AltZip = donorToMerge?.AltZip;
@@ -720,9 +664,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (!Helper.Equal(newDonor.AltCountry, donorToMerge.AltCountry))
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.AltCountry} with {donorToMerge.AltCountry}?", "AltCountry different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.AltCountry = donorToMerge?.AltCountry;
@@ -732,9 +674,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (!Helper.Equal(newDonor.Birthday, donorToMerge.Birthday, eFlags.Date))
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.Birthday} with {donorToMerge.Birthday}?", "Birthday different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.Birthday = donorToMerge?.Birthday;
@@ -744,9 +684,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (!Helper.Equal(newDonor.Baptism, donorToMerge.Baptism, eFlags.Date))
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.Baptism} with {donorToMerge.Baptism}?", "Baptism different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.Baptism = donorToMerge?.Baptism;
@@ -756,9 +694,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (!Helper.Equal(newDonor.Deathday, donorToMerge.Deathday, eFlags.Date))
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.Deathday} with {donorToMerge.Deathday}?", "Deathday different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.Deathday = donorToMerge?.Deathday;
@@ -768,9 +704,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (newDonor.GroupGiving != donorToMerge.GroupGiving)
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.GroupGiving} with {donorToMerge.GroupGiving}?", "GroupGiving different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.GroupGiving = donorToMerge?.GroupGiving;
@@ -780,9 +714,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (newDonor.ChurchMember != donorToMerge.ChurchMember)
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.ChurchMember} with {donorToMerge.ChurchMember}?", "ChurchMember different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.ChurchMember = donorToMerge?.ChurchMember;
@@ -792,9 +724,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (newDonor.MaritalStatus != donorToMerge.MaritalStatus)
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.MaritalStatus} with {donorToMerge.MaritalStatus}?", "MaritalStatus different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.MaritalStatus = donorToMerge?.MaritalStatus;
@@ -804,9 +734,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (!Helper.Equal(newDonor.Notes, donorToMerge.Notes))
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.Notes} with {donorToMerge.Notes}?", "Notes different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.Notes = donorToMerge?.Notes;
@@ -816,9 +744,7 @@ public partial class DonorViewModel : BaseViewModel
 			if (!Helper.Equal(newDonor.ActiveGroups, donorToMerge.ActiveGroups))
 			{
 				var ret = MessageBox.Show($"Do you wish to replace {newDonor.ActiveGroups} with {donorToMerge.ActiveGroups}?", "ActiveGroups different", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-#pragma warning disable CS8603 // Possible null reference return.
 				if (MessageBoxResult.Cancel == ret) return null;
-#pragma warning restore CS8603 // Possible null reference return.
 				if (MessageBoxResult.Yes == ret)
 				{
 					newDonor.ActiveGroups = donorToMerge?.ActiveGroups;
@@ -834,9 +760,7 @@ public partial class DonorViewModel : BaseViewModel
 			await UpdateDonor();
 		}
 
-#pragma warning disable CS8603 // Possible null reference return.
 		return null;
-#pragma warning restore CS8603 // Possible null reference return.
 	}
 
 	/// <summary>
@@ -927,9 +851,7 @@ public partial class DonorViewModel : BaseViewModel
 	/// This method is called if a new donor is selected for this donor Form view.
 	/// </summary>
 	/// <param name="donorId"></param>
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async Task ChooseDonor(int donorId)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		_dontCheckWhenChangingDonor = true;
 

@@ -145,9 +145,7 @@ public partial class AGCategoryResolutionViewModel : BaseViewModel
 
 		if (CategoryResolutionComplete == Visibility.Visible && _categoriesAdded)
 		{
-#pragma warning disable CS8604 // Possible null reference argument.
 			await _categoryServices.SaveCategories(_categoryServices.CatList, true);
-#pragma warning restore CS8604 // Possible null reference argument.
 		}
 	}
 
@@ -293,17 +291,13 @@ public partial class AGCategoryResolutionViewModel : BaseViewModel
 
 			if (null != TransactionList)
 			{
-#pragma warning disable CS8629 // Nullable value type may be null.
 				CategoryResolutionLoop(_txIdx.Value);
-#pragma warning restore CS8629 // Nullable value type may be null.
 			}
 		});
 
 		if (CategoryResolutionComplete == Visibility.Visible && _categoriesAdded)
 		{
-#pragma warning disable CS8604 // Possible null reference argument.
 			await _categoryServices.SaveCategories(_categoryServices.CatList, true);
-#pragma warning restore CS8604 // Possible null reference argument.
 		}
 	}
 }

@@ -120,9 +120,7 @@ namespace Donations.Lib.View
 					if (mergeFrom != null)
 					{
 						var collection = await _viewModel?.MergeDonor(mergeFrom);
-#pragma warning disable CS8604 // Possible null reference argument.
 						ConfirmDonorMergeView view = _confirmDonorMergeViewFactory(_viewModel?.SelectedDonor, mergeFrom, collection);
-#pragma warning restore CS8604 // Possible null reference argument.
 						bool? resp = view.ShowDialog();
 						if (true == resp)
 						{

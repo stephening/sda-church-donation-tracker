@@ -43,8 +43,6 @@ public class EnvelopeDesignViewModelTests : TestBase
 		await obj.SaveChanges();
 
 		// Assert again
-#pragma warning disable CS8604 // Possible null reference argument.
 		Assert.Empty(titheEnvelopeServices.TitheEnvelopeDesign);
-#pragma warning restore CS8604 // Possible null reference argument.
 	}
 }

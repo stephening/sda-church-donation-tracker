@@ -9,9 +9,7 @@ namespace Donations.Lib.Model;
 /// </summary>
 public class EnvelopeEntry
 {
-#pragma warning disable CS8601 // Possible null reference assignment.
 	static private readonly ICategoryServices _categoryServices = DependencyInjection.CategoryServices;
-#pragma warning restore CS8601 // Possible null reference assignment.
 	/// <summary>
 	/// The Code property will contain the numeric value of the category code.
 	/// </summary>

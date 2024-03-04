@@ -20,9 +20,7 @@ namespace Donations.Lib.View
 		{
 			InitializeComponent();
 
-#pragma warning disable CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
 			_timer.Tick += new EventHandler(Timer_Tick);
-#pragma warning restore CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
 			_timer.Interval = new TimeSpan(0, 0, 1);
 		}
 
@@ -151,9 +149,7 @@ namespace Donations.Lib.View
 			// we do this rather than just depend on normal binding because this will often
 			// be the last entry before submit and the submit won't be enabled until leaving
 			// this field to trigger the binding
-#pragma warning disable CS8604 // Possible null reference argument.
 			_viewModel?.CheckNumberChanged((sender as TextBox)?.Text);
-#pragma warning restore CS8604 // Possible null reference argument.
 		}
 
 		private void EnvelopeBody_LostFocus(object sender, RoutedEventArgs e)

@@ -70,9 +70,7 @@ namespace Donations.Lib.View
 
 		private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
 		{
-#pragma warning disable CS8604 // Possible null reference argument.
 			_viewModel.PasswordChanged(sender as PasswordBox);
-#pragma warning restore CS8604 // Possible null reference argument.
 		}
 	}
 }

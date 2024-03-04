@@ -30,9 +30,7 @@ public class TestDataPictureServices : IPictureServices
 		return _picture;
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async Task<int> SaveLogo(Picture picture)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		throw new NotImplementedException();
 	}

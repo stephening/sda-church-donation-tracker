@@ -427,16 +427,12 @@ public class Helper
 				return (T)child;
 			else
 			{
-#pragma warning disable CS8604 // Possible null reference argument.
 				T childOfChild = FindVisualChild<T>(child);
-#pragma warning restore CS8604 // Possible null reference argument.
 				if (childOfChild != null)
 					return childOfChild;
 			}
 		}
-#pragma warning disable CS8603 // Possible null reference return.
 		return null;
-#pragma warning restore CS8603 // Possible null reference return.
 	}
 
 	public static DataGridCell GetCell(DataGrid dataGrid, DataGridRow rowContainer, int column)
@@ -462,14 +458,10 @@ public class Helper
 					dataGrid.ScrollIntoView(rowContainer, dataGrid.Columns[column]);
 					cell = presenter.ItemContainerGenerator.ContainerFromIndex(column) as DataGridCell;
 				}
-#pragma warning disable CS8603 // Possible null reference return.
 				return cell;
-#pragma warning restore CS8603 // Possible null reference return.
 			}
 		}
-#pragma warning disable CS8603 // Possible null reference return.
 		return null;
-#pragma warning restore CS8603 // Possible null reference return.
 	}
 
 	public static void SelectCellByIndex(DataGrid dataGrid, int rowIndex, int columnIndex)

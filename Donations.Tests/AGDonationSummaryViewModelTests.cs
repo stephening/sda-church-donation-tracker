@@ -38,9 +38,7 @@ public class AGDonationSummaryViewModelTests : TestBase
 	{
 		// Arrange
 		AGDonationSummaryViewModel obj = DependencyInjection.Resolve<AGDonationSummaryViewModel>();
-#pragma warning disable CS8601 // Possible null reference assignment.
 		obj.BatchDate = param;
-#pragma warning restore CS8601 // Possible null reference assignment.
 
 		// Act
 		string? actual = obj.BatchDate;
@@ -223,25 +221,15 @@ public class AGDonationSummaryViewModelTests : TestBase
 			string firstName = txListCopy[i].FirstName;
 			string lastName = txListCopy[i].LastName;
 
-#pragma warning disable CS8604 // Possible null reference argument.
 			if (donorMapServices.AGDonorMap.ContainsKey(txListCopy[i].DonorHash))
 			{
-#pragma warning disable CS8604 // Possible null reference argument.
 				firstName = donorMapServices.AGDonorMap[txListCopy[i].DonorHash].FirstName;
-#pragma warning restore CS8604 // Possible null reference argument.
-#pragma warning disable CS8604 // Possible null reference argument.
 				lastName = donorMapServices.AGDonorMap[txListCopy[i].DonorHash].LastName;
-#pragma warning restore CS8604 // Possible null reference argument.
 			}
-#pragma warning restore CS8604 // Possible null reference argument.
 			var donor = donorServices.GetDonorById(donations[i].DonorId);
 			Assert.Equal(donor.LastName, lastName);
 			Assert.Equal(donor.FirstName, firstName);
-#pragma warning disable CS8604 // Possible null reference argument.
-#pragma warning disable CS8604 // Possible null reference argument.
 			Assert.Equal(DateOnly.Parse(donations[i].Date), DateOnly.Parse(txListCopy[i].TransactionDate));
-#pragma warning restore CS8604 // Possible null reference argument.
-#pragma warning restore CS8604 // Possible null reference argument.
 			Assert.Equal(donations[i].TransactionNumber, txListCopy[i].TransactionId);
 			Assert.Equal(donations[i].Method, enumMethod.AdventistGiving);
 			Assert.Equal(donations[i].Value, txListCopy[i].Amount);

@@ -22,36 +22,28 @@ public partial class PrintPreviewViewModel : ObservableObject
 	private string _selectedFont;
 	partial void OnSelectedFontChanged(string value)
 	{
-#pragma warning disable CS8604 // Possible null reference argument.
 		if (null != _renderAction) _renderAction(_doc, SelectedFont, SelectedSize, (8.5 - LeftMargin - OtherMargins) * PrintOptionsView._dpi);
-#pragma warning restore CS8604 // Possible null reference argument.
 	}
 
 	[ObservableProperty]
 	private double _selectedSize;
 	partial void OnSelectedSizeChanged(double value)
 	{
-#pragma warning disable CS8604 // Possible null reference argument.
 		if (null != _renderAction) _renderAction(_doc, SelectedFont, SelectedSize, (8.5 - LeftMargin - OtherMargins) * PrintOptionsView._dpi);
-#pragma warning restore CS8604 // Possible null reference argument.
 	}
 
 	[ObservableProperty]
 	private double _leftMargin;
 	partial void OnLeftMarginChanged(double value)
 	{
-#pragma warning disable CS8604 // Possible null reference argument.
 		if (null != _renderAction) _renderAction(_doc, SelectedFont, SelectedSize, (8.5 - LeftMargin - OtherMargins) * PrintOptionsView._dpi);
-#pragma warning restore CS8604 // Possible null reference argument.
 	}
 
 	[ObservableProperty]
 	private double _otherMargins;
 	partial void OnOtherMarginsChanged(double value)
 	{
-#pragma warning disable CS8604 // Possible null reference argument.
 		if (null != _renderAction) _renderAction(_doc, SelectedFont, SelectedSize, (8.5 - LeftMargin - OtherMargins) * PrintOptionsView._dpi);
-#pragma warning restore CS8604 // Possible null reference argument.
 	}
 
 	[RelayCommand]
@@ -77,9 +69,7 @@ public partial class PrintPreviewViewModel : ObservableObject
 		}
 	}
 
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 	public PrintPreviewViewModel(
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 		IIndividualReportServices individualReportServices,
 		IPrintSettingsServices printSettingsServices)
 	{

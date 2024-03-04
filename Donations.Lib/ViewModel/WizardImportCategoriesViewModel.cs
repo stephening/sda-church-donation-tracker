@@ -40,9 +40,7 @@ public partial class WizardImportCategoriesViewModel : ObservableObject
 	/// The constructor sets the CollectionViewSource for the imported categories. And it
 	/// initializes the SaveCmd to its handler.
 	/// </summary>
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 	public WizardImportCategoriesViewModel(
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 		IFileSystem fileSystem,
 		ICategoryServices categoryServices
 	)
@@ -87,9 +85,7 @@ public partial class WizardImportCategoriesViewModel : ObservableObject
 		{
 			var totalsize = reader.BaseStream.Length;
 			string? line = line = reader.ReadLine(); // read column headers
-#pragma warning disable CS8604 // Possible null reference argument.
 			var headers = Regex.Split(line, ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-#pragma warning restore CS8604 // Possible null reference argument.
 			var columns = new Dictionary<string, int>();
 
 			for (int i = 0; i < headers?.Length; i++)

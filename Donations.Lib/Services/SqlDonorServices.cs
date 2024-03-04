@@ -46,9 +46,7 @@ public class SqlDonorServices : SqlHelper, IDonorServices
 		catch (Exception ex)
 		{
 			_logger.Err(ex, $"Exception caught while deserializing {_donorsDbName}.");
-#pragma warning disable CS8603 // Possible null reference return.
 			return null;
-#pragma warning restore CS8603 // Possible null reference return.
 		}
 	}
 	public async Task<string?> SaveDonors(ObservableCollection<Donor> donors, bool force = false, Action<long, long>? progUpdate = null)
@@ -104,9 +102,7 @@ public class SqlDonorServices : SqlHelper, IDonorServices
 		catch (Exception ex)
 		{
 			_logger.Err(ex, $"Exception caught while getting filtered list from {_donorsDbName}.");
-#pragma warning disable CS8603 // Possible null reference return.
 			return null;
-#pragma warning restore CS8603 // Possible null reference return.
 		}
 	}
 
@@ -136,16 +132,12 @@ public class SqlDonorServices : SqlHelper, IDonorServices
 				}
 			}
 
-#pragma warning disable CS8603 // Possible null reference return.
 			return null;
-#pragma warning restore CS8603 // Possible null reference return.
 		}
 		catch (Exception ex)
 		{
 			_logger.Err(ex, $"Exception caught while getting donors with last name {last} from {_donorsDbName}.");
-#pragma warning disable CS8603 // Possible null reference return.
 			return null;
-#pragma warning restore CS8603 // Possible null reference return.
 		}
 	}
 	public Donor GetDonorById(int id)
@@ -160,16 +152,12 @@ public class SqlDonorServices : SqlHelper, IDonorServices
 				return ret[0];
 			}
 
-#pragma warning disable CS8603 // Possible null reference return.
 			return null;
-#pragma warning restore CS8603 // Possible null reference return.
 		}
 		catch (Exception ex)
 		{
 			_logger.Err(ex, $"Exception caught while getting donor by Id {id} from {_donorsDbName}.");
-#pragma warning disable CS8603 // Possible null reference return.
 			return null;
-#pragma warning restore CS8603 // Possible null reference return.
 		}
 	}
 
@@ -185,16 +173,12 @@ public class SqlDonorServices : SqlHelper, IDonorServices
 				return ret[0];
 			}
 
-#pragma warning disable CS8603 // Possible null reference return.
 			return null;
-#pragma warning restore CS8603 // Possible null reference return.
 		}
 		catch (Exception ex)
 		{
 			_logger.Err(ex, $"Exception caught while getting donor by Id {id} from {_donorsDbName}.");
-#pragma warning disable CS8603 // Possible null reference return.
 			return null;
-#pragma warning restore CS8603 // Possible null reference return.
 		}
 	}
 
@@ -210,9 +194,7 @@ public class SqlDonorServices : SqlHelper, IDonorServices
 		catch (Exception ex)
 		{
 			_logger.Err(ex, $"Exception caught getting donor by familyId {id} from {_donorsDbName}.");
-#pragma warning disable CS8603 // Possible null reference return.
 			return null;
-#pragma warning restore CS8603 // Possible null reference return.
 		}
 	}
 
@@ -223,7 +205,6 @@ public class SqlDonorServices : SqlHelper, IDonorServices
 			// write the new donor record
 			int id = await Add<Donor>(donor, _donorsDbName);
 
-#pragma warning disable CS8601 // Possible null reference assignment.
 			DonorChange donorChange = new DonorChange()
 			{
 				DonorId = id,
@@ -232,12 +213,9 @@ public class SqlDonorServices : SqlHelper, IDonorServices
 				WhenChanged = DateTime.Now,
 				WhoChanged = WindowsIdentity.GetCurrent().Name
 			};
-#pragma warning restore CS8601 // Possible null reference assignment.
 
 			// don't need to await this
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 			_donorChangeServices.Save(donorChange);
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
 			return id;
 		}
@@ -272,7 +250,6 @@ public class SqlDonorServices : SqlHelper, IDonorServices
 				return;
 			}
 
-#pragma warning disable CS8601 // Possible null reference assignment.
 			DonorChange donorChange = new DonorChange()
 			{
 				DonorId = donor.Id,
@@ -281,12 +258,9 @@ public class SqlDonorServices : SqlHelper, IDonorServices
 				WhenChanged = DateTime.Now,
 				WhoChanged = WindowsIdentity.GetCurrent().Name
 			};
-#pragma warning restore CS8601 // Possible null reference assignment.
 
 			// don't need to await this
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 			_donorChangeServices.Save(donorChange);
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
 			// update the donor record by id
 			await Update<Donor>(donor, _donorsDbName, donor.Id);

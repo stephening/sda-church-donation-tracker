@@ -34,9 +34,7 @@ public partial class MainWindow : Window
 		_helpView = helpView;
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	private async void Window_Loaded(object sender, RoutedEventArgs e)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		if (SqlHelper.DbKey != "production")
 		{
@@ -67,9 +65,7 @@ public partial class MainWindow : Window
 		Settings.Save();
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		SaveSettings();
 		_helpView.ForceClose();

@@ -169,9 +169,7 @@ public partial class GeneralViewModel : BaseViewModel
 		_delayedUpdateSettingsTimer.Interval = new TimeSpan(0, 0, 2);
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public new async Task Loading()
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		OrganizationLogo = _pictureServices.GetLogo();
 		_appSettings = _appSettingsServices.Get();
@@ -180,9 +178,7 @@ public partial class GeneralViewModel : BaseViewModel
 
 	public new async Task Leaving()
 	{
-#pragma warning disable CS8604 // Possible null reference argument.
 		await _pictureServices.SaveLogo(OrganizationLogo);
-#pragma warning restore CS8604 // Possible null reference argument.
 		if (string.IsNullOrEmpty(_passwordBox.Password))
 		{
 			Persist.Default.EncryptedEmailPassword = "";
@@ -211,9 +207,7 @@ public partial class GeneralViewModel : BaseViewModel
 		}
 		OrganizationLogo.Image = _fileSystem.File.ReadAllBytes(logoFile);
 
-#pragma warning disable CS8604 // Possible null reference argument.
 		_pictureServices.SaveLogo(_organizationLogo);
-#pragma warning restore CS8604 // Possible null reference argument.
 
 		OnPropertyChanged(nameof(OrganizationLogo));
 	}

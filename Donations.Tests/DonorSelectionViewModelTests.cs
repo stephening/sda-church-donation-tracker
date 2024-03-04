@@ -72,9 +72,7 @@ public class DonorSelectionViewModelTest : TestBase
 	[InlineData("", "jo", 4)]
 	[InlineData("d", "john", 2)]
 	[InlineData("", "johnn", 1)]
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async void Filter_TextChanged(string last, string first, int expected)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		// Arrange
 		IDonorServices donorServices = DependencyInjection.Resolve<IDonorServices>();

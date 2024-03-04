@@ -23,14 +23,12 @@ public partial class DonationBrowserViewModel : BaseTimeWindowViewModel
 	private ObservableCollection<Donation>? _donations;
 	private string? _date1;
 	private string? _date2;
-#pragma warning disable CS8603 // Possible null reference return.
 	private string TimeWindow => (
 		DateFilterOption == enumDateFilterOptions.SelectYear ? FilterYear
 		: (DateFilterOption == enumDateFilterOptions.CurrentYear ? _thisYear
 		: (DateFilterOption == enumDateFilterOptions.PreviousYear ? _prevYear
 		: (DateFilterOption == enumDateFilterOptions.DateRange ? $"{_date1} - {_date2}" : "")))
 		);
-#pragma warning restore CS8603 // Possible null reference return.
 
 	public DonationBrowserViewModel(
 		IDispatcherWrapper dispatcherWrapper,
@@ -49,9 +47,7 @@ public partial class DonationBrowserViewModel : BaseTimeWindowViewModel
 		CategorySource.Filter += new FilterEventHandler(CategoryFilter);
 		DonationSource.Filter += new FilterEventHandler(DonationFilter);
 
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 		TimeWindowChanged();
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 	}
 
 	[ObservableProperty]
@@ -93,9 +89,7 @@ public partial class DonationBrowserViewModel : BaseTimeWindowViewModel
 	public CategoryReviewView CreateCategoryReviewView(CategorySum categorySum)
 	{
 		var res = _donations?.Where(x => categorySum.Category == x.Category);
-#pragma warning disable CS8604 // Possible null reference argument.
 		return _categoryReviewFactory(categorySum, enumCategoryReviewType.Donation, new ObservableCollection<Donation>(res), TimeWindow);
-#pragma warning restore CS8604 // Possible null reference argument.
 	}
 
 
@@ -145,18 +139,13 @@ public partial class DonationBrowserViewModel : BaseTimeWindowViewModel
 				break;
 		}
 
-#pragma warning disable CS8604 // Possible null reference argument.
-#pragma warning disable CS8604 // Possible null reference argument.
 		_donations = await _donationServices.FilterDonationsByDate(DateFilterOption, _date1, _date2);
-#pragma warning restore CS8604 // Possible null reference argument.
-#pragma warning restore CS8604 // Possible null reference argument.
 		DonationSource.Source = _donations;
 
 		_categories.Clear();
 		_categorySumDict.Clear();
 		foreach (var donation in _donations)
 		{
-#pragma warning disable CS8604 // Possible null reference argument.
 			if (_categorySumDict.ContainsKey(donation.Category))
 			{
 				_categorySumDict[donation.Category].Sum += donation.Value;
@@ -182,7 +171,6 @@ public partial class DonationBrowserViewModel : BaseTimeWindowViewModel
 				_categories.Add(Cat);
 				_categorySumDict[Cat.Category] = Cat;
 			}
-#pragma warning restore CS8604 // Possible null reference argument.
 			await _dispatcherWrapper.Yield();
 		}
 
@@ -200,9 +188,7 @@ public partial class DonationBrowserViewModel : BaseTimeWindowViewModel
 	/// </summary>
 	public void CategoryTextChanged()
 	{
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 		SelectedCategory = null;
-#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 		CategorySource.View.Refresh();
 	}
 
@@ -231,9 +217,7 @@ public partial class DonationBrowserViewModel : BaseTimeWindowViewModel
 	/// </summary>
 	public void DonationTextChanged()
 	{
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 		SelectedCategory = null;
-#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 		DonationSource.View.Refresh();
 	}
 
@@ -269,13 +253,9 @@ public partial class DonationBrowserViewModel : BaseTimeWindowViewModel
 		}
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async Task<DonationPopupView> CreateDonationPopupView(int donationId)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
-#pragma warning disable CS8604 // Possible null reference argument.
 		Donation donation = _donations.Where(x => x.Id == donationId).First();
-#pragma warning restore CS8604 // Possible null reference argument.
 		var sameTime = _donations.Where(x =>
 			x.Method == enumMethod.AdventistGiving ? x.TransactionNumber == donation.TransactionNumber
 			: x.Name == donation.Name && x.Date == donation.Date);

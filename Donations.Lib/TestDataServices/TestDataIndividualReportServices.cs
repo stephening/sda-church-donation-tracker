@@ -6,13 +6,9 @@ namespace Donations.Lib.TestDataServices;
 
 public class TestDataIndividualReportServices : IIndividualReportServices
 {
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 	private IndividualReport _individualReport;
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async Task<IndividualReport?> Get()
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		_individualReport = new IndividualReport()
 		{
@@ -70,9 +66,7 @@ The Church Treasurer
 		return _individualReport;
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async Task Save(IndividualReport individualReport)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 	}
 }

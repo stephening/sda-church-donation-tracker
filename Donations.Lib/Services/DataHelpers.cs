@@ -73,9 +73,7 @@ public class DataHelpers : IDataHelpers
 		return ret;
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async Task<ObservableCollection<T>>? DeserializeXmlAsync<T>(string path)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		ObservableCollection<T>? ret;
 
@@ -100,9 +98,7 @@ public class DataHelpers : IDataHelpers
 		return ret;
 	}
 
-#pragma warning disable CS8714 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'notnull' constraint.
 	public void SerializeJson<Tkey, Tvalue>(string path, Dictionary<Tkey, Tvalue>? collection, bool prettyprint = false)
-#pragma warning restore CS8714 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'notnull' constraint.
 	{
 		if (null == collection)
 		{
@@ -117,31 +113,21 @@ public class DataHelpers : IDataHelpers
 		}
 	}
 
-#pragma warning disable CS8714 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'notnull' constraint.
 	public Dictionary<Tkey, Tvalue> DeserializeJson<Tkey, Tvalue>(string path)
-#pragma warning restore CS8714 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'notnull' constraint.
 	{
-#pragma warning disable CS8714 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'notnull' constraint.
 		Dictionary<Tkey, Tvalue>? ret;
-#pragma warning restore CS8714 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'notnull' constraint.
 
 		if (!string.IsNullOrEmpty(path))
 		{
 			using var reader = _fileSystem.File.OpenText(path);
 			{
 				var jstring = reader.ReadLine();
-#pragma warning disable CS8604 // Possible null reference argument.
-#pragma warning disable CS8714 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'notnull' constraint.
 				ret = JsonSerializer.Deserialize<Dictionary<Tkey, Tvalue>>(jstring);
-#pragma warning restore CS8714 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'notnull' constraint.
-#pragma warning restore CS8604 // Possible null reference argument.
 			}
 		}
 		else
 		{
-#pragma warning disable CS8714 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'notnull' constraint.
 			ret = new Dictionary<Tkey, Tvalue>();
-#pragma warning restore CS8714 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'notnull' constraint.
 		}
 
 		if (null == ret)

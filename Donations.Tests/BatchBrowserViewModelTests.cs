@@ -118,9 +118,7 @@ public class BatchBrowserViewModelTests : TestBase
 		// Arrange
 		var td = new TestData();
 		BatchBrowserViewModel obj = DependencyInjection.Resolve<BatchBrowserViewModel>();
-#pragma warning disable CS8604 // Possible null reference argument.
 		var expected = new ObservableCollection<Donation>(td.DonationList.Where(x => x.BatchId == 1));
-#pragma warning restore CS8604 // Possible null reference argument.
 		bool found = false;
 
 		// Act
@@ -158,9 +156,7 @@ public class BatchBrowserViewModelTests : TestBase
 	{
 		// Arrange
 		var td = new TestData();
-#pragma warning disable CS8604 // Possible null reference argument.
 		var batchesIn2023 = td.BatchList.Where(x => x.Date.StartsWith("2023"));
-#pragma warning restore CS8604 // Possible null reference argument.
 		BatchBrowserViewModel obj = DependencyInjection.Resolve<BatchBrowserViewModel>();
 		obj.DateFilterOption = enumDateFilterOptions.SelectYear;
 		obj.FilterYear = "2023";
@@ -170,11 +166,7 @@ public class BatchBrowserViewModelTests : TestBase
 		// Act
 		// call private Timer_Tick because it is a Dispatcher timer callback that get's created in the constructor, but since there is no Dispatcher, the callback doesn't run
 		// it needs to run to enable the Batch filtering in the Loading() function
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 		t.InvokeMember("Timer_Tick", BindingFlags.InvokeMethod | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance, null, obj, new object[] { null, null });
-#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
-#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 		await obj.Loading();
 
 		// Assert
@@ -209,13 +201,9 @@ public class BatchBrowserViewModelTests : TestBase
 		var td = new TestData();
 		var start = DateOnly.Parse(startDate).ToString("yyyy/MM/dd");
 		var end = DateOnly.Parse(endDate).ToString("yyyy/MM/dd");
-#pragma warning disable CS8604 // Possible null reference argument.
 		var batchesInRange = td.BatchList.Where(x => (0 >= string.Compare(start, x.Date)) && (0 <= string.Compare(end, x.Date))).ToList();
-#pragma warning restore CS8604 // Possible null reference argument.
 		var batchServices = DependencyInjection.Resolve<IBatchServices>();
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 		batchServices.SaveBatches(new ObservableCollection<Batch>(batchesInRange));
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 		BatchBrowserViewModel obj = DependencyInjection.Resolve<BatchBrowserViewModel>();
 		Type t = typeof(BatchBrowserViewModel);
 		bool found = false;
@@ -223,11 +211,7 @@ public class BatchBrowserViewModelTests : TestBase
 		// Act
 		// call private Timer_Tick because it is a Dispatcher timer callback that get's created in the constructor, but since there is no Dispatcher, the callback doesn't run
 		// it needs to run to enable the Batch filtering in the Loading() function
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 		t.InvokeMember("Timer_Tick", BindingFlags.InvokeMethod | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance, null, obj, new object[] { null, null });
-#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
-#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 		obj.DateFilterOption = enumDateFilterOptions.DateRange;
 		await obj.BatchListUpdated();
 

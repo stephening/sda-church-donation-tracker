@@ -19,30 +19,22 @@ public partial class CategoryReviewViewModelTests : TestBase
 		// Arrange
 		var td = new TestData();
 		var factory = DependencyInjection.Resolve<CategoryReviewView.Factory>();
-#pragma warning disable CS8604 // Possible null reference argument.
 		var donations = new ObservableCollection<Donation>(td.DonationList.Where(x => x.BatchId == batchId));
-#pragma warning restore CS8604 // Possible null reference argument.
 		CategorySum categorySum = new CategorySum()
 		{
 			Category = donations[0].Category
 		};
 		var filteredDonations = new ObservableCollection<Donation>(donations.Where(x => x.Category == categorySum.Category));
 		categorySum.Sum = filteredDonations.Sum(x => x.Value);
-#pragma warning disable CS8604 // Possible null reference argument.
 		CategoryReviewView obj = factory(categorySum, enumCategoryReviewType.Batch, filteredDonations, filteredDonations[0].Date);
-#pragma warning restore CS8604 // Possible null reference argument.
 		CategoryReviewViewModel vm = obj.DataContext as CategoryReviewViewModel;
 
 		// Assert
-#pragma warning disable CS8629 // Nullable value type may be null.
 		Assert.Equal(expected, Math.Round(vm.Sum.Value, 2));
-#pragma warning restore CS8629 // Nullable value type may be null.
 	}
 
 	[Fact]
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async void SetupNulls()
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		// Arrange
 		CategoryReviewViewModel obj = DependencyInjection.Resolve<CategoryReviewViewModel>();
@@ -61,9 +53,7 @@ public partial class CategoryReviewViewModelTests : TestBase
 	[InlineData("1 tithe")]
 	[InlineData("2 two")]
 	[InlineData("3 three")]
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async void Setup(string category)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		// Arrange
 		var td = new TestData();
@@ -71,9 +61,7 @@ public partial class CategoryReviewViewModelTests : TestBase
 		{
 			Category = category
 		};
-#pragma warning disable CS8604 // Possible null reference argument.
 		var filteredDonations = new ObservableCollection<Donation>(td.DonationList.Where(x => x.Category == categorySum.Category));
-#pragma warning restore CS8604 // Possible null reference argument.
 		categorySum.Sum = filteredDonations.Sum(x => x.Value);
 		CategoryReviewViewModel obj = DependencyInjection.Resolve<CategoryReviewViewModel>();
 		string expectedTimeWindowText = "Time window text";
@@ -85,9 +73,7 @@ public partial class CategoryReviewViewModelTests : TestBase
 		Assert.Equal(expectedTimeWindowText, obj.Date);
 		Assert.Equal(categorySum.Category, obj.CategoryDescription);
 		var actual_donations = obj.Source.Source as ObservableCollection<Donation>;
-#pragma warning disable CS8604 // Possible null reference argument.
 		Assert.Equal(categorySum.Sum, actual_donations.Sum(x => x.Value));
-#pragma warning restore CS8604 // Possible null reference argument.
 	}
 
 	[StaTheory]
@@ -102,9 +88,7 @@ public partial class CategoryReviewViewModelTests : TestBase
 		{
 			Category = category
 		};
-#pragma warning disable CS8604 // Possible null reference argument.
 		var filteredDonations = new ObservableCollection<Donation>(td.DonationList.Where(x => x.Category == categorySum.Category));
-#pragma warning restore CS8604 // Possible null reference argument.
 		categorySum.Sum = filteredDonations.Sum(x => x.Value);
 		CategoryReviewViewModel obj = DependencyInjection.Resolve<CategoryReviewViewModel>();
 		string expectedTimeWindowText = "Time window text";

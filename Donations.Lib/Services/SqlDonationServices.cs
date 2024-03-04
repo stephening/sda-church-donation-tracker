@@ -37,9 +37,7 @@ public class SqlDonationServices : SqlHelper, IDonationServices
 		catch (Exception ex)
 		{
 			_logger.Err(ex, $"Exception caught while deserializing {_donationsDbName}.");
-#pragma warning disable CS8603 // Possible null reference return.
 			return null;
-#pragma warning restore CS8603 // Possible null reference return.
 		}
 	}
 
@@ -73,9 +71,7 @@ public class SqlDonationServices : SqlHelper, IDonationServices
 		catch (Exception ex)
 		{
 			_logger.Err(ex, $"Exception caught while deserializing {_donationsDbName} by batchId.");
-#pragma warning disable CS8603 // Possible null reference return.
 			return null;
-#pragma warning restore CS8603 // Possible null reference return.
 		}
 	}
 
@@ -146,9 +142,7 @@ public class SqlDonationServices : SqlHelper, IDonationServices
 		catch (Exception ex)
 		{
 			_logger.Err(ex, $"Exception caught while deserializing {_donationsDbName} by donorId {id}.");
-#pragma warning disable CS8603 // Possible null reference return.
 			return null;
-#pragma warning restore CS8603 // Possible null reference return.
 		}
 	}
 
@@ -162,9 +156,7 @@ public class SqlDonationServices : SqlHelper, IDonationServices
 		catch (Exception ex)
 		{
 			_logger.Err(ex, $"Exception caught while deserializing {_donationsDbName} by donorIds.");
-#pragma warning disable CS8603 // Possible null reference return.
 			return null;
-#pragma warning restore CS8603 // Possible null reference return.
 		}
 	}
 
@@ -211,9 +203,7 @@ public class SqlDonationServices : SqlHelper, IDonationServices
 		catch (Exception ex)
 		{
 			_logger.Err(ex, $"Exception caught while deserializing {_donationsDbName} by dates.");
-#pragma warning disable CS8603 // Possible null reference return.
 			return null;
-#pragma warning restore CS8603 // Possible null reference return.
 		}
 	}
 
@@ -221,9 +211,7 @@ public class SqlDonationServices : SqlHelper, IDonationServices
 	{
 		try
 		{
-#pragma warning disable CS0168 // Variable is declared but never used
 			ObservableCollection<string>? ret;
-#pragma warning restore CS0168 // Variable is declared but never used
 
 			using IDbConnection conn = new SqlConnection(_connString);
 			{
@@ -235,9 +223,7 @@ public class SqlDonationServices : SqlHelper, IDonationServices
 		catch (Exception ex)
 		{
 			_logger.Err(ex, $"Exception caught getting batch years from {_donationsDbName}.");
-#pragma warning disable CS8603 // Possible null reference return.
 			return null;
-#pragma warning restore CS8603 // Possible null reference return.
 		}
 	}
 
@@ -255,9 +241,7 @@ public class SqlDonationServices : SqlHelper, IDonationServices
 		catch (Exception ex)
 		{
 			_logger.Err(ex, $"Exception caught getting earliest date from {_donationsDbName}.");
-#pragma warning disable CS8603 // Possible null reference return.
 			return null;
-#pragma warning restore CS8603 // Possible null reference return.
 		}
 	}
 
@@ -275,9 +259,7 @@ public class SqlDonationServices : SqlHelper, IDonationServices
 		catch (Exception ex)
 		{
 			_logger.Err(ex, $"Exception caught getting most recent date from {_donationsDbName}.");
-#pragma warning disable CS8603 // Possible null reference return.
 			return null;
-#pragma warning restore CS8603 // Possible null reference return.
 		}
 	}
 

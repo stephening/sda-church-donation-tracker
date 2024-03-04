@@ -173,9 +173,7 @@ public partial class EnvelopeDesignViewModel : BaseViewModel
 
 		HasChanges = false;
 
-#pragma warning disable CS8604 // Possible null reference argument.
 		await _titheEnvelopeServices.SaveTitheEnvelopeDesign(EnvelopeEntries, true);
-#pragma warning restore CS8604 // Possible null reference argument.
 	}
 
 	/// <summary>

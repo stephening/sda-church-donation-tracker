@@ -72,13 +72,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 	private ObservableCollection<NamedDonorReport>? _namedDonorReports;
 	private ObservableCollection<NamedDonorReport>? _mockRunCollection;
 
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 	public ReportsViewModel(
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 		IDispatcherWrapper dispatcherWrapper,
 		ILogger logger,
 		DonorModalView.Factory donorModalViewFactory,
@@ -108,9 +102,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 		_printSettingsServices = printSettingsServices;
 		_tableHelper = tableHelper;
 
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 		DatesUpdated();
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
 		CategorySumSource.Source = _categorySums;
 
@@ -133,9 +125,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 	private double _sum = 0;
 
 	[ObservableProperty]
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 	private string _selectedCategory = null;
-#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 
 	[ObservableProperty]
 	private bool _printPreviewEnabled = false;
@@ -162,9 +152,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 		if (enumReportOptions.AllPdf == value) ActionButtonText = value.GetDescription() + "...";
 		if (enumReportOptions.Email == value) ActionButtonText = value.GetDescription() + "...";
 		if (enumReportOptions.Print == value) ActionButtonText = value.GetDescription() + "...";
-#pragma warning disable CS8601 // Possible null reference assignment.
 		if (enumReportOptions.MockRun == value) ActionButtonText = value.GetDescription();
-#pragma warning restore CS8601 // Possible null reference assignment.
 
 		if (enumReportOptions.Individual != value)
 		{
@@ -182,9 +170,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 	private string _templateText;
 	partial void OnTemplateTextChanged(string value)
 	{
-#pragma warning disable CS8604 // Possible null reference argument.
 		_dispatcherWrapper.BeginInvoke(() => FormatLetter(_donor));
-#pragma warning restore CS8604 // Possible null reference argument.
 	}
 
 	public string? Name => _donor?.Name;
@@ -198,9 +184,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 	/// </summary>
 	partial void OnSelectedFontChanged(string? value)
 	{
-#pragma warning disable CS8604 // Possible null reference argument.
 		_dispatcherWrapper.BeginInvoke(() => FormatLetter(_donor));
-#pragma warning restore CS8604 // Possible null reference argument.
 	}
 
 	[ObservableProperty]
@@ -216,9 +200,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 			_doc.FontSize = value;
 		}
 
-#pragma warning disable CS8604 // Possible null reference argument.
 		_dispatcherWrapper.BeginInvoke(() => FormatLetter(_donor));
-#pragma warning restore CS8604 // Possible null reference argument.
 	}
 
 	[ObservableProperty]
@@ -328,7 +310,6 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 	/// </summary>
 	public new async Task Leaving()
 	{
-#pragma warning disable CS8601 // Possible null reference assignment.
 		PrintSettings settings = new PrintSettings()
 		{
 			PrintoutType = (int)enumPrintout.DonorReport,
@@ -337,7 +318,6 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 			LeftMargin = LeftMargin,
 			OtherMargins = OtherMargins
 		};
-#pragma warning restore CS8601 // Possible null reference assignment.
 		await _printSettingsServices.Save(settings);
 
 		_individualReport.TemplateText = TemplateText;
@@ -374,9 +354,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 				break;
 		}
 
-#pragma warning disable CS8604 // Possible null reference argument.
 		_donations = await _donationServices.FilterDonationsByDate(DateFilterOption, date, date2);
-#pragma warning restore CS8604 // Possible null reference argument.
 		if (null != _donations && 0 < _donations.Count)
 		{
 			DonationDetailsSource.Source = _donations;
@@ -385,9 +363,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 
 			ComputeSum();
 
-#pragma warning disable CS8604 // Possible null reference argument.
 			await FormatLetter(_donor);
-#pragma warning restore CS8604 // Possible null reference argument.
 		}
 
 		SelectionEnabled = true;
@@ -524,9 +500,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 				daterange = $"{FilterStartDate} - {FilterEndDate}";
 				break;
 		}
-#pragma warning disable CS8603 // Possible null reference return.
 		return daterange;
-#pragma warning restore CS8603 // Possible null reference return.
 	}
 
 	private async Task<string> GetName(Donor donor)
@@ -607,9 +581,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 		if (null != lines)
 		{
 			_doc.Blocks.Add(new Paragraph(new Run(lines + "\n") { FontFamily = new FontFamily(SelectedFont), FontSize = SelectedSize }));
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 			lines = null;
-#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 		}
 	}
 
@@ -686,9 +658,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 						{
 							table.Columns[i].Width = new GridLength(colsize[i] + 10, GridUnitType.Pixel);
 						}
-#pragma warning disable CS8601 // Possible null reference assignment.
 						CheckDumpParagraph(ref lines);
-#pragma warning restore CS8601 // Possible null reference assignment.
 						table.Margin = new Thickness(0);
 						_doc.Blocks.Add(table);
 						table = null;
@@ -792,16 +762,13 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 
 					if (null == table)
 					{
-#pragma warning disable CS8601 // Possible null reference assignment.
 						CheckDumpParagraph(ref lines);
-#pragma warning restore CS8601 // Possible null reference assignment.
 					}
 
 					BitmapImage img = new BitmapImage();
 					Picture picture = _pictureServices.GetLogo();
 					if (null != picture && null != picture.Image)
 					{
-#pragma warning disable CS8604 // Possible null reference argument.
 						using (MemoryStream memStream = new MemoryStream(_pictureServices.GetLogo()?.Image))
 						{
 							img.BeginInit();
@@ -810,7 +777,6 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 							img.EndInit();
 							img.Freeze();
 						}
-#pragma warning restore CS8604 // Possible null reference argument.
 
 						cellImage = new Image() { Source = img, Stretch = Stretch.Uniform, HorizontalAlignment = HorizontalAlignment.Left };
 
@@ -832,9 +798,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 				}
 				else if (line.Contains($"{{{enumMergeFields.TaxDeductibleTotal}}}"))
 				{
-#pragma warning disable CS8601 // Possible null reference assignment.
 					CheckDumpParagraph(ref lines);
-#pragma warning restore CS8601 // Possible null reference assignment.
 					var total = GetTotalParagraph(line.Split($"{{{enumMergeFields.TaxDeductibleTotal}}}"), deductibleTotal, true);
 					if (null != total)
 					{
@@ -845,9 +809,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 				{
 					if (null != deductibleDetails)
 					{
-#pragma warning disable CS8601 // Possible null reference assignment.
 						CheckDumpParagraph(ref lines);
-#pragma warning restore CS8601 // Possible null reference assignment.
 						_doc.Blocks.Add(deductibleDetails);
 					}
 				}
@@ -855,9 +817,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 				{
 					if (null != deductibleSums)
 					{
-#pragma warning disable CS8601 // Possible null reference assignment.
 						CheckDumpParagraph(ref lines);
-#pragma warning restore CS8601 // Possible null reference assignment.
 						_doc.Blocks.Add(deductibleSums);
 					}
 				}
@@ -865,9 +825,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 				{
 					if (null != nonDeductibleDetails)
 					{
-#pragma warning disable CS8601 // Possible null reference assignment.
 						CheckDumpParagraph(ref lines);
-#pragma warning restore CS8601 // Possible null reference assignment.
 						_doc.Blocks.Add(nonDeductibleDetails);
 					}
 				}
@@ -875,9 +833,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 				{
 					if (null != nonDeductibleSums)
 					{
-#pragma warning disable CS8601 // Possible null reference assignment.
 						CheckDumpParagraph(ref lines);
-#pragma warning restore CS8601 // Possible null reference assignment.
 						_doc.Blocks.Add(nonDeductibleSums);
 					}
 				}
@@ -885,9 +841,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 				{
 					if (0 < nonDeductibleTotal)
 					{
-#pragma warning disable CS8601 // Possible null reference assignment.
 						CheckDumpParagraph(ref lines);
-#pragma warning restore CS8601 // Possible null reference assignment.
 						var total = GetTotalParagraph(line.Split($"{{{enumMergeFields.NonDeductibleTotal}}}"), nonDeductibleTotal, false);
 						if (null != total)
 						{
@@ -933,9 +887,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 				}
 			}
 
-#pragma warning disable CS8601 // Possible null reference assignment.
 			CheckDumpParagraph(ref lines);
-#pragma warning restore CS8601 // Possible null reference assignment.
 		}
 
 		OnPropertyChanged(nameof(ActionEnabled));
@@ -953,7 +905,6 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 
 		foreach (Donation donation in DonationDetailsSource.View)
 		{
-#pragma warning disable CS8604 // Possible null reference argument.
 			if (_categorySumDict.ContainsKey(donation.Category))
 			{
 				_categorySumDict[donation.Category].Sum += donation.Value;
@@ -968,16 +919,13 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 				_categorySums.Add(sum);
 				_categorySumDict[sum.Category] = sum;
 			}
-#pragma warning restore CS8604 // Possible null reference argument.
 			_subTotal += donation.Value;
 		}
 
 		CategorySumSource.View.Refresh();
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	private async Task<string> GeneratePdf(bool tryEncrypt, Donor donor, string xpsFileName, string pdfFileName, PrintDialog pd, Thickness margins)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		using XpsDocument xpsDocument = new XpsDocument(xpsFileName, FileAccess.ReadWrite);
 		XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(xpsDocument);
@@ -1019,9 +967,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 	public async Task AllPdf(string folder, PrintDialog pd, Thickness margins)
 	{
 		Running = true;
-#pragma warning disable CS8604 // Possible null reference argument.
 		var DonorIds = _donations.Select(x => x.DonorId).Distinct().ToList();
-#pragma warning restore CS8604 // Possible null reference argument.
 		Dictionary<int, bool> donorDone = new Dictionary<int, bool>();
 		Total = DonorIds.Count;
 		Current = 0;
@@ -1037,8 +983,6 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 				Current++;
 				continue;
 			}
-
-			_doc.Blocks.Clear();
 
 			if (null != _givingGroup)
 				_givingGroup.ForEach(x => donorDone[x.Id] = true);
@@ -1067,9 +1011,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 		_todaysDate = DateTime.Now;
 
 		Running = true;
-#pragma warning disable CS8604 // Possible null reference argument.
 		_donorIds = _donations.Select(x => x.DonorId).Distinct().ToList();
-#pragma warning restore CS8604 // Possible null reference argument.
 		Dictionary<int, bool> donorDone = new Dictionary<int, bool>();
 		string? tmpFolder = _fileSystem!.Path.GetTempPath();
 		string? from = _appSettingsServices.Get().EmailAccount;
@@ -1098,9 +1040,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 			if (donorDone.ContainsKey(donorId) || DeferToPrimary(donor))
 			{
 				var groupNames = _givingGroup?.Select(x => x.Name);
-#pragma warning disable CS8604 // Possible null reference argument.
 				namedDonorReport.Action = "Sent with group: " + string.Join("; ", groupNames);
-#pragma warning restore CS8604 // Possible null reference argument.
 				_mockRunCollection.Add(namedDonorReport);
 				Current++;
 				continue;
@@ -1143,9 +1083,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 		_doc.ColumnWidth = _doc.PageWidth;
 		_doc.PagePadding = margins;
 
-#pragma warning disable CS8604 // Possible null reference argument.
 		await FormatLetter(_donor);
-#pragma warning restore CS8604 // Possible null reference argument.
 
 		var docpaginator = ((IDocumentPaginatorSource)_doc).DocumentPaginator;
 		docpaginator.PageSize = new Size(pd.PrintableAreaWidth, pd.PrintableAreaWidth);
@@ -1159,9 +1097,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 		_todaysDate = DateTime.Now;
 
 		Running = true;
-#pragma warning disable CS8604 // Possible null reference argument.
 		_donorIds = _donations.Select(x => x.DonorId).Distinct().ToList();
-#pragma warning restore CS8604 // Possible null reference argument.
 		Dictionary<int, bool> donorDone = new Dictionary<int, bool>();
 		string? tmpFolder = _fileSystem!.Path.GetTempPath();
 		string? from = _appSettingsServices.Get().EmailAccount;
@@ -1215,7 +1151,6 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 
 			_logger.Info($"Succesfully printed Donor ID: {donor.Id}, Donor Name: {donor.Name}, {Current} of {Total}");
 
-#pragma warning disable CS8604 // Possible null reference argument.
 			if (_donorReports.Any(report => report.DonorId == donor.Id))
 			{
 				var report = _donorReports.FirstOrDefault(report => report.DonorId == donor.Id);
@@ -1235,7 +1170,6 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 				};
 				_donorReports.Add(donorReport);
 			}
-#pragma warning restore CS8604 // Possible null reference argument.
 
 			Person = donor.Name;
 			Current++;
@@ -1244,9 +1178,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 
 		Running = false;
 
-#pragma warning disable CS8604 // Possible null reference argument.
 		await _donorReportsServices.Save(_donorReports);
-#pragma warning restore CS8604 // Possible null reference argument.
 
 		_namedDonorReports = new ObservableCollection<NamedDonorReport>(await _donorReportsServices.LoadNamed());
 		DonorReportView.Source = _namedDonorReports;
@@ -1284,9 +1216,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 		_todaysDate = DateTime.Now;
 
 		Running = true;
-#pragma warning disable CS8604 // Possible null reference argument.
 		_donorIds = _donations.Select(x => x.DonorId).Distinct().ToList();
-#pragma warning restore CS8604 // Possible null reference argument.
 		Dictionary<int, bool> donorDone = new Dictionary<int, bool>();
 		string? tmpFolder = _fileSystem!.Path.GetTempPath();
 		string? from = _appSettingsServices.Get().EmailAccount;
@@ -1359,11 +1289,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 			string pdfPassword = await GeneratePdf(Encrypt, donor, xpsFileName, pdfFileName, pd, margins);
 
 			// we don't want to await the send because it takes a lot of time and can be parallized
-#pragma warning disable CS8604 // Possible null reference argument.
-#pragma warning disable CS8604 // Possible null reference argument.
 			await SendEmail(password, donor, from, donor.Email, pdfFileName, pdfPassword);
-#pragma warning restore CS8604 // Possible null reference argument.
-#pragma warning restore CS8604 // Possible null reference argument.
 
 			Current++;
 		}
@@ -1371,9 +1297,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 
 		Running = false;
 
-#pragma warning disable CS8604 // Possible null reference argument.
 		await _donorReportsServices.Save(_donorReports);
-#pragma warning restore CS8604 // Possible null reference argument.
 
 		_namedDonorReports = new ObservableCollection<NamedDonorReport>(await _donorReportsServices.LoadNamed());
 		DonorReportView.Source = _namedDonorReports;
@@ -1410,7 +1334,6 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 				{
 					try
 					{
-#pragma warning disable CS8601 // Possible null reference assignment.
 						var smtp = new SmtpClient
 						{
 							Host = _appSettingsServices.Get().EmailSmtpServer,
@@ -1424,7 +1347,6 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 									? password.Password
 									: Encoding.Default.GetString(ProtectedData.Unprotect(Persist.Default.EncryptedEmailPassword.Split(' ').Select(byte.Parse).ToArray(), GeneralViewModel.s_additionalEntropy, DataProtectionScope.CurrentUser)))
 						};
-#pragma warning restore CS8601 // Possible null reference assignment.
 
 						smtp.Send(message);
 						_logger.Info($"Succesfully sent on attempt: {i}, Donor ID: {donor.Id}, Donor Name: {donor.Name}, {Current} of {Total}");

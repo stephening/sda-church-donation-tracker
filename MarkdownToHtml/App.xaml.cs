@@ -73,17 +73,13 @@ namespace MarkdownToHtml
 							}
 						}
 
-#pragma warning disable CS8601 // Possible null reference assignment.
 						path[headingBlock.Level] = target;
-#pragma warning restore CS8601 // Possible null reference assignment.
 
 						string? fullTarget = string.Join('-', path.Values);
 
 						html = ReplaceFirstOnly(html, $"<h{headingBlock.Level}>{label}</h{headingBlock.Level}>", $"<h{headingBlock.Level} id=\"{fullTarget[1..]}\">{label}</h{headingBlock.Level}>");
 
-#pragma warning disable CS8601 // Possible null reference assignment.
 						anchors[fullTarget] = label;
-#pragma warning restore CS8601 // Possible null reference assignment.
 
 						if (-1 == prevLevel || prevLevel == headingBlock.Level)
 						{

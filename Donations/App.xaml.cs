@@ -61,9 +61,7 @@ public partial class App : Application
 					logger.Info("Not running in admin mode, so restart with elevated priviledges.");
 
 					string? exeName = Process.GetCurrentProcess().MainModule!.FileName;
-#pragma warning disable CS8604 // Possible null reference argument.
 					ProcessStartInfo startInfo = new ProcessStartInfo(exeName);
-#pragma warning restore CS8604 // Possible null reference argument.
 					startInfo.UseShellExecute = true;
 					startInfo.Verb = "runas";
 					Process.Start(startInfo);

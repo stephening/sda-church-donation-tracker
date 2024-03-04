@@ -17,9 +17,7 @@ public class TestDataBatchServices : IBatchServices
 		BatchList = td.BatchList;
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async Task<int> AddBatch(Batch batch)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		var newId = ((0 == BatchList!.Count)
 								? 0
@@ -36,9 +34,7 @@ public class TestDataBatchServices : IBatchServices
 		throw new NotImplementedException();
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async Task<ObservableCollection<Batch>> FilterBatch(enumDateFilterOptions batchFilter, string date, string date2)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		ObservableCollection<Batch> batches = new ObservableCollection<Batch>();
 
@@ -47,25 +43,17 @@ public class TestDataBatchServices : IBatchServices
 			case enumDateFilterOptions.CurrentYear:
 			case enumDateFilterOptions.PreviousYear:
 			case enumDateFilterOptions.SelectYear:
-#pragma warning disable CS8604 // Possible null reference argument.
 				batches = new ObservableCollection<Batch>(BatchList.Where(x => x.Date.Contains(date)));
-#pragma warning restore CS8604 // Possible null reference argument.
 				break;
 			case enumDateFilterOptions.DateRange:
-#pragma warning disable CS8604 // Possible null reference argument.
-#pragma warning disable CS8604 // Possible null reference argument.
 				batches = new ObservableCollection<Batch>(BatchList.Where(x => DateOnly.Parse(date) <= DateOnly.Parse(x.Date) && DateOnly.Parse(x.Date) <= DateOnly.Parse(date2)));
-#pragma warning restore CS8604 // Possible null reference argument.
-#pragma warning restore CS8604 // Possible null reference argument.
 				break;
 		}
 
 		return batches;
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async Task<Batch?> GetBatchById(int id)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		var list = BatchList!.Where(x => x.Id == id);
 		if (list.Count() > 0)
@@ -78,43 +66,27 @@ public class TestDataBatchServices : IBatchServices
 		}
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async Task<ObservableCollection<string>> GetBatchYears()
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		return new ObservableCollection<string>(BatchList!.Select(x => x.Date[..4]));
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async Task<string> GetEarliestDate()
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
-#pragma warning disable CS8603 // Possible null reference return.
 		return BatchList!.Select(x => x.Date).Min();
-#pragma warning restore CS8603 // Possible null reference return.
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async Task<string> GetLatestDate()
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
-#pragma warning disable CS8603 // Possible null reference return.
 		return BatchList!.Select(x => x.Date).Max();
-#pragma warning restore CS8603 // Possible null reference return.
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async Task<ObservableCollection<Batch>> LoadBatches()
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
-#pragma warning disable CS8604 // Possible null reference argument.
 		return new ObservableCollection<Batch>(BatchList);
-#pragma warning restore CS8604 // Possible null reference argument.
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async Task<string?> SaveBatches(ObservableCollection<Batch> batches, bool force = false, Action<long, long>? progUpdate = null)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		BatchList = new ObservableCollection<Batch>(batches);
 
@@ -133,9 +105,7 @@ public class TestDataBatchServices : IBatchServices
 	//	}
 	//}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async Task UpdateBatch(Batch batch)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		for (int i = 0; i < BatchList.Count; i++)
 		{

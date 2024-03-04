@@ -18,9 +18,7 @@ public class TestDataAppSettingsServices : IAppSettingsServices
 		return _appSettings;
 	}
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public async Task<int> Save()
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		return _appSettings.Id;
 	}

@@ -29,9 +29,7 @@ public partial class BatchReviewViewModel : BaseViewModel
 {
 	private Dictionary<string, CategorySum> _categorySumDict = new Dictionary<string, CategorySum>();
 	private ObservableCollection<Donation>? _batchDonations;
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 	private Action _closeDialog = null;
-#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 	private readonly IDispatcherWrapper _dispatcherWrapper;
 	private readonly IBatchServices _batchServices;
 	private readonly CategoryReviewView.Factory _categoryReviewFactory;
@@ -129,9 +127,7 @@ public partial class BatchReviewViewModel : BaseViewModel
 
 	public CategoryReviewView CreateCategoryReviewView(CategorySum categorySum)
 	{
-#pragma warning disable CS8604 // Possible null reference argument.
 		return _categoryReviewFactory(categorySum, enumCategoryReviewType.Batch, new ObservableCollection<Donation>(_batchDonations.Where(x => x.Category == categorySum.Category)), BatchDate);
-#pragma warning restore CS8604 // Possible null reference argument.
 	}
 
 	/// <summary>
@@ -158,9 +154,7 @@ public partial class BatchReviewViewModel : BaseViewModel
 		_batchDonations = batchDonations;
 
 		_origBatch = batch;
-#pragma warning disable CS8601 // Possible null reference assignment.
 		BatchDate = batch.Date;
-#pragma warning restore CS8601 // Possible null reference assignment.
 		BatchNote = batch.Note;
 		BatchTotal = batch.Total;
 
@@ -202,7 +196,6 @@ public partial class BatchReviewViewModel : BaseViewModel
 
 		foreach (var donation in _batchDonations)
 		{
-#pragma warning disable CS8604 // Possible null reference argument.
 			if (_categorySumDict.ContainsKey(donation.Category))
 			{
 				_categorySumDict[donation.Category].Sum += donation.Value;
@@ -217,7 +210,6 @@ public partial class BatchReviewViewModel : BaseViewModel
 				_dispatcherWrapper.Invoke(() => CategorySums.Add(sum));
 				_categorySumDict[sum.Category] = sum;
 			}
-#pragma warning restore CS8604 // Possible null reference argument.
 			await _dispatcherWrapper.Yield();
 		}
 

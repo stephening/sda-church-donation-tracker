@@ -4,7 +4,6 @@ using Microsoft.Win32;
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using WPFFolderBrowser;
 
 namespace Donations.Lib.View;
 
@@ -47,11 +46,10 @@ public partial class ReportsView : UserControl
 				}
 				break;
 			case enumReportOptions.AllPdf:
-				//WPFFolderBrowserDialog folderBrowser = new WPFFolderBrowserDialog();
-				SaveFileDialog folderBrowser = new SaveFileDialog();
-				if (true == folderBrowser.ShowDialog())
+				OpenFolderDialog openFolderDialog = new OpenFolderDialog();
+				if (true == openFolderDialog.ShowDialog())
 				{
-					await _viewModel!.AllPdf(folderBrowser.FileName, pd, margin);
+					await _viewModel!.AllPdf(openFolderDialog.FolderName, pd, margin);
 				}
 				break;
 			case enumReportOptions.Email:

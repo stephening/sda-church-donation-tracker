@@ -100,9 +100,7 @@ public class ImportDonorViewModelTests : TestWizardBase
 		{
 			Assert.Equal(i + 1, obj.Collection[i].Id);
 			Assert.Equal(td.DonorList[i].FamilyId, obj.Collection[i].FamilyId);
-#pragma warning disable CS8629 // Nullable value type may be null.
 			enumFamilyRelationship relationship = (null != td.DonorList[i].FamilyRelationship) ? td.DonorList[i].FamilyRelationship.Value : enumFamilyRelationship.None;
-#pragma warning restore CS8629 // Nullable value type may be null.
 			Assert.Equal(relationship, obj.Collection[i].FamilyRelationship);
 			Assert.True(Helper.Equal(td.DonorList[i].FirstName, obj.Collection[i].FirstName));
 			Assert.True(Helper.Equal(td.DonorList[i].PreferredName, obj.Collection[i].PreferredName));
@@ -125,16 +123,12 @@ public class ImportDonorViewModelTests : TestWizardBase
 			Assert.True(Helper.Equal(td.DonorList[i].Deathday, obj.Collection[i].Deathday, eFlags.Date));
 			Assert.Equal(td.DonorList[i].GroupGiving, obj.Collection[i].GroupGiving);
 			Assert.Equal(td.DonorList[i].ChurchMember, obj.Collection[i].ChurchMember);
-#pragma warning disable CS8629 // Nullable value type may be null.
 			enumMaritalStatus mStatus = (null != td.DonorList[i].MaritalStatus) ? td.DonorList[i].MaritalStatus.Value : enumMaritalStatus.Unknown;
-#pragma warning restore CS8629 // Nullable value type may be null.
 			Assert.Equal(mStatus, obj.Collection[i].MaritalStatus);
 			Assert.True(Helper.Equal(td.DonorList[i].Notes, obj.Collection[i].Notes));
 			Assert.True(Helper.Equal(td.DonorList[i].ActiveGroups, obj.Collection[i].ActiveGroups));
 			Assert.Equal(td.DonorList[i].LastUpdated, obj.Collection[i].LastUpdated);
-#pragma warning disable CS8629 // Nullable value type may be null.
 			enumAddressType addrType = (null != td.DonorList[i].AltAddressType) ? td.DonorList[i].AltAddressType.Value : enumAddressType.Unspecified;
-#pragma warning restore CS8629 // Nullable value type may be null.
 			Assert.Equal(addrType, obj.Collection[i].AltAddressType);
 			Assert.True(Helper.Equal(td.DonorList[i].AltAddress, obj.Collection[i].AltAddress));
 			Assert.True(Helper.Equal(td.DonorList[i].AltAddress2, obj.Collection[i].AltAddress2));

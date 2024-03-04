@@ -56,9 +56,7 @@ public partial class WizardImportDonorsViewModel : ObservableObject
 
 		HasChanges = false;
 		CollectionSource.Source = Collection;
-#pragma warning disable CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
 		_timer.Tick += new EventHandler(Timer_Tick);
-#pragma warning restore CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
 		_timer.Interval = new TimeSpan(0, 0, 1);
 	}
 

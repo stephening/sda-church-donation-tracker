@@ -40,9 +40,7 @@ public class SqlAppSettingsServices : SqlHelper, IAppSettingsServices
 			if (208 == ex.Number || ex.Message.Contains("Invalid object name"))
 			{
 				_logger.Error($"App settings table probably didn't exist, try creating it. Exception: {ex.Message}");
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 				sqlCreateTables!.CreateAppSettingsTable();
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 			}
 		}
 		catch (Exception ex)

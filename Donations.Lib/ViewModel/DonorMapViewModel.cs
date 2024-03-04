@@ -68,9 +68,7 @@ public partial class DonorMapViewModel : BaseViewModel
 	/// for things to be refreshed incase new mappings were added since this page was
 	/// last viewed.
 	/// </summary>
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 	public new async Task Loading()
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 	{
 		Revert();
 		DonorMapViewSource.View.Refresh();
@@ -161,9 +159,7 @@ public partial class DonorMapViewModel : BaseViewModel
 
 		foreach (var entry in DonorMapList)
 		{
-#pragma warning disable CS8604 // Possible null reference argument.
 			_donorMapServices.AGDonorMap[entry.AGDonorHash] = _reflectionHelpers.CopyModel<AGDonorMapItem>(entry);
-#pragma warning restore CS8604 // Possible null reference argument.
 			_donorMapServices.AGDonorMapList.Add(_donorMapServices.AGDonorMap[entry.AGDonorHash]);
 		}
 
