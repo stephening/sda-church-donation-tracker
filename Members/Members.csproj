@@ -34,4 +34,8 @@
     </None>
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="pushd &quot;$(TargetDir)&quot;&#xD;&#xA;&#xD;&#xA;if not exist &quot;$(TargetDir)Help&quot; mkdir &quot;$(TargetDir)Help&quot;&#xD;&#xA;&#xD;&#xA;if $(ConfigurationName) == Release (&#xD;&#xA;  &quot;$(TargetDir)$(TargetName).exe&quot; -screens &quot;$(TargetDir)Help&quot;&#xD;&#xA;) ELSE (&#xD;&#xA;  echo &quot;why, Microsoft, why&quot;.&#xD;&#xA;)&#xD;&#xA;&#xD;&#xA;&quot;$(TargetDir)MarkdownToHtml.exe&quot; &quot;$(SolutionDir)README.md&quot;&#xD;&#xA;&#xD;&#xA;popd&#xD;&#xA;" />
+  </Target>
+
 </Project>

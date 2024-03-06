@@ -37,23 +37,24 @@ For those looking at this project as an example for how to implment certain thin
   * System.IO.Abstractions
   * System.IO.Abstractions.TestingHelpers
 * Screenshots - the main application can run in a special mode where it will use test data and automatically generate screenshots of all the different windows or tabs.
-THe primary purpose of these screenshots is for validation and documentation.
+The primary purpose of these screenshots is for validation and documentation.
 * Unit test
   * xUnit
   * MOQ
 
 ## Projects
-There is a single visual studio solution file which contains six projects.
+There is a single visual studio solution which contains seven projects.
 
 * Donations.Lib - is a ClassLibrary that contains most of the code.
 * Donations - is a small project that builds a desktop application that exposes the functionality from the lib.
 * Donations.Test - unit tests
-* Donors - another desktop application that allows viewing and editing donors only.
-* Donations installer - creates an msi and setup.exe which will install the software.
+* Members - another desktop application that allows viewing and editing donors only.
+* Donations installer - creates an msi and setup.exe which will install the Donation tracking software.
+* Members installer - creates an msi and setup.exe which will install the Member management software.
 * MarkdownToHtml - used at build time to create Help.html and some json data for navigating the help
 
 ## Source code
-The Software was developed using Visual Studio 2022 in C#/WPF/.NET 8.0. It is written with an MVVM pattern. It also has, at this time, about 375 unit tests written to work with xunit. File system mocking is done by using System.IO.Abstractions and the accompanying System.IO.Abstractions.TestingHelpers. Current NuGet packages added:
+The Software was developed using Visual Studio 2022 in C#/WPF/.NET 8.0. It is written with an MVVM pattern. It also has, at this time, over 400 unit tests written to work with xunit. File system mocking is done by using System.IO.Abstractions and the accompanying System.IO.Abstractions.TestingHelpers. Current NuGet packages added:
 
 * Autofac
 * CommunityToolkit.Mvvm
@@ -66,7 +67,6 @@ The Software was developed using Visual Studio 2022 in C#/WPF/.NET 8.0. It is wr
 * System.Data.SqlClient
 * System.IO.Abstractions
 * System.IO.Abstractions.TestingHelpers
-* WPFFolderBrowser
 
 The unit test projects requires the following NuGet packages:
 

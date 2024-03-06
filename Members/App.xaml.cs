@@ -1,6 +1,15 @@
 ﻿using Autofac;
 using Donations.Lib;
+using Donations.Lib.Services;
+using Donations.Lib.View;
+using Donations.Lib.ViewModel;
+using Serilog;
+using System.Configuration;
+using System.Diagnostics;
+using System.Security.Principal;
+using System;
 using System.Windows;
+using Donations.Lib.Extensions;
 
 namespace Donors;
 public partial class App : Application
@@ -12,16 +21,90 @@ public partial class App : Application
 		Container = ContainerConfig.Configure();
 	}
 
-	protected override void OnStartup(StartupEventArgs e)
+	protected override async void OnStartup(StartupEventArgs e)
 	{
-		var scope = Container!.BeginLifetimeScope();
+		if (e.Args.Length > 1 && "-screens" == e.Args[0])
+		{
+			Container = ContainerConfig.ConfigureScreenshots();
 
-		DependencyInjection.Scope = scope;
+			var scope = Container!.BeginLifetimeScope();
 
-		var startupWindow = scope.Resolve<MainWindow>();
+			DependencyInjection.Scope = scope;
 
-		startupWindow.Show();
+			DonationsScreenShots? screens = DependencyInjection.Resolve<DonationsScreenShots>();
 
-		base.OnStartup(e);
+			await screens?.AllScreens(e.Args[1]);
+
+			Shutdown();
+		}
+		else if (e.Args.Length >= 1 && "-import" == e.Args[0] || null == ConfigurationManager.ConnectionStrings[SqlHelper.DbKey]?.ConnectionString)
+		{
+			// connection string not setup yet
+			Container = ContainerConfig.ConfigureSetupWizard();
+
+			var scope = Container!.BeginLifetimeScope();
+
+			DependencyInjection.Scope = scope;
+
+			var logger = scope.Resolve<ILogger>();
+
+			logger.Info("Missing connection string so need wizard.");
+
+			bool import = false;
+			if (e.Args.Length >= 1 && "-import" == e.Args[0])
+			{
+				import = true;
+			}
+			else
+			{
+				WindowsIdentity identity = WindowsIdentity.GetCurrent();
+				WindowsPrincipal principal = new WindowsPrincipal(identity);
+				if (false == principal.IsInRole(WindowsBuiltInRole.Administrator))
+				{
+					logger.Info("Not running in admin mode, so restart with elevated priviledges.");
+
+					string? exeName = Process.GetCurrentProcess().MainModule!.FileName;
+					ProcessStartInfo startInfo = new ProcessStartInfo(exeName);
+					startInfo.UseShellExecute = true;
+					startInfo.Verb = "runas";
+					Process.Start(startInfo);
+					Shutdown();
+				}
+			}
+
+			var startupWindow = scope.Resolve<WizardMainWindow>();
+			if (import)
+			{
+				var wizardMainWindowViewModel = scope.Resolve<WizardMainWindowViewModel>();
+				wizardMainWindowViewModel.Import();
+			}
+
+			logger.Info("Starting up in wizard mode");
+
+			startupWindow.Show();
+		}
+		else
+		{
+			try
+			{
+				Container = ContainerConfig.Configure();
+
+				var scope = Container!.BeginLifetimeScope();
+
+				DependencyInjection.Scope = scope;
+
+				var startupWindow = scope.Resolve<MainWindow>();
+
+				var logger = scope.Resolve<ILogger>();
+
+				logger.Info("Starting up in normal mode");
+
+				startupWindow.Show();
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+			}
+		}
 	}
 }

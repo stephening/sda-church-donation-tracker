@@ -94,7 +94,7 @@ public static class DependencyInjection
 		Builder.RegisterType<AGCategoryResolutionViewModel>().SingleInstance();
 		Builder.RegisterType<AGDonationSummaryViewModel>().SingleInstance();
 		Builder.RegisterType<DonorModalView>();
-		Builder.RegisterType<ScreenShotHelper>();
+		Builder.RegisterType<DonationsScreenShots>();
 		Builder.RegisterType<EmailAccountPasswordView>();
 		Builder.RegisterType<TableHelper>().SingleInstance();
 		Builder.RegisterType<PrintPreviewView>();

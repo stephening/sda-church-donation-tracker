@@ -627,7 +627,7 @@ public partial class DonorInputViewModel : BaseViewModel
 				TransactionNumber = CheckNumber
 			};
 
-			if (!_review && IndividualDonations?[0].Method != enumMethod.AdventistGiving)
+			if (IndividualDonations?[0].Method != enumMethod.AdventistGiving && null == IndividualDonations?[0].EnvelopeId)
 			{
 				summaryEntry.EnvelopeId = _envelopeId++;
 			}

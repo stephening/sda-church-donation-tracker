@@ -28,7 +28,7 @@ public partial class App : Application
 
 			DependencyInjection.Scope = scope;
 
-			ScreenShotHelper? screens = DependencyInjection.Resolve<ScreenShotHelper>();
+			DonationsScreenShots? screens = DependencyInjection.Resolve<DonationsScreenShots>();
 
 			await screens?.AllScreens(e.Args[1]);
 

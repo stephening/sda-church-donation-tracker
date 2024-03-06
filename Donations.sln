@@ -13,10 +13,15 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Donations.Lib", "Donations.Lib\Donations.Lib.csproj", "{ED6BF215-6BE1-4807-BDF5-3FC570B5DDCE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Members", "Members\Members.csproj", "{263D5525-0842-4C5A-ADC2-25FEB3454434}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C4C0A41E-B026-4FCF-ADB4-DE49EB91AB4B} = {C4C0A41E-B026-4FCF-ADB4-DE49EB91AB4B}
+	EndProjectSection
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Donations installer", "Donations installer\Donations installer.vdproj", "{0911AD01-8B33-4004-ABB5-3499C6D9F610}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarkdownToHtml", "MarkdownToHtml\MarkdownToHtml.csproj", "{C4C0A41E-B026-4FCF-ADB4-DE49EB91AB4B}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Members installer", "Members installer\Members installer.vdproj", "{E30DED3D-7FC9-459B-B2F1-8AE38F0F639F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +52,8 @@ Global
 		{C4C0A41E-B026-4FCF-ADB4-DE49EB91AB4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4C0A41E-B026-4FCF-ADB4-DE49EB91AB4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4C0A41E-B026-4FCF-ADB4-DE49EB91AB4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E30DED3D-7FC9-459B-B2F1-8AE38F0F639F}.Debug|Any CPU.ActiveCfg = Debug
+		{E30DED3D-7FC9-459B-B2F1-8AE38F0F639F}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

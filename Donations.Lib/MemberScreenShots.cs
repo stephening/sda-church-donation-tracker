@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 
 namespace Donations.Lib;
 
-public class ScreenShotHelper
+public class MemberScreenShots : ScreenShotBase
 {
 	private readonly IFileSystem _fileSystem;
 	private readonly MainWindowViewModel _mainWindowViewModel;
@@ -26,25 +26,18 @@ public class ScreenShotHelper
 	private readonly DonorModalView.Factory _donorModalViewFactory;
 	private readonly ConfirmDonorMergeView.Factory _confirmDonorMergeViewFactory;
 	private readonly BatchReviewView.Factory _batchReviewViewFactory;
-	private readonly CategoryReviewView.Factory _categoryReviewFactory;
 	private readonly PrintPreviewView.Factory _printPreviewViewFactory;
 
 	private readonly IDonationServices _donationServices;
 
-	public ScreenShotHelper(
+	public MemberScreenShots(
 		IFileSystem fileSystem,
 		MainWindowViewModel mainWindowViewModel,
 		IBatchServices batchServices,
-		AdventistGivingViewModel adventistGivingViewModel,
-		AGDonorResolutionViewModel aGDonorResolutionViewModel,
-		AGCategoryResolutionViewModel aGCategoryResolutionViewModel,
-		BatchBrowserViewModel batchBrowserViewModel,
-		DonationBrowserViewModel donationBrowserViewModel,
 		CategoryReviewViewModel categoryReviewViewModel,
 		MainWindowControl mainWindowControl,
 		EmailAccountPasswordView emailAccountPasswordView,
 		WizardMainWindow wizardMainWindow,
-		ReportsViewModel reportsViewModel,
 		DonorModalView.Factory donorModalViewFactory,
 		ConfirmDonorMergeView.Factory confirmDonorMergeViewFactory,
 		BatchReviewView.Factory batchReviewViewFactory,
@@ -63,7 +56,6 @@ public class ScreenShotHelper
 		_donorModalViewFactory = donorModalViewFactory;
 		_confirmDonorMergeViewFactory = confirmDonorMergeViewFactory;
 		_batchReviewViewFactory = batchReviewViewFactory;
-		_categoryReviewFactory = categoryReviewFactory;
 		_printPreviewViewFactory = printPreviewViewFactory;
 		_donationServices = donationServices;
 	}
@@ -324,24 +316,4 @@ public class ScreenShotHelper
 	{
 		_categoryReviewViewModel?.CreatePreview(document, font, size, printAreaWidth);
 	}
-
-	public async Task SaveScreenshot(Window window, string folder, string filename, int msDelay = 500)
-	{
-		// wait for screen content to load
-		await Task.Delay(msDelay);
-
-		double border = SystemParameters.ResizeFrameVerticalBorderWidth + SystemParameters.FixedFrameHorizontalBorderHeight + SystemParameters.BorderWidth * SystemParameters.Border;
-
-		RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap(
-			(int)(window.Width - 2 * border),
-			(int)(window.Height - 2 * border - SystemParameters.CaptionHeight),
-			96, 96, PixelFormats.Default);
-
-		renderTargetBitmap.Render(window);
-		JpegBitmapEncoder jpegEncoder = new JpegBitmapEncoder();
-		jpegEncoder.Frames.Add(BitmapFrame.Create(renderTargetBitmap));
-		using Stream fs = File.Create(Path.Combine(folder, filename));
-		jpegEncoder.Save(fs);
-	}
-
 }
