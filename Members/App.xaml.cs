@@ -31,7 +31,7 @@ public partial class App : Application
 
 			DependencyInjection.Scope = scope;
 
-			DonationsScreenShots? screens = DependencyInjection.Resolve<DonationsScreenShots>();
+			MemberScreenShots? screens = DependencyInjection.Resolve<MemberScreenShots>();
 
 			await screens?.AllScreens(e.Args[1]);
 
@@ -67,17 +67,16 @@ public partial class App : Application
 					ProcessStartInfo startInfo = new ProcessStartInfo(exeName);
 					startInfo.UseShellExecute = true;
 					startInfo.Verb = "runas";
-					Process.Start(startInfo);
+					try
+					{
+						Process.Start(startInfo);
+					}
+					catch { }
 					Shutdown();
 				}
 			}
 
-			var startupWindow = scope.Resolve<WizardMainWindow>();
-			if (import)
-			{
-				var wizardMainWindowViewModel = scope.Resolve<WizardMainWindowViewModel>();
-				wizardMainWindowViewModel.Import();
-			}
+			var startupWindow = scope.Resolve<WizardMemberMaintenanceWindow>();
 
 			logger.Info("Starting up in wizard mode");
 

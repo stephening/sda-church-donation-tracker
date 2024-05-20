@@ -14,14 +14,14 @@ public partial class WizardMainWindow : Window
 
 	public WizardMainWindow(
 		HelpView helpView,
-		WizardMainWindowViewModel wizardMainWindowViewModel
+		WizardMainWindowViewModel.Factory wizardMainWindowViewModelFactory
 	)
 	{
 		InitializeComponent();
 
-		DataContext = wizardMainWindowViewModel;
 		_helpView = helpView;
-		WizardMainWindowViewModel = wizardMainWindowViewModel;
+		WizardMainWindowViewModel = wizardMainWindowViewModelFactory(true);
+		DataContext = WizardMainWindowViewModel;
 	}
 
 	public WizardMainWindowViewModel WizardMainWindowViewModel { get; }

@@ -178,20 +178,23 @@ public partial class MainWindowControl : UserControl
 			else if (true == tabItem?.Header.Equals(s = (string)FindResource("AdventistGivingTabHeader")))
 			{
 				string baseTarget = s.Replace(" ", "-");
-				TabControl tab = AdventistGivingView.AdventistGivingTabs;
-				var item = tab.SelectedItem as TabItem;
+				TabControl? tab = (tabItem.Content as AdventistGivingView)?.AdventistGivingTabs;
+				if (null != tab)
+				{
+					var item = tab.SelectedItem as TabItem;
 
-				if (-1 == tab.SelectedIndex || true == item?.Header.Equals(s = (string)FindResource("AdventistGivingDonorResolutionTabHeader")))
-				{
-					target = baseTarget + '-' + s.Replace(" ", "-");
-				}
-				else if (true == item?.Header.Equals(s = (string)FindResource("AdventistGivingCategoryResolutionTabHeader")))
-				{
-					target = baseTarget + '-' + s.Replace(" ", "-");
-				}
-				else if (true == item?.Header.Equals(s = (string)FindResource("AdventistGivingVerifyAndSubmitTabHeader")))
-				{
-					target = baseTarget + '-' + s.Replace(" ", "-");
+					if (-1 == tab.SelectedIndex || true == item?.Header.Equals(s = (string)FindResource("AdventistGivingDonorResolutionTabHeader")))
+					{
+						target = baseTarget + '-' + s.Replace(" ", "-");
+					}
+					else if (true == item?.Header.Equals(s = (string)FindResource("AdventistGivingCategoryResolutionTabHeader")))
+					{
+						target = baseTarget + '-' + s.Replace(" ", "-");
+					}
+					else if (true == item?.Header.Equals(s = (string)FindResource("AdventistGivingVerifyAndSubmitTabHeader")))
+					{
+						target = baseTarget + '-' + s.Replace(" ", "-");
+					}
 				}
 			}
 			else if (true == tabItem?.Header.Equals(s = (string)FindResource("DonorInputTabHeader")))

@@ -64,7 +64,11 @@ public partial class App : Application
 					ProcessStartInfo startInfo = new ProcessStartInfo(exeName);
 					startInfo.UseShellExecute = true;
 					startInfo.Verb = "runas";
-					Process.Start(startInfo);
+					try
+					{
+						Process.Start(startInfo);
+					}
+					catch { }
 					Shutdown();
 				}
 			}
@@ -72,7 +76,8 @@ public partial class App : Application
 			var startupWindow = scope.Resolve<WizardMainWindow>();
 			if (import)
 			{
-				var wizardMainWindowViewModel = scope.Resolve<WizardMainWindowViewModel>();
+				var wizardMainWindowViewModelFactory = scope.Resolve<WizardMainWindowViewModel.Factory>();
+				var wizardMainWindowViewModel = wizardMainWindowViewModelFactory(true);
 				wizardMainWindowViewModel.Import();
 			}
 

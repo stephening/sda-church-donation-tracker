@@ -5,37 +5,6 @@ Windows (C#/WPF) desktop application for managing a church member database.
 This is a companion application to the Donations software, sharing the same database's Donor table.
 This application will allow updates and aditions to the Donor table but does not allow access of visibility to the donations.
 
-## Keywords
-
-For those looking at this project as an example for how to implment certain things in a c#/WPF application, the following are some keywords.
-* C#
-* WPF
-  * Reusable custom controls
-  * Dependency properties
-* MVVM
-* Autofac dependency injection
-* CommunityToolkit.Mvvm
-  * Code generators
-    * ObservableObject
-    * [ObservableProperty]
-    * [RelayCommand]
-* SQL
-  * Dapper
-* Logging
-  * ILogging
-  * Serilog
-* Pdf creation
-  * Xps => Pdf with SyncFusion library
-  * Password protected Pdf
-* File IO
-  * System.IO.Abstractions
-  * System.IO.Abstractions.TestingHelpers
-* Screenshots - the main application can run in a special mode where it will use test data and automatically generate screenshots of all the different windows or tabs.
-The primary purpose of these screenshots is for validation and documentation.
-* Unit test
-  * xUnit
-  * MOQ
-
 ## Projects
 There is a single visual studio solution which contains seven projects.
 
@@ -45,31 +14,6 @@ There is a single visual studio solution which contains seven projects.
 * Members - another desktop application that allows viewing and editing donors only.
 * Donations installer - creates an msi and setup.exe which will install the Donation tracking software.
 * Members installer - creates an msi and setup.exe which will install the Member management software.
-* MarkdownToHtml - used at build time to create Help.html and some json data for navigating the help
-
-## Source code
-The Software was developed using Visual Studio 2022 in C#/WPF/.NET 8.0. It is written with an MVVM pattern. It also has, at this time, over 400 unit tests written to work with xunit. File system mocking is done by using System.IO.Abstractions and the accompanying System.IO.Abstractions.TestingHelpers. Current NuGet packages added:
-
-* Autofac
-* CommunityToolkit.Mvvm
-* Dapper
-* Markdig
-* Serilog
-* Serilog.Sinks.File
-* Syncfusion.Pdf.Net.Core
-* Syncfusion.XpsToPdf.Converter.Net.Core
-* System.Data.SqlClient
-* System.IO.Abstractions
-* System.IO.Abstractions.TestingHelpers
-
-The unit test projects requires the following NuGet packages:
-
-* Microsoft.TestPlatform.TestHost
-* Moq
-* System.IO.Abstractions.TestingHelpers
-* xunit
-* xunit.runner.console
-* xunit.runner.visualstudio
 
 ## Log file
 This application writes limited entries to a log file, but if an error or unexpected behavior is ever encountered, check the log.
@@ -78,7 +22,7 @@ Log files can be found in the following location:
 %APPDATA%\Donation tracker
 
 ## Screen shots
-Run the application Donation-tracker.exe with the command line argument -screens which takes one parameter which is the relative or absolute path where the screenshots should be written.
+Run the application Members.exe with the command line argument -screens which takes one parameter which is the relative or absolute path where the screenshots should be written.
 The screenshots used in this help document are genrated with this feature of the application.
 
 For example:
@@ -94,30 +38,18 @@ Members.exe -screens $(TargetDir)Help
 ## Application documentation
 * [Main application](#The-main-application)
 * [Database setup wizard](#Database-setup-wizard)
-* [Markdown to Html](#Markdown-to-html)
 
 ## The main application
 The main application is called Members.exe.
 
-* Batch browser
-* Donation browser
-* Adventist giving
-  * Donor resolution
-  * Category resolution
-  * Verify and submit
-* Donor input
-* Reports
-* Maintenance
-  * Donor
-  * Category
-  * Donor map
-  * Category map
-  * Design tithe envelope
-  * General
+* Member
+* Directory
+  * Pdf
+  * Html
 * About
 
 #### Donor
-![alt text](./Documentation/screens/MaintenanceTab-DonorTab.jpg "Maintenance - Donor")
+![alt text](./Documentation/screens/MemberTab.jpg "Member add/update")
 
 This tab is where donor records are edited, or new donors added.
 
@@ -167,7 +99,7 @@ If no changes have been made since the record was entered, the list will be empt
 
 ## Database setup wizard
 
-### Database wizard introduction
+### Member database wizard introduction
 ![alt text](./Documentation/screens/Wizard-Introduction.jpg "Wizard introduction")
 
 Without access to a backend SQL database, the main application is not very useful.
@@ -274,20 +206,6 @@ Upon clicking Next from this page you should land on the [SQL connection string]
 This step is completely optional, unless you wish to include your organization's logo on reports you print.
 You can skip this step in the wizard and add your logo later in the Maintenance section of the main application.
 
-### Import donation categories
-![alt text](./Documentation/screens/Wizard-ImportCategories.jpg "Import categories")
-
-Accountants will usually have different funds or categories, each with their own balance.
-Money will be donated and designated for certain categories, and expenses will be paid out of certain categories.
-These fund's or categories are usually identifed by a numeric code, and a word desription.
-
-This page can be skipped if you do not have a csv of existing categories to import.
-However, if you are converting from another accounting software package and wish have some sort of continuation, you should try to export your current categories so they can be imported here.
-
-You can skip this page now and then come back an re-run the wizard again to perform an import.
-The import functionality is not available in the main application.
-This action will completely overwrite any categories currently in the database, so you will typically only perform an import after just creating your database and tables.
-
 ### Import donors
 ![alt text](./Documentation/screens/Wizard-ImportDonors.jpg "Import donors")
 
@@ -303,42 +221,8 @@ You can skip this page now and then come back an re-run the wizard again to perf
 The import functionality is not available in the main application.
 This action will completely overwrite any donors currently in the database, so you will typically only perform an import after just creating your database and tables.
 
-### Import donations
-![alt text](./Documentation/screens/Wizard-ImportDonations.jpg "Import donations")
-
-If making the transition to the new software at the turn of the year, it is not necessary to import and historical donations.
-On the other hand if there are questions that arise regarding the previous year, it is nice to have easy access to the data.
-
-This page can be skipped if you do not have a csv of existing donations to import.
-However, if you are converting from another accounting software package and wish have some sort of history, you should try to export your current donors so they can be imported here.
-
-You can skip this page now and then come back an re-run the wizard again to perform an import.
-The import functionality is not available in the main application.
-This action will completely overwrite any donations currently in the database, so you will typically only perform an import after just creating your database and tables.
-
 ### Finished
 ![alt text](./Documentation/screens/Wizard-Finished.jpg "Wizard finshed")
 
 You have completed the wizard steps.
 You can run the wizard again if needed.
-
-# Markdown to html
-
-This is a small tool which converts the README.md file into an application html help file.
-A help viewer is available by pressing F1 when the application is running.
-The viewer window that pops up has a navigation pane showing the help contents.
-When F1 is pressed, the application will attempt to jump to the relevant content in the help file.
-
-This tool is a headless application that takes the markdown source file as a parameter.
-Assumptions are that the output will be three files written to a "Help" folder.
-The README.md file in the root folder references screenshots in the relative folder ./Documentation/screens.
-The html file produced is modified to look for the screenshots in the same folder.
-
-File written by this tool are:
-
-* Help\Help.html - Help file which can be double-clicked on to view in a browser, but will be presented from the application in a help viewer popup window.
-* Help\NavTree.json - This file is deserialized into the HelpViewModel (ObservableCollection<HelpNavigationViewModel> HelpNavigation property).
-This property can be directly linked as the ItemsSource for the help content TreeView.
-The click handler for the TreeView object will jump to the corresponding content in the Help.html file.
-* Help\NavAnchors.json - This file is deserialized into the the HelpViewModel (Dictionary<string,string> Anchors property).
-This dictionary has navigation anchor id's as the keys, and header text as the values corresponding to the help file content to show for context sensetive help.

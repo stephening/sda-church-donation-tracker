@@ -21,12 +21,17 @@
 		<system:String x:Key="MaintenanceDesignTitheEnvelopeTabHeader">Design tithe envelope</system:String>
 		<system:String x:Key="MaintenanceGeneralTabHeader">General</system:String>
 	<system:String x:Key="AboutTabHeader">About</system:String>
+	<system:String x:Key="MemberTabHeader">Member</system:String>
+	<system:String x:Key="DirectoryTabHeader">Create directory</system:String>
+	<system:String x:Key="DirectoryPdfTabHeader">Pdf</system:String>
+	<system:String x:Key="DirectoryHtmlTabHeader">Html</system:String>
 
 	<system:String x:Key="BatchReviewByCategoryTabHeader">By category</system:String>
 	<system:String x:Key="BatchReviewByDonorTabHeader">By donor</system:String>
 	<system:String x:Key="BatchReviewPrintTabHeader">Print</system:String>
 
 	<system:String x:Key="WizardIntroductionHeader">Database wizard introduction</system:String>
+	<system:String x:Key="WizardMemberIntroductionHeader">Member database wizard introduction</system:String>
 	<system:String x:Key="WizardSqlChoiceHeader">Choose how your database will be configured</system:String>
 	<system:String x:Key="WizardCloudInstallHeader">Suggested steps for installing SQL on a server</system:String>
 	<system:String x:Key="WizardLocalhostInstallHeader">Suggested steps for installing SQL on the local system</system:String>

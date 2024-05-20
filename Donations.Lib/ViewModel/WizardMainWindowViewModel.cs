@@ -1,6 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Donations.Lib.Model;
+using Donations.Lib.View;
+using Donations.Lib.ViewModel;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 
 namespace Donations.Lib.ViewModel;
@@ -26,6 +30,8 @@ public partial class WizardMainWindowViewModel : ObservableObject
 {
 	private bool _importOnly = false;
 
+	public delegate WizardMainWindowViewModel Factory(bool donationsApp);
+
 	public WizardMainWindowViewModel(
 		WizardSqlChoiceViewModel wizardSqlChoiceViewModel,
 		WizardSqlConnectViewModel wizardSqlConnectViewModel,
@@ -33,9 +39,11 @@ public partial class WizardMainWindowViewModel : ObservableObject
 		WizardSpecifyLogoViewModel wizardSpecifyLogoViewModel,
 		WizardImportCategoriesViewModel importCategoriesViewModel,
 		WizardImportDonorsViewModel importDonorsViewModel,
-		WizardImportDonationsViewModel importDonationsViewModel
+		WizardImportDonationsViewModel importDonationsViewModel,
+		bool donationsApp
 		)
 	{
+		DonationsApp = donationsApp;
 		wizardSqlChoiceViewModel.Init(this);
 		WizardSqlChoiceViewModelDataContext = wizardSqlChoiceViewModel;
 		WizardSqlConnectViewModelDataContext = wizardSqlConnectViewModel;
@@ -44,9 +52,37 @@ public partial class WizardMainWindowViewModel : ObservableObject
 		WizardImportCategoriesViewModelDataContext = importCategoriesViewModel;
 		WizardImportDonorsViewModelDataContext = importDonorsViewModel;
 		WizardImportDonationsViewModelDataContext = importDonationsViewModel;
+
+		if (donationsApp)
+		{
+			// donations app
+			_pageMap[WizardPages.Introduction] = 0;
+			_pageMap[WizardPages.SqlHostChoice] = 1;
+			_pageMap[WizardPages.SqlCloudInstall] = 2;
+			_pageMap[WizardPages.SqlLocalInstall] = 3;
+			_pageMap[WizardPages.SqlSpecifyConnectionString] = 4;
+			_pageMap[WizardPages.CreateTables] = 5;
+			_pageMap[WizardPages.SpecifyChurchLogo] = 6;
+			_pageMap[WizardPages.ImportCategories] = 7;
+			_pageMap[WizardPages.ImportDonors] = 8;
+			_pageMap[WizardPages.ImportDonations] = 9;
+			_pageMap[WizardPages.Finished] = 10;
+		}
+		else
+		{
+			// member maintenance app
+			_pageMap[WizardPages.Introduction] = 0;
+			_pageMap[WizardPages.SqlHostChoice] = 1;
+			_pageMap[WizardPages.SqlCloudInstall] = 2;
+			_pageMap[WizardPages.SqlLocalInstall] = 3;
+			_pageMap[WizardPages.SqlSpecifyConnectionString] = 4;
+			_pageMap[WizardPages.Finished] = 5;
+		}
 	}
 
-	public int WizardPageIndex => (int)TabPage;
+	public Dictionary<WizardPages, int> _pageMap = new Dictionary<WizardPages, int>();
+
+	public int WizardPageIndex => _pageMap[TabPage];
 
 	[ObservableProperty]
 	[NotifyPropertyChangedFor(nameof(WizardPageIndex))]
@@ -54,6 +90,7 @@ public partial class WizardMainWindowViewModel : ObservableObject
 	[NotifyCanExecuteChangedFor(nameof(NextCommand))]
 	private WizardPages _tabPage = WizardPages.Introduction;
 
+	public bool DonationsApp { get; }
 	public WizardSqlChoiceViewModel WizardSqlChoiceViewModelDataContext { get; }
 	public WizardSqlConnectViewModel WizardSqlConnectViewModelDataContext { get; }
 	public WizardSpecifyConnectionStringViewModel WizardSpecifyConnectionStringViewModelDataContext { get; }

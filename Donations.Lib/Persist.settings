@@ -63,13 +63,13 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="NavTreeJsonFile" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Help\NavTree.json</Value>
+      <Value Profile="(Default)">Help/NavTree.json</Value>
     </Setting>
     <Setting Name="NavAnchorsJsonFile" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Help\NavAnchors.json</Value>
+      <Value Profile="(Default)">Help/NavAnchors.json</Value>
     </Setting>
     <Setting Name="HtmlHelpFile" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Help\Help.html</Value>
+      <Value Profile="(Default)">Help/Help.html</Value>
     </Setting>
     <Setting Name="CategoryReviewTop" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0</Value>

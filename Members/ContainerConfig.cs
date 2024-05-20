@@ -11,7 +11,6 @@ public static class ContainerConfig
 
 		builder.SetupDonationsLib();
 		builder.RegisterType<MainWindow>();
-		builder.RegisterType<MainWindowViewModel>();
 
 		return builder.Build();
 	}

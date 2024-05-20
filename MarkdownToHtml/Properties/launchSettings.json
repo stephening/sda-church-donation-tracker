@@ -2,7 +2,8 @@
   "profiles": {
     "MarkdownToHtml": {
       "commandName": "Project",
-      "commandLineArgs": "$(SolutionDir)README.md"
+      "commandLineArgs": "C:\\dev\\desktop\\sda-church-donation-tracker\\README.md C:\\dev\\desktop\\sda-church-donation-tracker\\bin\\Debug\\net8.0-windows7.0\\",
+      "workingDirectory": "C:\\dev\\desktop\\sda-church-donation-tracker\\bin\\Debug\\net8.0-windows7.0\\"
     }
   }
 }

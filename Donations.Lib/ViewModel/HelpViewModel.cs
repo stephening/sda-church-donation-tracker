@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Donations.Lib.Extensions;
+using Donations.Lib.View;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,11 @@ public partial class HelpViewModel : ObservableObject
 
 	[ObservableProperty]
 	private Dictionary<string, string> _anchors;
+
+	[ObservableProperty]
+	private string _helpFolder;
+
+	public delegate HelpViewModel Factory(string helpFolder);
 
 	public HelpViewModel(
 		ILogger logger,

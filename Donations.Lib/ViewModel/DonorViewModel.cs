@@ -153,13 +153,16 @@ public partial class DonorViewModel : BaseViewModel
 				_givingGroup = null;
 			}
 
-			if (null != _givingGroup)
+			if (DonationsVisibility == Visibility.Visible)
 			{
-				Donations.Source = await _donationServices.GetDonationsByDonorIds(_givingGroup.Select(x => x.Id).ToList());
-			}
-			else
-			{
-				Donations.Source = await _donationServices.GetDonationsByDonorId(SelectedDonor.Id);
+				if (null != _givingGroup)
+				{
+					Donations.Source = await _donationServices.GetDonationsByDonorIds(_givingGroup.Select(x => x.Id).ToList());
+				}
+				else
+				{
+					Donations.Source = await _donationServices.GetDonationsByDonorId(SelectedDonor.Id);
+				}
 			}
 
 			Donations.SortDescriptions.Add(new SortDescription() { PropertyName = "Date", Direction = ListSortDirection.Descending });

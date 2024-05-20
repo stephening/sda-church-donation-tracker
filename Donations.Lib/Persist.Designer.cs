@@ -12,7 +12,7 @@ namespace Donations.Lib {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.8.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.9.0.0")]
     public sealed partial class Persist : global::System.Configuration.ApplicationSettingsBase {
         
         private static Persist defaultInstance = ((Persist)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Persist())));
@@ -265,7 +265,7 @@ namespace Donations.Lib {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Help\\NavTree.json")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Help/NavTree.json")]
         public string NavTreeJsonFile {
             get {
                 return ((string)(this["NavTreeJsonFile"]));
@@ -277,7 +277,7 @@ namespace Donations.Lib {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Help\\NavAnchors.json")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Help/NavAnchors.json")]
         public string NavAnchorsJsonFile {
             get {
                 return ((string)(this["NavAnchorsJsonFile"]));
@@ -289,7 +289,7 @@ namespace Donations.Lib {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Help\\Help.html")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Help/Help.html")]
         public string HtmlHelpFile {
             get {
                 return ((string)(this["HtmlHelpFile"]));

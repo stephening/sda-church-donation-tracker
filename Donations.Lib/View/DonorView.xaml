@@ -308,7 +308,7 @@
 							<DataGridTextColumn Header="Relationship" Binding="{Binding FamilyRelationship}"/>
 						</DataGrid.Columns>
 					</DataGrid>
-					<TextBlock Grid.Row="4" Margin="0,20,0,0" Text="Donations"/>
+					<TextBlock Grid.Row="4" Margin="0,20,0,0" Text="Donations" Visibility="{Binding DonationsVisibility}"/>
 					<DataGrid CanUserAddRows="False" Grid.Row="5" AutoGenerateColumns="False" IsReadOnly="True"
 							  ItemsSource="{Binding Donations.View}" Visibility="{Binding DonationsVisibility}">
 						<DataGrid.Columns>

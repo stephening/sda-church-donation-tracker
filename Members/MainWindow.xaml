@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:Donors"
 		xmlns:view="clr-namespace:Donations.Lib.View;assembly=Donations.Lib"
         mc:Ignorable="d"
+		KeyDown="Window_KeyDown"
 		Closing="Window_Closing"
-        Title="Beaverton SDA church donor maintenance" MinHeight="450" MaxHeight="{Binding System.Windows.SystemParameters.WorkArea.Height}" Width="1010">
-	<view:DonorView x:Name="DonorView" DataContext="{Binding DonorViewModel}"/>
+        Title="Beaverton SDA church member maintenance" MinHeight="450" MaxHeight="{Binding System.Windows.SystemParameters.WorkArea.Height}" Width="1100">
+	<Grid>
+		<view:MainWindowMembersControl/>
+	</Grid>
 </Window>

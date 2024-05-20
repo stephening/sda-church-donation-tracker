@@ -53,7 +53,7 @@ public class Helper
 		{ "ME", "Maine" },
 		{ "MD", "Maryland" },
 		{ "MA", "Massachusetts" },
-		{ "MI", "Michigan" },
+		{ "OR", "Michigan" },
 		{ "MN", "Minnesota" },
 		{ "MS", "Mississippi" },
 		{ "MO", "Missouri" },

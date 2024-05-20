@@ -31,13 +31,15 @@ namespace MarkdownToHtml
 		{
 			base.OnStartup(e);
 
-			if (e.Args.Length < 1 || !File.Exists(e.Args[0]))
+			if (e.Args.Length < 2 || !File.Exists(e.Args[0]))
 			{
-				MessageBox.Show("MarkdownToHtml <README.md>");
+				MessageBox.Show($"{e.Args.Length} {e.Args[0]}");
+				MessageBox.Show("MarkdownToHtml <README.md> <dst_folder_name> ");
 				Current.Shutdown();
 			}
 			try
 			{
+				string folder = e.Args[1];
 				string str = "";
 
 				using (var sr = new StreamReader(e.Args[0]))
@@ -100,7 +102,7 @@ namespace MarkdownToHtml
 					}
 				}
 
-				using (var outputStream = new StreamWriter(Persist.Default.HtmlHelpFile))
+				using (var outputStream = new StreamWriter(Path.Combine(folder, Persist.Default.HtmlHelpFile)))
 				{
 					await outputStream.WriteAsync(html);
 				}
@@ -108,13 +110,13 @@ namespace MarkdownToHtml
 				JsonSerializerOptions options = new JsonSerializerOptions() { WriteIndented = true };
 
 				var jstring = JsonSerializer.Serialize(HelpNavigation, options: options);
-				using (var navTreeWriter = new StreamWriter(Persist.Default.NavTreeJsonFile))
+				using (var navTreeWriter = new StreamWriter(Path.Combine(folder, Persist.Default.NavTreeJsonFile)))
 				{
 					await navTreeWriter.WriteAsync(jstring);
 				}
 
 				jstring = JsonSerializer.Serialize(anchors, options: options);
-				using (var navAnchorsWriter = new StreamWriter(Persist.Default.NavAnchorsJsonFile))
+				using (var navAnchorsWriter = new StreamWriter(Path.Combine(folder, Persist.Default.NavAnchorsJsonFile)))
 				{
 					await navAnchorsWriter.WriteAsync(jstring);
 				}

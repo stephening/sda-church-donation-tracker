@@ -1,6 +1,9 @@
-﻿using Members;
+﻿using Donations.Lib.View;
+using Donations.Lib.ViewModel;
+using Members;
 using System;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Donors
 {
@@ -9,22 +12,27 @@ namespace Donors
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		private readonly MainWindowViewModel _viewModel;
+		private readonly MainWindowMembersViewModel _mainWindowMembersViewModel;
+		private readonly HelpView _helpView;
 
-		public MainWindow(MainWindowViewModel mainWindowViewModel)
+		public MainWindow(
+			MainWindowMembersViewModel mainWindowMembersViewModel,
+			HelpView helpView
+		)
 		{
-			DataContext = mainWindowViewModel;
-
-			_viewModel = mainWindowViewModel;
+			DataContext = mainWindowMembersViewModel;
 
 			InitializeComponent();
+
+			_mainWindowMembersViewModel = mainWindowMembersViewModel;
+			_helpView = helpView;
 
 			LoadSettings();
 		}
 
 		private void LoadSettings()
 		{
-			_viewModel.DonorViewModel.DonationsVisibility = Visibility.Collapsed;
+			_mainWindowMembersViewModel.DonorViewModel.DonationsVisibility = Visibility.Collapsed;
 
 			Top = Persist.Default.Top;
 			Left = Persist.Default.Left;
@@ -50,6 +58,15 @@ namespace Donors
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			SaveSettings();
+			_helpView.ForceClose();
+		}
+
+		private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+		{
+			if (Key.F1 == e.Key)
+			{
+				_helpView.ShowTarget("");
+			}
 		}
 	}
 }

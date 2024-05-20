@@ -66,7 +66,7 @@ namespace Donations.Lib.View
 			}
 			else if (Key.F1 == e.Key)
 			{
-				_helpView.ShowTarget("Donor-selection");
+				_helpView.ShowTarget("Edit-donor");
 			}
 		}
 
@@ -81,8 +81,6 @@ namespace Donations.Lib.View
 			Persist.Default.DonorSelectTop = Top;
 			Persist.Default.DonorSelectLeft = Left;
 			Persist.Default.Save();
-
-			_helpView.ForceClose();
 		}
 	}
 }

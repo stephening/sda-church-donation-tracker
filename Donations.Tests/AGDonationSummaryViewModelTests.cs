@@ -113,8 +113,8 @@ public class AGDonationSummaryViewModelTests : TestBase
 			State = donorServices.GetDonorById(2).State,
 			Zip = donorServices.GetDonorById(2).Zip,
 			AGAddress = "1235 Acme Lane",
-			AGCity = "Dearborn",
-			AGState = "MI",
+			AGCity = "Deer",
+			AGState = "OR",
 			AGZip = "48124"
 		};
 

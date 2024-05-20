@@ -44,8 +44,10 @@ public static class DependencyInjection
 				rollingInterval: RollingInterval.Day)
 			.CreateLogger())
 			.As<ILogger>().SingleInstance();
-		Builder.RegisterType<MainWindowControl>();
-		Builder.RegisterType<MainWindowViewModel>();
+		Builder.RegisterType<MainWindowControl>().SingleInstance();
+		Builder.RegisterType<MainWindowMembersControl>().SingleInstance();
+		Builder.RegisterType<MainWindowViewModel>().SingleInstance();
+		Builder.RegisterType<MainWindowMembersViewModel>().SingleInstance();
 		Builder.RegisterType<ApplicationDispatcherWrapper>().As<IDispatcherWrapper>().SingleInstance();
 		Builder.RegisterType<FileSystem>().As<IFileSystem>().SingleInstance();
 		Builder.RegisterType<DataHelpers>().As<IDataHelpers>().InstancePerDependency();
@@ -95,11 +97,12 @@ public static class DependencyInjection
 		Builder.RegisterType<AGDonationSummaryViewModel>().SingleInstance();
 		Builder.RegisterType<DonorModalView>();
 		Builder.RegisterType<DonationsScreenShots>();
+		Builder.RegisterType<MemberScreenShots>();
 		Builder.RegisterType<EmailAccountPasswordView>();
 		Builder.RegisterType<TableHelper>().SingleInstance();
 		Builder.RegisterType<PrintPreviewView>();
 		Builder.RegisterType<PrintPreviewViewModel>().SingleInstance();
-		Builder.RegisterType<HelpView>();
+		Builder.RegisterType<HelpView>().SingleInstance();
 		Builder.RegisterType<HelpViewModel>();
 
 		return Builder;
@@ -153,6 +156,7 @@ public static class DependencyInjection
 		Builder.RegisterType<ReflectionHelpers>().As<IReflectionHelpers>().InstancePerDependency();
 		Builder.RegisterType<WizardMainWindow>().SingleInstance();
 		Builder.RegisterType<WizardMainWindowViewModel>().SingleInstance();
+		Builder.RegisterType<WizardMemberMaintenanceWindow>().SingleInstance();
 		Builder.RegisterType<WizardSpecifyConnectionStringViewModel>().SingleInstance();
 		Builder.RegisterType<WizardSqlChoiceViewModel>().SingleInstance();
 		Builder.RegisterType<WizardSqlConnectViewModel>().SingleInstance();

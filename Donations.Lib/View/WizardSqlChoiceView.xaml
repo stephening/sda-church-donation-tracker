@@ -53,7 +53,7 @@
 			In most cases, the database will only be accessible on this computer, meaning the application can only be run on this computer as well.
 			</TextBlock>
 		</RadioButton>
-		<RadioButton GroupName="SqlHost" Grid.Row="3" Grid.Column="1" Margin="0,7"
+		<RadioButton GroupName="SqlHost" Grid.Row="3" Grid.Column="1" Margin="0,7" Visibility="{Binding DonationsVisibility}" IsEnabled="{Binding DonationsEnabled}"
 						 IsChecked="{Binding Path=SqlChoice, Converter={StaticResource SqlChoiceOptions}, ConverterParameter={x:Static m:enumSqlChoiceOptions.Import}}">
 			<TextBlock TextWrapping="Wrap" Style="{StaticResource WizardTextBlockStyle}">
 			I already have my database setup, so just go straight to data import.

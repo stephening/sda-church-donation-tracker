@@ -9,7 +9,7 @@
 		Loaded="Window_Loaded"
 		Closing="Window_Closing"
 		KeyDown="Window_KeyDown"
-        Title="Beaverton SDA church donations" MinHeight="450" MaxHeight="{Binding MaximumHeight}" Width="1010">
+        Title="Beaverton SDA church donations" MinHeight="450" MaxHeight="{Binding MaximumHeight}" Width="1100">
 	<Grid>
 		<view:MainWindowControl x:Name="MainControl"/>
 	</Grid>
