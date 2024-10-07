@@ -1,10 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Donations.Lib.Model;
-using Donations.Lib.View;
-using Donations.Lib.ViewModel;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows;
 
 namespace Donations.Lib.ViewModel;

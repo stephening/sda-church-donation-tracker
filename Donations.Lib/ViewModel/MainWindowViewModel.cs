@@ -16,7 +16,8 @@ public class MainWindowViewModel
 		DonorMapViewModel donorMapViewModel,
 		CategoryMapViewModel categoryMapViewModel,
 		EnvelopeDesignViewModel envelopeDesignViewModel,
-		GeneralViewModel generalViewModel
+		GeneralViewModel generalViewModel,
+		DirectoryViewModel directoryViewModel
 	)
 	{
 		BatchBrowserViewModel = batchBrowserViewModel;
@@ -33,6 +34,7 @@ public class MainWindowViewModel
 		CategoryMapViewModel = categoryMapViewModel;
 		EnvelopeDesignViewModel = envelopeDesignViewModel;
 		GeneralViewModel = generalViewModel;
+		DirectoryViewModel = directoryViewModel;
 	}
 
 	public double MaximumHeight => System.Windows.SystemParameters.WorkArea.Height;
@@ -50,4 +52,5 @@ public class MainWindowViewModel
 	public CategoryMapViewModel? CategoryMapViewModel { get; }
 	public EnvelopeDesignViewModel? EnvelopeDesignViewModel { get; }
 	public GeneralViewModel? GeneralViewModel { get; }
+	public DirectoryViewModel? DirectoryViewModel { get; }
 }

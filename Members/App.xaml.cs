@@ -2,7 +2,6 @@
 using Donations.Lib;
 using Donations.Lib.Services;
 using Donations.Lib.View;
-using Donations.Lib.ViewModel;
 using Serilog;
 using System.Configuration;
 using System.Diagnostics;

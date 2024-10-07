@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="Donations.Lib.View.DirectoryPdfView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Donations.Lib.View"
+             mc:Ignorable="d" 
+			 DataContextChanged="UserControl_DataContextChanged"
+             d:DesignHeight="450" d:DesignWidth="800">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		<Grid Grid.Row="0" Margin="20">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="*"/>
+					<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+			<WrapPanel Grid.Row="1" Margin="0,10,0,0" >
+				<Button Content="Save as Pdf ..." Padding="20,5" Click="SavePdf" IsEnabled="{Binding ReadyToSavePdf}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+				<TextBlock Margin="20,0,0,0" Text="Encryption password: " VerticalAlignment="Center"/>
+				<TextBox Text="{Binding PdfPassword}" Width="80"/>
+			</WrapPanel>
+			<local:PrintOptionsView Grid.Row="2" Margin="0,10,0,0" SelectedFont="{Binding SelectedFont, Mode=TwoWay}" SelectedSize="{Binding SelectedSize, Mode=TwoWay}" LeftMargin="{Binding LeftMargin, Mode=TwoWay}" OtherMargins="{Binding OtherMargins, Mode=TwoWay}"/>
+			<FlowDocumentScrollViewer Grid.Row="3" Margin="0,10,0,0">
+				<FlowDocument x:Name="DirectoryDocument">
+					<FlowDocument.Resources>
+						<Style TargetType="{x:Type Paragraph}">
+							<Setter Property="Margin" Value="0"/>
+						</Style>
+					</FlowDocument.Resources>
+				</FlowDocument>
+			</FlowDocumentScrollViewer>
+		</Grid>
+		<ProgressBar Grid.Row="1" Minimum="0" Maximum="100" Value="{Binding Progress}" Height="10" />
+	</Grid>
+</UserControl>

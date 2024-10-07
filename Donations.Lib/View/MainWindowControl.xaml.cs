@@ -159,6 +159,11 @@ public partial class MainWindowControl : UserControl
 		(sender as TabItem).IsSelected = false;
 	}
 
+	private async void DirectoryTab_Selected(object sender, RoutedEventArgs e)
+	{
+		await _mainWindowViewModel?.DirectoryViewModel?.Loading();
+	}
+
 	private void UserControl_KeyDown(object sender, KeyEventArgs e)
 	{
 		if (Key.F1 == e.Key)

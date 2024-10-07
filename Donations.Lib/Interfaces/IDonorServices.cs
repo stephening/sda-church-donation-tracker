@@ -15,6 +15,7 @@ public interface IDonorServices
 	Donor GetDonorById(int id);
 	Task<Donor> GetDonorByIdAsync(int id);
 	Task<ObservableCollection<Donor>> GetDonorsByFamilyId(int id);
+	Task<ObservableCollection<Donor>>? GetDonorsForDirectory();
 	Task<int> GetNextFamilyId();
 	Task<int> AddDonor(Donor donor);
 	Task DeleteDonor(Donor donor);

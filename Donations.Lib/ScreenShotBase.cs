@@ -1,14 +1,6 @@
-﻿using Donations.Lib.Interfaces;
-using Donations.Lib.Model;
-using Donations.Lib.View;
-using Donations.Lib.ViewModel;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.IO.Abstractions;
+﻿using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 

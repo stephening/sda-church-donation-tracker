@@ -96,6 +96,11 @@ public class TestDataDonorServices : IDonorServices
 		return new ObservableCollection<Donor>(_donors!.Where(x => x.FamilyId == id));
 	}
 
+	public async Task<ObservableCollection<Donor>>? GetDonorsForDirectory()
+	{
+		return new ObservableCollection<Donor>(_donors!.Where(x => x.Directory != false));
+	}
+
 	public async Task<int> GetNextFamilyId()
 	{
 		var ret = _donors.Any() ? _donors!.Select(x => x.FamilyId).Max() : 0;

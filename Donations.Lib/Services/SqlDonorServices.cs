@@ -288,4 +288,18 @@ public class SqlDonorServices : SqlHelper, IDonorServices
 			return 1;
 		}
 	}
+
+	public async Task<ObservableCollection<Donor>>? GetDonorsForDirectory()
+	{
+		try
+		{
+			// get list of Donors with Directory bit set
+			return SelectFromTable<Donor>(_donorsDbName, where: $"WHERE Directory != 0");
+		}
+		catch (Exception ex)
+		{
+			_logger.Err(ex, $"Exception caught while getting donors with Directory bit set.");
+			return null;
+		}
+	}
 }

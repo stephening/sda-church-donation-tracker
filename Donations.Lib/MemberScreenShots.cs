@@ -1,16 +1,11 @@
 ﻿using Donations.Lib.Interfaces;
-using Donations.Lib.Model;
 using Donations.Lib.View;
 using Donations.Lib.ViewModel;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.IO.Abstractions;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Documents;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace Donations.Lib;
 
@@ -102,13 +97,13 @@ public class MemberScreenShots : ScreenShotBase
 
 		await SaveScreenshot(donorModalView, destination_folder, "DonorModalView.jpg");
 
-		_mainWindowMembersControl.MainTabControl.SelectedItem = _mainWindowMembersControl.DirectoryPdfTab;
+		//_mainWindowMembersControl.MainTabControl.SelectedItem = _mainWindowMembersControl.DirectoryPdfTab;
 
-		await SaveScreenshot(windowContainer, destination_folder, "Directory-PdfTab.jpg");
+		//await SaveScreenshot(windowContainer, destination_folder, "Directory-PdfTab.jpg");
 
-		_mainWindowMembersControl.MainTabControl.SelectedItem = _mainWindowMembersControl.DirectoryHtmlTab;
+		//_mainWindowMembersControl.MainTabControl.SelectedItem = _mainWindowMembersControl.DirectoryHtmlTab;
 
-		await SaveScreenshot(windowContainer, destination_folder, "Directory-HtmlTab.jpg");
+		//await SaveScreenshot(windowContainer, destination_folder, "Directory-HtmlTab.jpg");
 
 		_wizardMainWindow.Show();
 

@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Donations.Lib.Extensions;
-using Donations.Lib.View;
 using Serilog;
 using System;
 using System.Collections.Generic;

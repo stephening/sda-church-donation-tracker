@@ -90,6 +90,8 @@ public static class DependencyInjection
 		Builder.RegisterType<EnvelopeDesignViewModel>().SingleInstance();
 		Builder.RegisterType<CategoryView>().SingleInstance();
 		Builder.RegisterType<CategoryViewModel>().SingleInstance();
+		Builder.RegisterType<DirectoryPdfViewModel>().SingleInstance();
+		Builder.RegisterType<DirectoryHtmlViewModel>().SingleInstance();
 		Builder.RegisterType<ReportsViewModel>().SingleInstance();
 		Builder.RegisterType<AdventistGivingViewModel>().SingleInstance();
 		Builder.RegisterType<AGDonorResolutionViewModel>().SingleInstance();
@@ -102,6 +104,7 @@ public static class DependencyInjection
 		Builder.RegisterType<TableHelper>().SingleInstance();
 		Builder.RegisterType<PrintPreviewView>();
 		Builder.RegisterType<PrintPreviewViewModel>().SingleInstance();
+		Builder.RegisterType<DirectoryViewModel>().SingleInstance();
 		Builder.RegisterType<HelpView>().SingleInstance();
 		Builder.RegisterType<HelpViewModel>();
 
