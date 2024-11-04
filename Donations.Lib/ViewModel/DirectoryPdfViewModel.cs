@@ -215,19 +215,14 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 
 	private async Task<FlowDocument?> CopyFlowDocument(FlowDocument from)
 	{
-		await Task.Run(() =>
-		{
-			FlowDocument to = new FlowDocument();
-			TextRange range = new TextRange(from.ContentStart, from.ContentEnd);
-			MemoryStream stream = new MemoryStream();
-			System.Windows.Markup.XamlWriter.Save(range, stream);
-			_dispatcherWrapper.Invoke(() => range.Save(stream, DataFormats.XamlPackage));
-			TextRange range2 = new TextRange(to.ContentStart, to.ContentEnd);
-			range2.Load(stream, DataFormats.XamlPackage);
-
-			return to;
-		});
-		return null;
+		FlowDocument? to = new FlowDocument();
+		TextRange range = new TextRange(from.ContentStart, from.ContentEnd);
+		MemoryStream stream = new MemoryStream();
+		System.Windows.Markup.XamlWriter.Save(range, stream);
+		range.Save(stream, DataFormats.XamlPackage);
+		TextRange range2 = new TextRange(to.ContentStart, to.ContentEnd);
+		range2.Load(stream, DataFormats.XamlPackage);
+		return to;
 	}
 
 	private async Task SavePdf(string pdfFileName)
@@ -238,13 +233,13 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 		try
 		{
 			//await Task.Run(() => {
-				System.IO.MemoryStream s = new System.IO.MemoryStream();
-				TextRange source = new TextRange(_doc.ContentStart, _doc.ContentEnd);
-				source.Save(s, DataFormats.Xaml);
-				FlowDocument tempDoc = new FlowDocument();
-				TextRange dest = new TextRange(tempDoc.ContentStart, tempDoc.ContentEnd);
-				dest.Load(s, DataFormats.Xaml);
-
+			//System.IO.MemoryStream s = new System.IO.MemoryStream();
+			//TextRange source = new TextRange(_doc.ContentStart, _doc.ContentEnd);
+			//source.Save(s, DataFormats.Xaml);
+			//FlowDocument tempDoc = new FlowDocument();
+			//TextRange dest = new TextRange(tempDoc.ContentStart, tempDoc.ContentEnd);
+			//dest.Load(s, DataFormats.Xaml);
+			FlowDocument? tempDoc = await CopyFlowDocument(_doc);
 				tempDoc.PageWidth = _doc.PageWidth;
 				tempDoc.PageHeight = _doc.PageHeight;
 				tempDoc.ColumnWidth = _doc.ColumnWidth;
