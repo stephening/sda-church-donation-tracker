@@ -22,7 +22,7 @@ public partial class DirectoryPdfView : UserControl
 
 		if (true == saveFileDialog.ShowDialog())
 		{
-			await _viewModel!.SavePdf(DirectoryDocument, saveFileDialog.FileName);
+			await _viewModel!.SavePdf(saveFileDialog.FileName);
 		}
 	}
 

@@ -18,6 +18,7 @@
 		<Grid.RowDefinitions>
 			<RowDefinition Height="*"/>
 			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 		<TabControl Grid.Row="0">
 			<TabItem x:Name="DirectoryPdfTab" Header="{StaticResource DirectoryPdfTabHeader}" Selector.Selected="DirectoryPdfTab_Selected">
@@ -28,5 +29,6 @@
 			</TabItem>
 		</TabControl>
 		<ProgressBar Grid.Row="1" Minimum="0" Maximum="100" Value="{Binding Progress}" Height="10" />
+		<TextBlock Grid.Row="2" Text="{Binding Status}" Background="LightGray" Padding="2"/>
 	</Grid>
 </UserControl>

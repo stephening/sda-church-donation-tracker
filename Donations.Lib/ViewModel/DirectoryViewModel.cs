@@ -27,6 +27,9 @@ public partial class DirectoryViewModel : BaseViewModel
 	public DirectoryPdfViewModel DirectoryPdfViewModel { get; }
 
 	[ObservableProperty]
+	private string _status = "";
+
+	[ObservableProperty]
 	private double _progress = 0;
 
 	public new async Task Loading()
@@ -43,6 +46,8 @@ public partial class DirectoryViewModel : BaseViewModel
 		double total = donors.Count;
 
 		double c = 0;
+		Status = "Querying database for directory entries";
+
 		foreach (var donor in donors)
 		{
 			Progress = 100 * c / total;
@@ -202,6 +207,7 @@ public partial class DirectoryViewModel : BaseViewModel
 		DirectoryPdfViewModel.SetDirectoryEntries(_directoryEntries);
 
 		Mouse.OverrideCursor = save;
+		Status = "Completed database query";
 	}
 
 	private string GetAddress(Donor donor)
