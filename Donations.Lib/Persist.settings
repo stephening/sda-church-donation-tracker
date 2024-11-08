@@ -116,5 +116,20 @@
     <Setting Name="DonationEnvelopeViewHeight" Type="System.Double" Scope="User">
       <Value Profile="(Default)">450</Value>
     </Setting>
+    <Setting Name="PdfDirectoryIncludeAddress" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="PdfDirectoryIncludeEmail" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="PdfDirectoryIncludePhone" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="PdfDirectoryCoverImage" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="PdfDirectoryCoverText" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

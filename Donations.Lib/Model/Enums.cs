@@ -127,6 +127,22 @@ public enum enumMergeFields
 	ContainsDeductible,
 }
 
+public enum enumPdfCover
+{
+	[Description("Image")]
+	Image,
+	[Description("Bold")]
+	b,
+	[Description("Underline")]
+	u,
+	[Description("Italic")]
+	i,
+	[Description("Font family")]
+	Font,
+	[Description("Font size")]
+	FontSize,
+}
+
 public enum enumPrintout
 {
 	BatchReport,

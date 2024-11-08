@@ -478,5 +478,65 @@ namespace Donations.Lib {
                 this["DonationEnvelopeViewHeight"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PdfDirectoryIncludeAddress {
+            get {
+                return ((bool)(this["PdfDirectoryIncludeAddress"]));
+            }
+            set {
+                this["PdfDirectoryIncludeAddress"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PdfDirectoryIncludeEmail {
+            get {
+                return ((bool)(this["PdfDirectoryIncludeEmail"]));
+            }
+            set {
+                this["PdfDirectoryIncludeEmail"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PdfDirectoryIncludePhone {
+            get {
+                return ((bool)(this["PdfDirectoryIncludePhone"]));
+            }
+            set {
+                this["PdfDirectoryIncludePhone"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string PdfDirectoryCoverImage {
+            get {
+                return ((string)(this["PdfDirectoryCoverImage"]));
+            }
+            set {
+                this["PdfDirectoryCoverImage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string PdfDirectoryCoverText {
+            get {
+                return ((string)(this["PdfDirectoryCoverText"]));
+            }
+            set {
+                this["PdfDirectoryCoverText"] = value;
+            }
+        }
     }
 }

@@ -31,4 +31,15 @@ public partial class DirectoryPdfView : UserControl
 		_viewModel = DataContext as DirectoryPdfViewModel;
 		await _viewModel.SetDocument(DirectoryDocument);
 	}
+
+	private void ImageBrowse(object sender, System.Windows.RoutedEventArgs e)
+	{
+		OpenFileDialog dlg = new OpenFileDialog();
+		dlg.Filter = "Images (*.jpg;*.png)|*.jpg;*.png";
+
+		if (dlg.ShowDialog() == true)
+		{
+			_viewModel?.SetCoverImageFile(dlg.FileName);
+		}
+	}
 }
