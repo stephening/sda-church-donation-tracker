@@ -131,6 +131,8 @@ public enum enumPdfCover
 {
 	[Description("Image")]
 	Image,
+	[Description("Today's date")]
+	Date,
 	[Description("Bold")]
 	b,
 	[Description("Underline")]
@@ -138,6 +140,8 @@ public enum enumPdfCover
 	[Description("Italic")]
 	i,
 	[Description("Font family")]
+	Align,
+	[Description("Text alignment")]
 	Font,
 	[Description("Font size")]
 	FontSize,

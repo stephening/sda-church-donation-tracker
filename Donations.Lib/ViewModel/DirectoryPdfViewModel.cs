@@ -32,6 +32,7 @@ using System.Windows.Documents.Serialization;
 using System.Threading;
 using System.Text.RegularExpressions;
 using System.Windows.Shapes;
+using Microsoft.SqlServer.Server;
 
 namespace Donations.Lib.ViewModel;
 
@@ -332,10 +333,20 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 		for (int i = 1; i < group.Count; i++)
 		{
 			if (string.IsNullOrEmpty(group[i].Value)) continue;
+
+			// inline tags
+			if (group[i].Value.Contains($"{{{enumPdfCover.Date}}}", StringComparison.OrdinalIgnoreCase))
+			{
+				lines += DateTime.Now.ToString("MM/dd/yyyy");
+				return;
+			}
+
+			// format tags
 			if (group[i].Value.Contains('=') && i + 3 < group.Count)
 			{
 				if (CheckSingleKVPFormat(ref lines, section, group[i + 1].Value, group[i + 2].Value, enumPdfCover.Font)) { }
 				else if (CheckSingleKVPFormat(ref lines, section, group[i + 1].Value, group[i + 2].Value, enumPdfCover.FontSize)) { }
+				else if (CheckSingleKVPFormat(ref lines, section, group[i + 1].Value, group[i + 2].Value, enumPdfCover.Align)) { }
 				i += 3;
 			}
 			else if (CheckSingleFormat(ref lines, section, group[i].Value, enumPdfCover.b)) { }
@@ -409,6 +420,7 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 			{
 				FontFamily = new FontFamily(_formatMap[enumPdfCover.Font].Last().ToString())
 			};
+			var paragraph = new Paragraph(run);
 
 			var fontsize = _formatMap[enumPdfCover.FontSize].Last().ToString();
 
@@ -417,21 +429,38 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 				double size = SelectedSize;
 				double.TryParse(fontsize, out size);
 				run.FontSize = size;
-				if (0 < _formatMap[enumPdfCover.b].Count)
+			}
+			if (0 < _formatMap[enumPdfCover.b].Count)
+			{
+				run.FontWeight = FontWeights.Bold;
+			}
+			if (0 < _formatMap[enumPdfCover.i].Count)
+			{
+				run.FontStyle = FontStyles.Italic;
+			}
+			if (0 < _formatMap[enumPdfCover.u].Count)
+			{
+				run.TextDecorations = TextDecorations.Underline;
+			}
+			if (0 < _formatMap[enumPdfCover.Align].Count)
+			{
+				var value = _formatMap[enumPdfCover.Align].Last().ToString();
+
+				if (value.Equals("right", StringComparison.OrdinalIgnoreCase))
 				{
-					run.FontWeight = FontWeights.Bold;
+					paragraph.TextAlignment = TextAlignment.Right;
 				}
-				if (0 < _formatMap[enumPdfCover.i].Count)
+				if (value.Equals("center", StringComparison.OrdinalIgnoreCase))
 				{
-					run.FontStyle = FontStyles.Italic;
+					paragraph.TextAlignment = TextAlignment.Center;
 				}
-				if (0 < _formatMap[enumPdfCover.u].Count)
+				if (value.Equals("left", StringComparison.OrdinalIgnoreCase))
 				{
-					run.TextDecorations = TextDecorations.Underline;
+					paragraph.TextAlignment = TextAlignment.Left;
 				}
 			}
 
-			section.Blocks.Add(new Paragraph(run));
+			section.Blocks.Add(paragraph);
 
 			lines = null;
 		}
