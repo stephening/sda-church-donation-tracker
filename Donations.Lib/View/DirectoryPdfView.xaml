@@ -14,17 +14,14 @@
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 		<Grid Grid.Row="0" Margin="20">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="*"/>
-				<RowDefinition Height="Auto"/>
-			</Grid.RowDefinitions>
-			<Grid Grid.Row="0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="1*"/>
+				<ColumnDefinition Width="1*"/>
+			</Grid.ColumnDefinitions>
+			<Grid Grid.Row="0" Grid.Column="0" Margin="0,0,10,0">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
 				</Grid.RowDefinitions>
 				<GroupBox Header="Fields" Grid.Row="0">
 					<WrapPanel Orientation="Horizontal" Margin="5">
@@ -33,34 +30,51 @@
 						<CheckBox Content="Phone number" IsChecked="{Binding PhoneNumber}" Margin="20,0,0,0"/>
 					</WrapPanel>
 				</GroupBox>
-				<GroupBox Header="Cover page" Margin="0,0,0,20" Grid.Row="1">
-					<StackPanel Orientation="Vertical" Margin="5">
-						<TextBlock Text="Image or logo:"/>
-						<StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+				<GroupBox Header="Cover page" Grid.Row="1">
+					<Grid Margin="5">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="*"/>
+						</Grid.RowDefinitions>
+						<TextBlock Grid.Row="0" Text="Image or logo:"/>
+						<StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,10,0,0">
 							<Button Content="Browse..." Click="ImageBrowse" Margin="0,0,20,0" Padding="20,5" Height="30"/>
 							<Image Stretch="Uniform" MaxHeight="120" StretchDirection="DownOnly" Source="{Binding CoverImage}"/>
 						</StackPanel>
-						<TextBlock Text="Layout text:" Margin="0,10"/>
-						<TextBox Height="100" HorizontalScrollBarVisibility="Auto" Text="{Binding CoverText, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" AcceptsReturn="True"/>
-					</StackPanel>
+						<TextBlock Grid.Row="2" Text="Layout text:" Margin="0,10"/>
+						<TextBox Grid.Row="3" HorizontalScrollBarVisibility="Auto" Text="{Binding CoverText, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" AcceptsReturn="True"/>
+					</Grid>
 				</GroupBox>
-
 			</Grid>
-			<WrapPanel Grid.Row="1" Margin="0,10,0,0" >
-				<Button Content="Save as Pdf ..." Padding="20,5" Click="SavePdf" IsEnabled="{Binding ReadyToSavePdf}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-				<TextBlock Margin="20,0,0,0" Text="Encryption password: " VerticalAlignment="Center"/>
-				<TextBox Text="{Binding PdfPassword}" Width="80"/>
-			</WrapPanel>
-			<local:PrintOptionsView Grid.Row="2" Margin="0,10,0,0" SelectedFont="{Binding SelectedFont, Mode=TwoWay}" SelectedSize="{Binding SelectedSize, Mode=TwoWay}" LeftMargin="{Binding LeftMargin, Mode=TwoWay}" OtherMargins="{Binding OtherMargins, Mode=TwoWay}"/>
-			<FlowDocumentScrollViewer Grid.Row="3" Margin="0,10,0,0">
-				<FlowDocument x:Name="DirectoryDocument">
-					<FlowDocument.Resources>
-						<Style TargetType="{x:Type Paragraph}">
-							<Setter Property="Margin" Value="0"/>
-						</Style>
-					</FlowDocument.Resources>
-				</FlowDocument>
-			</FlowDocumentScrollViewer>
+			<Grid Grid.Row="0" Grid.Column="1" Margin="10,0,0,0">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<Grid Grid.Row="0" Margin="0,10,0,0" >
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<Button Grid.Column="0" Content="Save as Pdf ..." Padding="20,5" Click="SavePdf" IsEnabled="{Binding ReadyToSavePdf}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+					<TextBlock Grid.Column="1" Margin="20,0,0,0" Text="Encryption password: " VerticalAlignment="Center"/>
+					<TextBox Grid.Column="2" Text="{Binding PdfPassword}"/>
+				</Grid>
+				<local:PrintOptionsView Grid.Row="1" Margin="0,10,0,0" SelectedFont="{Binding SelectedFont, Mode=TwoWay}" SelectedSize="{Binding SelectedSize, Mode=TwoWay}" LeftMargin="{Binding LeftMargin, Mode=TwoWay}" OtherMargins="{Binding OtherMargins, Mode=TwoWay}"/>
+				<FlowDocumentScrollViewer Grid.Row="2" Margin="0,10,0,0" BorderThickness="1" BorderBrush="Gray">
+					<FlowDocument x:Name="DirectoryDocument">
+						<FlowDocument.Resources>
+							<Style TargetType="{x:Type Paragraph}">
+								<Setter Property="Margin" Value="0"/>
+							</Style>
+						</FlowDocument.Resources>
+					</FlowDocument>
+				</FlowDocumentScrollViewer>
+			</Grid>
 		</Grid>
 		<ProgressBar Grid.Row="1" Minimum="0" Maximum="100" Value="{Binding Progress}" Height="10" />
 		<TextBlock Grid.Row="2" Text="{Binding Status}" Background="LightGray" Padding="2"/>
