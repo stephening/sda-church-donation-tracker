@@ -105,7 +105,7 @@ public partial class App : Application
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+				MessageBox.Show(ex.Message, "Application.OnStartup() Exception", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 			}
 		}
 	}

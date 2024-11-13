@@ -26,10 +26,10 @@ public partial class DirectoryPdfView : UserControl
 		}
 	}
 
-	private async void UserControl_DataContextChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
+	private void UserControl_DataContextChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
 	{
 		_viewModel = DataContext as DirectoryPdfViewModel;
-		await _viewModel.SetDocument(DirectoryDocument);
+		_viewModel?.SetDocument(DirectoryDocument, Rich.RTB);
 	}
 
 	private void ImageBrowse(object sender, System.Windows.RoutedEventArgs e)

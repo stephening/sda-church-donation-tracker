@@ -27,8 +27,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Bold16.png" />
+    <None Remove="Resources\Bullets16.png" />
+    <None Remove="Resources\CenterAlign16.png" />
+    <None Remove="Resources\Copy16.png" />
+    <None Remove="Resources\Cut16.png" />
+    <None Remove="Resources\Delete16.png" />
     <None Remove="Resources\icon256.png" />
+    <None Remove="Resources\Italic16.png" />
+    <None Remove="Resources\JustifyAlign16.png" />
+    <None Remove="Resources\LeftAlign16.png" />
     <None Remove="Resources\logo.png" />
+    <None Remove="Resources\Numbering16.png" />
+    <None Remove="Resources\Paste32.png" />
+    <None Remove="Resources\Picture16.png" />
+    <None Remove="Resources\Redo16.png" />
+    <None Remove="Resources\RightAlign16.png" />
+    <None Remove="Resources\Underline16.png" />
+    <None Remove="Resources\Undo16.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -50,8 +66,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Bold16.png" />
+    <Resource Include="Resources\Bullets16.png" />
+    <Resource Include="Resources\CenterAlign16.png" />
+    <Resource Include="Resources\Copy16.png" />
+    <Resource Include="Resources\Cut16.png" />
+    <Resource Include="Resources\Delete16.png" />
     <Resource Include="Resources\icon256.png" />
+    <Resource Include="Resources\Italic16.png" />
+    <Resource Include="Resources\JustifyAlign16.png" />
+    <Resource Include="Resources\LeftAlign16.png" />
     <Resource Include="Resources\logo.png" />
+    <Resource Include="Resources\Numbering16.png" />
+    <Resource Include="Resources\Paste32.png" />
+    <Resource Include="Resources\Picture16.png" />
+    <Resource Include="Resources\Redo16.png" />
+    <Resource Include="Resources\RightAlign16.png" />
+    <Resource Include="Resources\Underline16.png" />
+    <Resource Include="Resources\Undo16.png" />
   </ItemGroup>
 
   <ItemGroup>

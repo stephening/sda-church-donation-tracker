@@ -44,7 +44,8 @@
 							<Image Stretch="Uniform" MaxHeight="120" StretchDirection="DownOnly" Source="{Binding CoverImage}"/>
 						</StackPanel>
 						<TextBlock Grid.Row="2" Text="Layout text:" Margin="0,10"/>
-						<TextBox Grid.Row="3" HorizontalScrollBarVisibility="Auto" Text="{Binding CoverText, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" AcceptsReturn="True"/>
+						<local:FlowDocTextFormattingView x:Name="Rich" Grid.Row="3"/>
+						<!--<TextBox Grid.Row="3" HorizontalScrollBarVisibility="Auto" Text="{Binding CoverText, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" AcceptsReturn="True"/>-->
 					</Grid>
 				</GroupBox>
 			</Grid>

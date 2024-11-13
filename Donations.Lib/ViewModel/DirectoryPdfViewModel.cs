@@ -30,16 +30,13 @@ using System.Linq;
 using System.Windows.Input;
 using System.Windows.Documents.Serialization;
 using System.Threading;
-using System.Text.RegularExpressions;
-using System.Windows.Shapes;
-using Microsoft.SqlServer.Server;
+using System.Reflection.Metadata;
+using System.Text;
 
 namespace Donations.Lib.ViewModel;
 
 public partial class DirectoryPdfViewModel : BaseViewModel
 {
-	private readonly Regex _imageRePat = new Regex($"{{{enumPdfCover.Image}([ ]+[A-za-z0-9=]+)?([ ]+[A-za-z0-9=]+)?[ ]*}}");
-	private readonly Regex _textRePat = new Regex(@"({\w+?})?({(\w+)=([+-]?\w+?)})?({/\w+?})?");
 	private PrintDialog _pd;
 	private double _width;
 	private readonly IFileSystem _fileSystem;
@@ -54,7 +51,9 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 	private string _pdfFilename = "";
 	private bool _cancelLoading = false;
 	private Semaphore _loading = new Semaphore(1, 1);
-	private Dictionary<enumPdfCover, List<object>> _formatMap = new Dictionary<enumPdfCover, List<object>>();
+	private FlowDocTextParser _docTextParser;
+	private Section _coverSection = new Section();
+	private Section _pdfCoverSection = new Section();
 
 	public DirectoryPdfViewModel(
 		IFileSystem fileSystem,
@@ -69,7 +68,12 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 		_donorServices = donorServices;
 		_appSettingsServices = appSettingsServices;
 		_dispatcherWrapper = dispatcherWrapper;
+
+		_docTextParser = new FlowDocTextParser(SelectedFont, SelectedSize, CoverImage);
 	}
+
+	[ObservableProperty]
+	private string _hello;
 
 	[ObservableProperty]
 	private string? _selectedFont = "Calibri";
@@ -79,7 +83,7 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 	/// </summary>
 	partial void OnSelectedFontChanged(string? value)
 	{
-		_formatMap[enumPdfCover.Font][0] = value;
+		_docTextParser.SelectedFont = value;
 	}
 
 	[ObservableProperty]
@@ -93,7 +97,7 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 		if (null != _doc)
 		{
 			_doc.FontSize = value;
-			_formatMap[enumPdfCover.FontSize][0] = value.ToString();
+			_docTextParser.SelectedSize = value;
 		}
 	}
 
@@ -147,6 +151,15 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 	partial void OnCoverTextChanged(string value)
 	{
 		Persist.Default.PdfDirectoryCoverText = value;
+		GenerateCoverPage(_coverSection);
+		GenerateCoverPage(_pdfCoverSection);
+	}
+
+	[ObservableProperty]
+	private RichTextBox _rtb;
+	partial void OnRtbChanged(RichTextBox value)
+	{
+		
 	}
 
 	[ObservableProperty]
@@ -171,12 +184,15 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 	public void SetCoverImageFile(string imageFile)
 	{
 		CoverImage = imageFile;
+		_docTextParser.SelectedImage = CoverImage;
 	}
 
-	public async Task SetDocument(
-		FlowDocument flowDocument
+	public void SetDocument(
+		FlowDocument flowDocument,
+		RichTextBox richTextBox
 	)
 	{
+		Rtb = richTextBox;
 		_doc = flowDocument;
 
 		_pd = new PrintDialog();
@@ -191,6 +207,10 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 		_doc.PagePadding = margin;
 
 		_width = _doc.PageWidth - margin.Left - margin.Right;
+
+		_doc.Blocks.Clear();
+		_doc.Blocks.Add(_coverSection);
+		GenerateCoverPage(_coverSection);
 	}
 
 	private async Task AddEntry(Section section, string key, string basePictureUrl)
@@ -240,230 +260,16 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 		section.Blocks.Add(table);
 	}
 
-	private async Task GenerateCoverPage(FlowDocument flowDocument)
+	private void GenerateCoverPage(Section section)
 	{
-		Section section = new Section();
-		flowDocument.Blocks.Add(section);
-		string? lines = null;
-		var split = CoverText.Split("\r\n");
-		_formatMap.Clear();
-		foreach (enumPdfCover format in Enum.GetValues(typeof(enumPdfCover)))
-		{
-			_formatMap[format] = new List<object>();
-		}
-		_formatMap[enumPdfCover.Font].Add(SelectedFont);
-		_formatMap[enumPdfCover.FontSize].Add(SelectedSize);
+		section.Blocks.Clear();
+		TextRange range;
+		range = new TextRange(Rtb.Document.ContentStart, Rtb.Document.ContentEnd);
+		using var stream = new MemoryStream();
+		range.Save(stream, DataFormats.XamlPackage);
 
-		foreach (var line in split)
-		{
-			if (line.Contains($"{{{enumPdfCover.Image}", StringComparison.OrdinalIgnoreCase))
-			{
-				double width = 0;
-				double height = 0;
-
-				var res = _imageRePat.Match(line);
-				if (null != res && res.Success && 1 <= res.Groups.Count)
-				{
-					for (int i = 1; i < res.Groups.Count; i++)
-					{
-						if (!string.IsNullOrEmpty(res.Groups[i].Value) && res.Groups[i].Value.Contains('='))
-						{
-							var splt = res.Groups[i].Value.Trim().Split("=");
-							if (2 == splt.Length)
-							{
-								if (splt[0].Equals("WIDTH", StringComparison.OrdinalIgnoreCase))
-								{
-									width = double.Parse(splt[1]);
-								}
-								else if (splt[0].Equals("HEIGHT", StringComparison.OrdinalIgnoreCase))
-								{
-									height = double.Parse(splt[1]);
-								}
-							}
-						}
-					}
-				}
-
-				CheckDumpParagraph(ref lines, section);
-
-				var imgSource = new BitmapImage(new Uri(CoverImage));
-				var cellImage = new Image() { Source = imgSource, Stretch = Stretch.Uniform, HorizontalAlignment = HorizontalAlignment.Left };
-
-				if (0 != width)
-				{
-					cellImage.Width = width;
-				}
-				if (0 != height)
-				{
-					cellImage.Height = height;
-				}
-
-				section.Blocks.Add(new BlockUIContainer(cellImage));
-			}
-			else if (!string.IsNullOrEmpty(line))
-			{
-				var res = _textRePat.Matches(line);
-				foreach (Match m in res)
-				{
-					if (string.IsNullOrEmpty(m.Groups[0].Value))
-					{
-						if (m.Groups[0].Index < line.Length)
-						{
-							lines += line[m.Groups[0].Index];
-						}
-					}
-					else
-					{
-						CheckFormats(ref lines, section, m.Groups);
-					}
-				}
-				lines += '\n';
-			}
-			else
-			{
-				lines += '\n';
-			}
-		}
-
-		CheckDumpParagraph(ref lines, section);
-	}
-
-	private void CheckFormats(ref string? lines, Section section,GroupCollection group)
-	{
-		for (int i = 1; i < group.Count; i++)
-		{
-			if (string.IsNullOrEmpty(group[i].Value)) continue;
-
-			// inline tags
-			if (group[i].Value.Contains($"{{{enumPdfCover.Date}}}", StringComparison.OrdinalIgnoreCase))
-			{
-				lines += DateTime.Now.ToString("MM/dd/yyyy");
-				return;
-			}
-
-			// format tags
-			if (group[i].Value.Contains('=') && i + 3 < group.Count)
-			{
-				if (CheckSingleKVPFormat(ref lines, section, group[i + 1].Value, group[i + 2].Value, enumPdfCover.Font)) { }
-				else if (CheckSingleKVPFormat(ref lines, section, group[i + 1].Value, group[i + 2].Value, enumPdfCover.FontSize)) { }
-				else if (CheckSingleKVPFormat(ref lines, section, group[i + 1].Value, group[i + 2].Value, enumPdfCover.Align)) { }
-				i += 3;
-			}
-			else if (CheckSingleFormat(ref lines, section, group[i].Value, enumPdfCover.b)) { }
-			else if (CheckSingleFormat(ref lines, section, group[i].Value, enumPdfCover.u)) { }
-			else if (CheckSingleFormat(ref lines, section, group[i].Value, enumPdfCover.i)) { }
-			else if (CheckSingleFormat(ref lines, section, group[i].Value, enumPdfCover.Font)) { }
-			else if (CheckSingleFormat(ref lines, section, group[i].Value, enumPdfCover.FontSize)) { }
-		}
-	}
-
-	private bool CheckSingleFormat(ref string? lines, Section section, string value, enumPdfCover format)
-	{
-		if (value.Contains($"{{{format}}}", StringComparison.OrdinalIgnoreCase))
-		{
-			CheckDumpParagraph(ref lines, section);
-
-			_formatMap[format].Add(true);
-			return true;
-		}
-		if (value.Contains($"{{/{format}}}", StringComparison.OrdinalIgnoreCase))
-		{
-			CheckDumpParagraph(ref lines, section);
-
-			_formatMap[format].RemoveAt(_formatMap[format].Count - 1);
-			return true;
-		}
-		return false;
-	}
-
-	private bool CheckSingleKVPFormat(ref string? lines, Section section, string key, string value, enumPdfCover format)
-	{
-		if (key.Equals($"{format}", StringComparison.OrdinalIgnoreCase))
-		{
-			CheckDumpParagraph(ref lines, section);
-
-			if (enumPdfCover.FontSize == format)
-			{
-				if (value[0] == '+' || value[0] == '-')
-				{
-					double size = double.Parse(_formatMap[format][0].ToString());
-					size += double.Parse(value);
-					_formatMap[format].Add(size.ToString());
-				}
-				else
-				{
-					_formatMap[format].Add(value);
-				}
-			}
-			else
-			{
-				_formatMap[format].Add(value);
-			}
-
-			return true;
-		}
-		if (key.Equals($"/{format}", StringComparison.OrdinalIgnoreCase))
-		{
-			CheckDumpParagraph(ref lines, section);
-
-			_formatMap[format].RemoveAt(_formatMap[format].Count - 1);
-			return true;
-		}
-		return false;
-	}
-
-	private void CheckDumpParagraph(ref string? lines, Section section)
-	{
-		if (null != lines)
-		{
-			var run = new Run(lines + "\n")
-			{
-				FontFamily = new FontFamily(_formatMap[enumPdfCover.Font].Last().ToString())
-			};
-			var paragraph = new Paragraph(run);
-
-			var fontsize = _formatMap[enumPdfCover.FontSize].Last().ToString();
-
-			if (!string.IsNullOrEmpty(fontsize))
-			{
-				double size = SelectedSize;
-				double.TryParse(fontsize, out size);
-				run.FontSize = size;
-			}
-			if (0 < _formatMap[enumPdfCover.b].Count)
-			{
-				run.FontWeight = FontWeights.Bold;
-			}
-			if (0 < _formatMap[enumPdfCover.i].Count)
-			{
-				run.FontStyle = FontStyles.Italic;
-			}
-			if (0 < _formatMap[enumPdfCover.u].Count)
-			{
-				run.TextDecorations = TextDecorations.Underline;
-			}
-			if (0 < _formatMap[enumPdfCover.Align].Count)
-			{
-				var value = _formatMap[enumPdfCover.Align].Last().ToString();
-
-				if (value.Equals("right", StringComparison.OrdinalIgnoreCase))
-				{
-					paragraph.TextAlignment = TextAlignment.Right;
-				}
-				if (value.Equals("center", StringComparison.OrdinalIgnoreCase))
-				{
-					paragraph.TextAlignment = TextAlignment.Center;
-				}
-				if (value.Equals("left", StringComparison.OrdinalIgnoreCase))
-				{
-					paragraph.TextAlignment = TextAlignment.Left;
-				}
-			}
-
-			section.Blocks.Add(paragraph);
-
-			lines = null;
-		}
+		range = new TextRange(section.ContentStart, section.ContentEnd);
+		range.Load(stream, DataFormats.XamlPackage);
 	}
 
 	public new async Task Loading()
@@ -488,14 +294,16 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 				ColumnWidth = _doc.PageWidth,
 				PagePadding = margin
 			};
+			_pdfFlowDocument.Blocks.Add(_pdfCoverSection);
 
 			_doc.Blocks.Clear();
+			_doc.Blocks.Add(_coverSection);
 			var basePictureUrl = _appSettingsServices.Get()?.PictureBaseUrl;
 			var keys = _directoryEntries.Keys.Order();
 			double total = _directoryEntries.Count;
 
-			await GenerateCoverPage(_doc);
-			await GenerateCoverPage(_pdfFlowDocument);
+			GenerateCoverPage(_coverSection);
+			GenerateCoverPage(_pdfCoverSection);
 
 			Section section = new Section()
 			{
