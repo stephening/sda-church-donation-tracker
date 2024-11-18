@@ -31,7 +31,7 @@ public partial class DonorMapViewModel : BaseViewModel
 	private readonly IDonorMapServices _donorMapServices;
 
 	[ObservableProperty]
-	private bool _hasChanges;
+	private bool _hasChanges = false;
 	/// <summary>
 	/// The HasChanges property tracks the changes which allows the 'Save changes' button to
 	/// be enabled or disabled accordingly.
@@ -52,8 +52,6 @@ public partial class DonorMapViewModel : BaseViewModel
 		_reflectionHelpers = reflectionHelpers;
 		_dispatcherWrapper = dispatcherWrapper;
 		_donorMapServices = donorMapServices;
-
-		HasChanges = true;
 
 		foreach (var entry in _donorMapServices.AGDonorMapList)
 		{

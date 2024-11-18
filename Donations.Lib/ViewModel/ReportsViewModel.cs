@@ -320,11 +320,38 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 		};
 		await _printSettingsServices.Save(settings);
 
-		_individualReport.TemplateText = TemplateText;
-		_individualReport.EmailSubject = EmailSubject;
-		_individualReport.EmailBody = EmailBody;
-		_individualReport.Encrypt = Encrypt;
-		await _individualReportServices.Save(_individualReport);
+		if (null != _individualReport)
+		{
+			bool changed = false;
+			if (_individualReport.TemplateText != TemplateText)
+			{
+				_individualReport.TemplateText = TemplateText;
+				changed = true;
+			}
+
+			if (_individualReport.EmailSubject != EmailSubject)
+			{
+				_individualReport.EmailSubject = EmailSubject;
+				changed = true;
+			}
+
+			if (_individualReport.EmailBody != EmailBody)
+			{
+				_individualReport.EmailBody = EmailBody;
+				changed = true;
+			}
+
+			if (_individualReport.Encrypt != Encrypt)
+			{
+				_individualReport.Encrypt = Encrypt;
+				changed = true;
+			}
+
+			if (changed)
+			{
+				await _individualReportServices.Save(_individualReport);
+			}
+		}
 	}
 
 	/// <summary>

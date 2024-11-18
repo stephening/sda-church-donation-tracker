@@ -125,9 +125,6 @@
     <Setting Name="PdfDirectoryIncludePhone" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="PdfDirectoryCoverImage" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="PdfDirectoryCoverText" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>

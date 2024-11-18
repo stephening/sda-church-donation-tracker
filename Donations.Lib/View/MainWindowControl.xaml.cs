@@ -29,19 +29,25 @@ public partial class MainWindowControl : UserControl
 	/// <param name="e"></param>
 	private async void MainWindowControl_Unloaded(object sender, RoutedEventArgs e)
 	{
-		if ((MainTabControl.SelectedItem as TabItem) == ReportsTab)
-		{
-			// if on the Reports tab save settings
-			await (ReportsView.DataContext as ReportsViewModel)!.Leaving();
-		}
+		//if ((MainTabControl.SelectedItem as TabItem) == ReportsTab)
+		//{
+		//	// if on the Reports tab save settings
+		//	await (ReportsView.DataContext as ReportsViewModel)!.Leaving();
+		//}
 
-		if ((MainTabControl.SelectedItem as TabItem) == MaintenanceMainTab && ((MaintenanceTabs.SelectedItem as TabItem) == MaintenanceGeneralTab))
-		{
-			// if open to the Maintenance General tab, save settings
-			await _mainWindowViewModel?.GeneralViewModel?.Leaving();
-		}
+		//if ((MainTabControl.SelectedItem as TabItem) == DirectoryTabs)
+		//{
+		//	// if on the Reports tab save settings
+		//	await (DirectoryTabs.DataContext as DirectoryViewModel)!.Leaving();
+		//}
 
-		_helpView?.ForceClose();
+		//if ((MainTabControl.SelectedItem as TabItem) == MaintenanceMainTab && ((MaintenanceTabs.SelectedItem as TabItem) == MaintenanceGeneralTab))
+		//{
+		//	// if open to the Maintenance General tab, save settings
+		//	await _mainWindowViewModel?.GeneralViewModel?.Leaving();
+		//}
+
+		//_helpView?.ForceClose();
 	}
 
 	private void DonorInputTab_Selected(object sender, RoutedEventArgs e)
@@ -162,6 +168,11 @@ public partial class MainWindowControl : UserControl
 	private async void DirectoryTab_Selected(object sender, RoutedEventArgs e)
 	{
 		await _mainWindowViewModel?.DirectoryViewModel?.Loading();
+	}
+
+	private async void DirectoryTab_Unselected(object sender, RoutedEventArgs e)
+	{
+		await _mainWindowViewModel?.DirectoryViewModel?.Leaving();
 	}
 
 	private void UserControl_KeyDown(object sender, KeyEventArgs e)

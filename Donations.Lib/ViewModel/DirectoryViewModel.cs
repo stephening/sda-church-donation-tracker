@@ -32,6 +32,12 @@ public partial class DirectoryViewModel : BaseViewModel
 	[ObservableProperty]
 	private double _progress = 0;
 
+	public new async Task Leaving()
+	{
+		await DirectoryPdfViewModel.Leaving();
+		await DirectoryHtmlViewModel.Leaving();
+	}
+
 	public new async Task Loading()
 	{
 		Progress = 0;

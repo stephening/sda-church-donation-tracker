@@ -26,20 +26,9 @@ public partial class DirectoryPdfView : UserControl
 		}
 	}
 
-	private void UserControl_DataContextChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
+	private async void UserControl_DataContextChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
 	{
 		_viewModel = DataContext as DirectoryPdfViewModel;
-		_viewModel?.SetDocument(DirectoryDocument, Rich.RTB);
-	}
-
-	private void ImageBrowse(object sender, System.Windows.RoutedEventArgs e)
-	{
-		OpenFileDialog dlg = new OpenFileDialog();
-		dlg.Filter = "Images (*.jpg;*.png)|*.jpg;*.png";
-
-		if (dlg.ShowDialog() == true)
-		{
-			_viewModel?.SetCoverImageFile(dlg.FileName);
-		}
+		await _viewModel!.SetDocument(DirectoryDocument, RichTextEditor.RTB);
 	}
 }

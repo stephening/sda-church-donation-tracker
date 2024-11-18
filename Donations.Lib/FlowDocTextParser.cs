@@ -21,13 +21,11 @@ public partial class FlowDocTextParser : ObservableObject
 
     public FlowDocTextParser(
 		string? selectedFont,
-		double fontSize,
-		string coverImage
+		double fontSize
 	)
     {
         SelectedFont = selectedFont;
 		SelectedSize = fontSize;
-		SelectedImage = coverImage;
     }
 
     [ObservableProperty]
@@ -56,96 +54,6 @@ public partial class FlowDocTextParser : ObservableObject
 		{
 			_formatMap[enumPdfCover.FontSize][0] = value.ToString();
 		}
-	}
-
-	[ObservableProperty]
-	private string? _selectedImage;
-
-	public void Parse(BlockCollection blocks, string text)
-	{
-		string? lines = null;
-		var split = text.Split("\r\n");
-		_formatMap.Clear();
-		foreach (enumPdfCover format in Enum.GetValues(typeof(enumPdfCover)))
-		{
-			_formatMap[format] = new List<object?>();
-		}
-		_formatMap[enumPdfCover.Font].Add(SelectedFont);
-		_formatMap[enumPdfCover.FontSize].Add(SelectedSize);
-
-		foreach (var line in split)
-		{
-			if (line.Contains($"{{{enumPdfCover.Image}", StringComparison.OrdinalIgnoreCase) && null != SelectedImage)
-			{
-				double width = 0;
-				double height = 0;
-
-				var res = _imageRePat.Match(line);
-				if (null != res && res.Success && 1 <= res.Groups.Count)
-				{
-					for (int i = 1; i < res.Groups.Count; i++)
-					{
-						if (!string.IsNullOrEmpty(res.Groups[i].Value) && res.Groups[i].Value.Contains('='))
-						{
-							var splt = res.Groups[i].Value.Trim().Split("=");
-							if (2 == splt.Length)
-							{
-								if (splt[0].Equals("WIDTH", StringComparison.OrdinalIgnoreCase))
-								{
-									width = double.Parse(splt[1]);
-								}
-								else if (splt[0].Equals("HEIGHT", StringComparison.OrdinalIgnoreCase))
-								{
-									height = double.Parse(splt[1]);
-								}
-							}
-						}
-					}
-				}
-
-				CheckDumpParagraph(ref lines, blocks);
-
-				var imgSource = new BitmapImage(new Uri(SelectedImage));
-				var cellImage = new Image() { Source = imgSource, Stretch = Stretch.Uniform, HorizontalAlignment = HorizontalAlignment.Left };
-
-				if (0 != width)
-				{
-					cellImage.Width = width;
-				}
-				if (0 != height)
-				{
-					cellImage.Height = height;
-				}
-
-				blocks.Add(new BlockUIContainer(cellImage));
-			}
-			else if (!string.IsNullOrEmpty(line))
-			{
-				var res = _textRePat.Matches(line);
-				foreach (Match m in res)
-				{
-					if (string.IsNullOrEmpty(m.Groups[0].Value))
-					{
-						if (m.Groups[0].Index < line.Length)
-						{
-							lines += line[m.Groups[0].Index];
-						}
-					}
-					else
-					{
-						CheckFormats(ref lines, blocks, m.Groups);
-					}
-				}
-				lines += '\n';
-			}
-			else
-			{
-				lines += '\n';
-			}
-		}
-
-		CheckDumpParagraph(ref lines, blocks);
-
 	}
 
 	private void CheckFormats(ref string? lines, BlockCollection blocks, GroupCollection group)

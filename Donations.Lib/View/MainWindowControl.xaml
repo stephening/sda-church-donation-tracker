@@ -60,7 +60,7 @@
 					</TabItem>
 				</TabControl>
 			</TabItem>
-			<TabItem Header="{StaticResource DirectoryTabHeader}" Selector.Selected="DirectoryTab_Selected">
+			<TabItem x:Name="DirectoryTabs" Header="{StaticResource DirectoryTabHeader}" Selector.Selected="DirectoryTab_Selected" Selector.Unselected="DirectoryTab_Unselected">
 				<local:DirectoryTabView DataContext="{Binding DirectoryViewModel}"/>
 			</TabItem>
 			<TabItem Header="{StaticResource AboutTabHeader}" x:Name="AboutTab">

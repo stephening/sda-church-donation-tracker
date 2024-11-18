@@ -14,6 +14,7 @@ namespace Donors
 	{
 		private readonly MainWindowMembersViewModel _mainWindowMembersViewModel;
 		private readonly HelpView _helpView;
+		private bool _skipHandler = false;
 
 		public MainWindow(
 			MainWindowMembersViewModel mainWindowMembersViewModel,
@@ -55,10 +56,21 @@ namespace Donors
 			Donations.Lib.Settings.Save();
 		}
 
-		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			SaveSettings();
-			_helpView.ForceClose();
+			// shudown is kinda slow because of possible database updates,
+			// so cancel it first time around, then set a flag to skip handler
+			// the second time which is triggered by the Shutdown().
+			if (!_skipHandler)
+			{
+				e.Cancel = true;
+				Hide();
+				SaveSettings();
+				_helpView.ForceClose();
+				await _mainWindowMembersViewModel.Shutdown();
+				_skipHandler = true;
+				Application.Current.Shutdown();
+			}
 		}
 
 		private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)

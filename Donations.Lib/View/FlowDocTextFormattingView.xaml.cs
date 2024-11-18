@@ -1,9 +1,6 @@
-﻿using Donations.Lib.Extensions;
-using Donations.Lib.View;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -96,6 +93,7 @@ public partial class FlowDocTextFormattingView : UserControl
 		UpdateSelectionListType();
 		UpdateSelectedFontFamily();
 		UpdateSelectedFontSize();
+		_richTextBox.UpdateLayout();
 	}
 
 	private void UpdateToggleButtonState()
@@ -213,15 +211,16 @@ public partial class FlowDocTextFormattingView : UserControl
 		if (true == openFileDialog.ShowDialog())
 		{
 			Image image = new Image();
-			var imgsrc = new BitmapImage();
-			imgsrc.BeginInit();
-			imgsrc.StreamSource = File.Open(openFileDialog.FileName, FileMode.Open);
-			imgsrc.EndInit();
+			var imgsrc = new BitmapImage(new Uri(openFileDialog.FileName));
 			image.Source = imgsrc;
 			var save = Clipboard.GetDataObject();
 			Clipboard.SetImage(imgsrc);
-			Clipboard.SetDataObject(save);
 			_richTextBox.Paste();
+			Clipboard.SetDataObject(save);
 		}
+	}
+
+	private void _richTextBox_TextChanged(object sender, TextChangedEventArgs e)
+	{
 	}
 }

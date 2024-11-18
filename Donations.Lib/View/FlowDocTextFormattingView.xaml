@@ -58,7 +58,7 @@
 				<RibbonGroup Header="Font">
 					<RibbonControlGroup>
 						<ComboBox x:Name="_fontFamily" Width="150" ItemsSource="{Binding FontList, ElementName=RichTextEditBox}" VerticalAlignment="Center"
-								  SelectionChanged="_fontFamily_SelectionChanged">
+								   SelectionChanged="_fontFamily_SelectionChanged">
 							<ComboBox.ItemTemplate>
 								<DataTemplate>
 									<Label FontFamily="{Binding .}" Content="{Binding .}"/>
@@ -140,6 +140,6 @@
 				</RibbonGroup>
 			</RibbonTab>
 		</Ribbon>
-		<RichTextBox x:Name="_richTextBox" Grid.Row="1" SelectionChanged="_richTextBox_SelectionChanged"/>
+		<RichTextBox x:Name="_richTextBox" Grid.Row="1" SelectionChanged="_richTextBox_SelectionChanged" TextChanged="_richTextBox_TextChanged"/>
 	</Grid>
 </UserControl>

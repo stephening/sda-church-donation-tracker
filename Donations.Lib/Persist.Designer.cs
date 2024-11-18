@@ -518,18 +518,6 @@ namespace Donations.Lib {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string PdfDirectoryCoverImage {
-            get {
-                return ((string)(this["PdfDirectoryCoverImage"]));
-            }
-            set {
-                this["PdfDirectoryCoverImage"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string PdfDirectoryCoverText {
             get {
                 return ((string)(this["PdfDirectoryCoverText"]));

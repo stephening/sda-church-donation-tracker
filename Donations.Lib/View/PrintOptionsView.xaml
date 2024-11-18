@@ -18,9 +18,13 @@
 
 		<ComboBox x:Name="FontSizeChooser" Width="100" ItemsSource="{Binding FontSizes, ElementName=PrintOptions}" IsEditable="True" Margin="20,0,0,0"
 					  SelectedItem="{Binding SelectedSize, ElementName=PrintOptions, Mode=TwoWay}" VerticalAlignment="Center"/>
-		<Label Margin="20,0,0,0" Content="Left margin (inches)"/>
+		<Label Margin="10,0,0,0" Content="Page width (inches)"/>
+		<TextBox Text="{Binding PageWidth, ElementName=PrintOptions}" Width="50" VerticalAlignment="Center"/>
+		<Label Margin="10,0,0,0" Content="Page height (inches)"/>
+		<TextBox Text="{Binding PageHeight, ElementName=PrintOptions}" Width="50" VerticalAlignment="Center"/>
+		<Label Margin="10,0,0,0" Content="Left margin (inches)"/>
 		<TextBox Text="{Binding LeftMargin, ElementName=PrintOptions}" Width="50" VerticalAlignment="Center"/>
-		<Label Margin="20,0,0,0" Content="Other margins (inches)"/>
+		<Label Margin="10,0,0,0" Content="Other margins (inches)"/>
 		<TextBox Text="{Binding OtherMargins, ElementName=PrintOptions}" Width="50" VerticalAlignment="Center"/>
 	</WrapPanel>
 </UserControl>

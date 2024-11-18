@@ -30,64 +30,49 @@ using System.Linq;
 using System.Windows.Input;
 using System.Windows.Documents.Serialization;
 using System.Threading;
-using System.Reflection.Metadata;
-using System.Text;
 
 namespace Donations.Lib.ViewModel;
 
 public partial class DirectoryPdfViewModel : BaseViewModel
 {
-	private PrintDialog _pd;
+	private PrintDialog? _pd;
 	private double _width;
 	private readonly IFileSystem _fileSystem;
 	private readonly ILogger _logger;
-	private readonly IDonorServices _donorServices;
 	private readonly IAppSettingsServices _appSettingsServices;
+	private readonly IPdfDirectoryServices _pdfDirectoryServices;
 	private readonly IDispatcherWrapper _dispatcherWrapper;
 	private Dictionary<string, DirectoryData>? _directoryEntries;
-	private FlowDocument _doc;
+	private FlowDocument? _doc;
 	private FlowDocument? _pdfFlowDocument;
 	private AutoResetEvent _waitHandle = new AutoResetEvent(false);
 	private string _pdfFilename = "";
 	private bool _cancelLoading = false;
 	private Semaphore _loading = new Semaphore(1, 1);
-	private FlowDocTextParser _docTextParser;
 	private Section _coverSection = new Section();
 	private Section _pdfCoverSection = new Section();
+	private byte[]? _coverRtf;
 
 	public DirectoryPdfViewModel(
 		IFileSystem fileSystem,
 		ILogger logger,
-        IDonorServices donorServices,
 		IAppSettingsServices appSettingsServices,
+		IPdfDirectoryServices pdfDirectoryServices,
 		IDispatcherWrapper dispatcherWrapper
     )
     {
 		_fileSystem = fileSystem;
 		_logger = logger;
-		_donorServices = donorServices;
 		_appSettingsServices = appSettingsServices;
+		_pdfDirectoryServices = pdfDirectoryServices;
 		_dispatcherWrapper = dispatcherWrapper;
-
-		_docTextParser = new FlowDocTextParser(SelectedFont, SelectedSize, CoverImage);
 	}
 
 	[ObservableProperty]
-	private string _hello;
+	private string? _selectedFont;
 
 	[ObservableProperty]
-	private string? _selectedFont = "Calibri";
-	/// <summary>
-	/// The SelectedFont prperty is used to initially select the last font used, and also to
-	/// receive the latest font chosen by the operator.
-	/// </summary>
-	partial void OnSelectedFontChanged(string? value)
-	{
-		_docTextParser.SelectedFont = value;
-	}
-
-	[ObservableProperty]
-	private double _selectedSize = 14;
+	private double _selectedSize;
 	/// <summary>
 	/// The SelectedSize prperty is used to initially select the last font size used, and also to
 	/// receive the latest font size chosen by the operator.
@@ -97,70 +82,66 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 		if (null != _doc)
 		{
 			_doc.FontSize = value;
-			_docTextParser.SelectedSize = value;
 		}
 	}
 
+	/// <summary>
+	/// The PageWidth property is used for specifying the Pdf document page size.
+	/// </summary>
 	[ObservableProperty]
-	private double _leftMargin = 0.8;
+	private double _pageWidth;
+
+	/// <summary>
+	/// The PageHeight property is used for specifying the Pdf document page size.
+	/// </summary>
+	[ObservableProperty]
+	private double _pageHeight;
+
 	/// <summary>
 	/// The LeftMargin property is provided for the sole purpose of allowing a larger left margin
 	/// for three ring binding. Otherwise, I would have only given a single margin parameter.
 	/// </summary>
-
 	[ObservableProperty]
-	private double _otherMargins = 0.5;
+	private double _leftMargin;
+
 	/// <summary>
 	/// The OtherMargins property contains a single value that is applied to the top/right/bottom
 	/// page margins.
 	/// </summary>
+	[ObservableProperty]
+	private double _otherMargins;
 
 	[ObservableProperty]
-	private bool _address = Persist.Default.PdfDirectoryIncludeAddress;
+	private bool _address;
 	partial void OnAddressChanged(bool value)
 	{
-		Persist.Default.PdfDirectoryIncludeAddress = value;
 		Loading();
 	}
 
 	[ObservableProperty]
-	private bool _email = Persist.Default.PdfDirectoryIncludeEmail;
+	private bool _email;
 	partial void OnEmailChanged(bool value)
 	{
-		Persist.Default.PdfDirectoryIncludeEmail = value;
 		Loading();
 	}
 
 	[ObservableProperty]
-	private bool _phoneNumber = Persist.Default.PdfDirectoryIncludePhone;
+	private bool _phoneNumber;
 	partial void OnPhoneNumberChanged(bool value)
 	{
-		Persist.Default.PdfDirectoryIncludePhone = value;
 		Loading();
 	}
 
 	[ObservableProperty]
-	private string _coverImage = Persist.Default.PdfDirectoryCoverImage;
-	partial void OnCoverImageChanged(string value)
-	{
-		Persist.Default.PdfDirectoryCoverImage = value;
-	}
-
-	[ObservableProperty]
-	private string _coverText = Persist.Default.PdfDirectoryCoverText;
+	private string? _coverText;
 	partial void OnCoverTextChanged(string value)
 	{
-		Persist.Default.PdfDirectoryCoverText = value;
 		GenerateCoverPage(_coverSection);
 		GenerateCoverPage(_pdfCoverSection);
 	}
 
 	[ObservableProperty]
-	private RichTextBox _rtb;
-	partial void OnRtbChanged(RichTextBox value)
-	{
-		
-	}
+	private RichTextBox? _rtb;
 
 	[ObservableProperty]
 	private bool _readyToSavePdf = false;
@@ -174,6 +155,8 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 	[ObservableProperty]
 	private string _pdfPassword = "";
 
+	public ICommand ChangedCommand { get; set; }
+
 	public void SetDirectoryEntries(Dictionary<string, DirectoryData>? directoryEntries)
 	{
 		_directoryEntries = directoryEntries;
@@ -181,18 +164,32 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 		Loading();
 	}
 
-	public void SetCoverImageFile(string imageFile)
-	{
-		CoverImage = imageFile;
-		_docTextParser.SelectedImage = CoverImage;
-	}
-
-	public void SetDocument(
+	public async Task SetDocument(
 		FlowDocument flowDocument,
 		RichTextBox richTextBox
 	)
 	{
 		Rtb = richTextBox;
+		var data = await _pdfDirectoryServices.GetAsync();
+		SelectedFont = data.Font;
+		SelectedSize = data.FontSize;
+		PageWidth = data.PageWidth;
+		PageHeight = data.PageHeight;
+		LeftMargin = data.LeftMargin;
+		OtherMargins = data.OtherMargins;
+		Address = data.IncludeAddress;
+		Email = data.IncludeEmail;
+		PhoneNumber = data.IncludePhone;
+
+		if (null != data.CoverRtf)
+		{
+			_coverRtf = new byte[data.CoverRtf.Length];
+			data.CoverRtf.CopyTo(_coverRtf, 0);
+			using var stream = new MemoryStream(data.CoverRtf);
+			var range = new TextRange(Rtb.Document.ContentStart, Rtb.Document.ContentEnd);
+			range.Load(stream, DataFormats.XamlPackage);
+		}
+
 		_doc = flowDocument;
 
 		_pd = new PrintDialog();
@@ -201,8 +198,8 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 									OtherMargins * PrintOptionsView._dpi,
 									OtherMargins * PrintOptionsView._dpi);
 
-		_doc.PageWidth = _pd.PrintableAreaWidth;
-		_doc.PageHeight = _pd.PrintableAreaHeight;
+		_doc.PageWidth = PageWidth * PrintOptionsView._dpi;
+		_doc.PageHeight = PageHeight * PrintOptionsView._dpi;
 		_doc.ColumnWidth = _doc.PageWidth;
 		_doc.PagePadding = margin;
 
@@ -272,6 +269,85 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 		range.Load(stream, DataFormats.XamlPackage);
 	}
 
+	public new async Task Leaving()
+	{
+		var data = await _pdfDirectoryServices.GetAsync();
+
+		bool changed = false;
+		if (data.Font != SelectedFont)
+		{
+			data.Font = SelectedFont;
+			changed = true;
+		}
+
+		if (data.FontSize != SelectedSize)
+		{
+			data.FontSize = SelectedSize;
+			changed = true;
+		}
+
+		if (PageWidth != data.PageWidth)
+		{
+			data.PageWidth = PageWidth;
+			changed = true;
+		}
+
+		if (PageHeight != data.PageHeight)
+		{
+			data.PageHeight = PageHeight;
+			changed = true;
+		}
+
+		if (LeftMargin != data.LeftMargin)
+		{
+			data.LeftMargin = LeftMargin;
+			changed = true;
+		}
+
+		if (OtherMargins != data.OtherMargins)
+		{
+			data.OtherMargins = OtherMargins;
+			changed = true;
+		}
+
+		if (Address != data.IncludeAddress)
+		{
+			data.IncludeAddress = Address;
+			changed = true;
+		}
+
+		if (Email != data.IncludeEmail)
+		{
+			data.IncludeAddress = Email;
+			changed = true;
+		}
+
+		if (PhoneNumber != data.IncludePhone)
+		{
+			data.IncludePhone = PhoneNumber;
+			changed = true;
+		}
+
+        TextRange range;
+		range = new TextRange(Rtb.Document.ContentStart, Rtb.Document.ContentEnd);
+		using var stream = new MemoryStream();
+		range.Save(stream, DataFormats.XamlPackage);
+		byte[] buffer = new byte[stream.Length];
+		stream.Seek(0, SeekOrigin.Begin);
+		stream.Read(buffer, 0, (int)stream.Length);
+
+		if (buffer.Length != data.CoverRtf.Length || !buffer.SequenceEqual(data.CoverRtf))
+		{
+			data.CoverRtf = buffer;
+			changed = true;
+		}
+
+		if (changed)
+		{
+			await _pdfDirectoryServices?.Save();
+		}
+	}
+
 	public new async Task Loading()
 	{
 		// we don't want multipla instances of Loading() running simultaneously,
@@ -289,9 +365,9 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 
 			_pdfFlowDocument = new FlowDocument()
 			{
-				PageWidth = _pd.PrintableAreaWidth,
-				PageHeight = _pd.PrintableAreaHeight,
-				ColumnWidth = _doc.PageWidth,
+				PageWidth = PageWidth * PrintOptionsView._dpi,
+				PageHeight = PageHeight * PrintOptionsView._dpi,
+				ColumnWidth = PageWidth * PrintOptionsView._dpi,
 				PagePadding = margin
 			};
 			_pdfFlowDocument.Blocks.Add(_pdfCoverSection);

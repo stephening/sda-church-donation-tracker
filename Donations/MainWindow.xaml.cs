@@ -16,6 +16,7 @@ public partial class MainWindow : Window
 {
 	private readonly MainWindowViewModel _mainWindowViewModel;
 	private readonly HelpView _helpView;
+	private bool _skipHandler = false;
 
 	/// <summary>
 	/// Constructor. This reference is saved to Global.Main for other view model use.
@@ -67,8 +68,19 @@ public partial class MainWindow : Window
 
 	private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 	{
-		SaveSettings();
-		_helpView.ForceClose();
+		// shudown is kinda slow because of possible database updates,
+		// so cancel it first time around, then set a flag to skip handler
+		// the second time which is triggered by the Shutdown().
+		if (!_skipHandler)
+		{
+			e.Cancel = true;
+			Hide();
+			SaveSettings();
+			_helpView.ForceClose();
+			await _mainWindowViewModel.Shutdown();
+			_skipHandler = true;
+			Application.Current.Shutdown();
+		}
 	}
 
 	private void Window_KeyDown(object sender, KeyEventArgs e)

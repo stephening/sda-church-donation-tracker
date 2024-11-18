@@ -28,6 +28,62 @@ public partial class GeneralViewModel : BaseViewModel
 	private readonly IPictureServices _pictureServices;
 	private readonly IAppSettingsServices _appSettingsServices;
 
+
+	public GeneralViewModel(
+		IFileSystem fileSystem,
+		IDataHelpers fileHelpers,
+		IDonationServices donationServices,
+		IDonorServices donorServices,
+		ICategoryServices categoryServices,
+		IPictureServices pictureServices,
+		IAppSettingsServices appSettingsServices
+	)
+	{
+		_fileSystem = fileSystem;
+		_fileHelpers = fileHelpers;
+		_donationServices = donationServices;
+		_donorServices = donorServices;
+		_categoryServices = categoryServices;
+		_pictureServices = pictureServices;
+		_appSettingsServices = appSettingsServices;
+
+		OrganizationLogo = _pictureServices.GetLogo();
+		_appSettings = _appSettingsServices.Get();
+		SyncFusionLicenseKey = _appSettings.SyncFusionLicenseKey;
+		PictureBaseUrl = _appSettings.PictureBaseUrl;
+		EmailAccount = _appSettings.EmailAccount;
+		EmailSmtpServer = _appSettings.EmailSmtpServer;
+		EmailServerPort = _appSettings.EmailServerPort;
+		EmailEnableSsl = _appSettings.EmailEnableSsl;
+
+		_delayedUpdateSettingsTimer.Tick += new EventHandler(UpdateSettings!);
+		_delayedUpdateSettingsTimer.Interval = new TimeSpan(0, 0, 2);
+	}
+
+	public new async Task Loading()
+	{
+		OrganizationLogo = _pictureServices.GetLogo();
+		_appSettings = _appSettingsServices.Get();
+		InitPasswordBox();
+	}
+
+	public new async Task Leaving()
+	{
+		await _pictureServices.SaveLogo(OrganizationLogo);
+		if (string.IsNullOrEmpty(_passwordBox.Password))
+		{
+			Persist.Default.EncryptedEmailPassword = "";
+		}
+		else
+		{
+			Persist.Default.EncryptedEmailPassword = string.Join(' ', ProtectedData.Protect(Encoding.Default.GetBytes(_passwordBox.Password), s_additionalEntropy, DataProtectionScope.CurrentUser));
+		}
+
+		Persist.Default.Save();
+
+		await _appSettingsServices.Save();
+	}
+
 	[ObservableProperty]
 	private Picture? _organizationLogo;
 
@@ -43,7 +99,7 @@ public partial class GeneralViewModel : BaseViewModel
 	private string? _syncFusionLicenseKey;
 	partial void OnSyncFusionLicenseKeyChanged(string? value)
 	{
-		RestartUpdateTimer();
+		_appSettings!.SyncFusionLicenseKey = SyncFusionLicenseKey;
 	}
 
 	[ObservableProperty]
@@ -51,31 +107,31 @@ public partial class GeneralViewModel : BaseViewModel
 
 	partial void OnPictureBaseUrlChanged(string? value)
 	{
-		RestartUpdateTimer();
+		_appSettings.PictureBaseUrl = PictureBaseUrl;
 	}
 
 	[ObservableProperty]
-	private string? _EmailSmtpServer = "smtp.gmail.com";
+	private string? _EmailSmtpServer;
 
 	partial void OnEmailSmtpServerChanged(string? value)
 	{
-		RestartUpdateTimer();
+		_appSettings.EmailSmtpServer = EmailSmtpServer;
 	}
 
 	[ObservableProperty]
-	private int? _EmailServerPort = 587;
+	private int? _EmailServerPort;
 
 	partial void OnEmailServerPortChanged(int? value)
 	{
-		RestartUpdateTimer();
+		_appSettings.EmailServerPort = EmailServerPort;
 	}
 
 	[ObservableProperty]
-	private bool _EmailEnableSsl = true;
+	private bool _EmailEnableSsl;
 
 	partial void OnEmailEnableSslChanged(bool value)
 	{
-		RestartUpdateTimer();
+		_appSettings.EmailEnableSsl = EmailEnableSsl;
 	}
 
 	[ObservableProperty]
@@ -83,13 +139,20 @@ public partial class GeneralViewModel : BaseViewModel
 
 	partial void OnEmailAccountChanged(string? value)
 	{
-		RestartUpdateTimer();
+		_appSettings.EmailAccount = EmailAccount;
 	}
 
 	private PasswordBox? _passwordBox = null;
 	public void PasswordChanged(PasswordBox password)
 	{
-		RestartUpdateTimer();
+		if (string.IsNullOrEmpty(_passwordBox?.Password))
+		{
+			Persist.Default.EncryptedEmailPassword = "";
+		}
+		else
+		{
+			Persist.Default.EncryptedEmailPassword = string.Join(' ', ProtectedData.Protect(Encoding.Default.GetBytes(_passwordBox.Password), s_additionalEntropy, DataProtectionScope.CurrentUser));
+		}
 	}
 
 	private void InitPasswordBox()
@@ -137,62 +200,6 @@ public partial class GeneralViewModel : BaseViewModel
 
 		await _appSettingsServices.Save();
 	}
-
-	public GeneralViewModel(
-		IFileSystem fileSystem,
-		IDataHelpers fileHelpers,
-		IDonationServices donationServices,
-		IDonorServices donorServices,
-		ICategoryServices categoryServices,
-		IPictureServices pictureServices,
-		IAppSettingsServices appSettingsServices
-	)
-	{
-		_fileSystem = fileSystem;
-		_fileHelpers = fileHelpers;
-		_donationServices = donationServices;
-		_donorServices = donorServices;
-		_categoryServices = categoryServices;
-		_pictureServices = pictureServices;
-		_appSettingsServices = appSettingsServices;
-
-		OrganizationLogo = _pictureServices.GetLogo();
-		_appSettings = _appSettingsServices.Get();
-		if (!string.IsNullOrEmpty(_appSettings.SyncFusionLicenseKey)) SyncFusionLicenseKey = _appSettings.SyncFusionLicenseKey;
-		if (!string.IsNullOrEmpty(_appSettings.PictureBaseUrl)) PictureBaseUrl = _appSettings.PictureBaseUrl;
-		if (!string.IsNullOrEmpty(_appSettings.EmailAccount)) EmailAccount = _appSettings.EmailAccount;
-		if (!string.IsNullOrEmpty(_appSettings.EmailSmtpServer)) EmailSmtpServer = _appSettings.EmailSmtpServer;
-		if (null != _appSettings.EmailServerPort) EmailServerPort = _appSettings.EmailServerPort;
-		EmailEnableSsl = _appSettings.EmailEnableSsl;
-
-		_delayedUpdateSettingsTimer.Tick += new EventHandler(UpdateSettings!);
-		_delayedUpdateSettingsTimer.Interval = new TimeSpan(0, 0, 2);
-	}
-
-	public new async Task Loading()
-	{
-		OrganizationLogo = _pictureServices.GetLogo();
-		_appSettings = _appSettingsServices.Get();
-		InitPasswordBox();
-	}
-
-	public new async Task Leaving()
-	{
-		await _pictureServices.SaveLogo(OrganizationLogo);
-		if (string.IsNullOrEmpty(_passwordBox.Password))
-		{
-			Persist.Default.EncryptedEmailPassword = "";
-		}
-		else
-		{
-			Persist.Default.EncryptedEmailPassword = string.Join(' ', ProtectedData.Protect(Encoding.Default.GetBytes(_passwordBox.Password), s_additionalEntropy, DataProtectionScope.CurrentUser));
-		}
-
-		Persist.Default.Save();
-
-		await _appSettingsServices.Save();
-	}
-
 	public async Task LoadDonors()
 	{
 		_donors = await _donorServices.LoadDonors();

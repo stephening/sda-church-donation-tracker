@@ -26,6 +26,7 @@ public class SqlCreateTables : SqlHelper
 		await CreateIndividualReportTable();
 		await CreateOrganizationLogoTable();
 		await CreateEnvelopeDesignTable();
+		await CreatePdfDirectoryTable();
 		await CreatePrintSettingsTable();
 		await CreateenumAddressTypeTable();
 		await CreateenumFamilyRelationshipTable();
@@ -372,6 +373,41 @@ CREATE TABLE [dbo].[IndividualReport](
 	[EmailBody] [nvarchar](max) NULL,
 	[Encrypt] [bit] NULL,
  CONSTRAINT [PK_ReportTemplate] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+";
+
+		try
+		{
+			using IDbConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[SqlHelper.DbKey]?.ConnectionString);
+			{
+				await conn.ExecuteAsync(create_script, commandTimeout: 300);
+			}
+		}
+		catch (Exception ex)
+		{
+
+		}
+	}
+
+	public async Task CreatePdfDirectoryTable()
+	{
+		var create_script = @"
+CREATE TABLE [dbo].[PdfDirectory](
+	[Id] [tinyint] IDENTITY(1,1) NOT NULL,
+	[PageWidth] [float] NOT NULL,
+	[PageHeight] [float] NOT NULL,
+	[LeftMargin] [float] NOT NULL,
+	[OtherMargins] [float] NOT NULL,
+	[Font] [nvarchar](50) NOT NULL,
+	[FontSize] [float] NOT NULL,
+	[IncludeAddress] [bit] NOT NULL,
+	[IncludePhone] [bit] NOT NULL,
+	[IncludeEmail] [bit] NOT NULL,
+	[CoverRtf] [varbinary](max) NOT NULL,
+ CONSTRAINT [PK_PdfDirectory] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]

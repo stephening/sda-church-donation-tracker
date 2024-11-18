@@ -25,10 +25,21 @@ public partial class DirectoryTabView : UserControl
 
 	private async void DirectoryHtmlTab_Selected(object sender, RoutedEventArgs e)
 	{
+		await _viewModel?.DirectoryHtmlViewModel?.Loading();
 	}
 
 	private void UserControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
 	{
 		_viewModel = DataContext as DirectoryViewModel;
+	}
+
+	private async void DirectoryPdfTab_Unselected(object sender, RoutedEventArgs e)
+	{
+		await _viewModel?.DirectoryPdfViewModel?.Leaving();
+	}
+
+	private async void DirectoryHtmlTab_Unselected(object sender, RoutedEventArgs e)
+	{
+		await _viewModel?.DirectoryHtmlViewModel?.Leaving();
 	}
 }

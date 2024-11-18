@@ -1,4 +1,8 @@
-﻿namespace Donations.Lib.ViewModel;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Windows;
+
+namespace Donations.Lib.ViewModel;
 
 public class MainWindowViewModel
 {
@@ -35,6 +39,29 @@ public class MainWindowViewModel
 		EnvelopeDesignViewModel = envelopeDesignViewModel;
 		GeneralViewModel = generalViewModel;
 		DirectoryViewModel = directoryViewModel;
+	}
+
+	public async Task Shutdown()
+	{
+		List<Task> tasks = new List<Task>();
+
+		tasks.Add(BatchBrowserViewModel!.Leaving());
+		tasks.Add(DonationBrowserViewModel!.Leaving());
+		tasks.Add(AdventistGivingViewModel!.Leaving());
+		tasks.Add(AGDonorResolutionViewModel!.Leaving());
+		tasks.Add(AGCategoryResolutionViewModel!.Leaving());
+		tasks.Add(AGDonationSummaryViewModel!.Leaving());
+		tasks.Add(DonorInputViewModel!.Leaving());
+		tasks.Add(ReportsViewModel!.Leaving());
+		tasks.Add(DonorViewModel!.Leaving());
+		tasks.Add(CategoryViewModel!.Leaving());
+		tasks.Add(DonorMapViewModel!.Leaving());
+		tasks.Add(CategoryMapViewModel!.Leaving());
+		tasks.Add(EnvelopeDesignViewModel!.Leaving());
+		tasks.Add(GeneralViewModel!.Leaving());
+		tasks.Add(DirectoryViewModel!.Leaving());
+
+		await Task.WhenAll(tasks);
 	}
 
 	public double MaximumHeight => System.Windows.SystemParameters.WorkArea.Height;
