@@ -12,5 +12,5 @@ public class PdfDirectory
 	public bool IncludeAddress { get; set; } = true;
 	public bool IncludePhone { get; set; } = true;
 	public bool IncludeEmail { get; set; } = true;
-	public byte[] CoverRtf { get; set; }
+	public byte[]? CoverRtf { get; set; }
 }

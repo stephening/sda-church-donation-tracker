@@ -30,6 +30,7 @@ using System.Linq;
 using System.Windows.Input;
 using System.Windows.Documents.Serialization;
 using System.Threading;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Donations.Lib.ViewModel;
 
@@ -52,6 +53,8 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 	private Section _coverSection = new Section();
 	private Section _pdfCoverSection = new Section();
 	private byte[]? _coverRtf;
+	private bool _initilizingRtb = false;
+	private bool _rtbChanged = false;
 
 	public DirectoryPdfViewModel(
 		IFileSystem fileSystem,
@@ -115,33 +118,42 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 	private bool _address;
 	partial void OnAddressChanged(bool value)
 	{
+#pragma warning disable 4014
+		// Loading will automatically stop a previous invocation before proceeding
 		Loading();
+#pragma warning restore
 	}
 
 	[ObservableProperty]
 	private bool _email;
 	partial void OnEmailChanged(bool value)
 	{
+#pragma warning disable 4014
+		// Loading will automatically stop a previous invocation before proceeding
 		Loading();
+#pragma warning restore
 	}
 
 	[ObservableProperty]
 	private bool _phoneNumber;
 	partial void OnPhoneNumberChanged(bool value)
 	{
+#pragma warning disable 4014
+		// Loading will automatically stop a previous invocation before proceeding
 		Loading();
+#pragma warning restore
 	}
 
 	[ObservableProperty]
 	private string? _coverText;
-	partial void OnCoverTextChanged(string value)
+	partial void OnCoverTextChanged(string? value)
 	{
 		GenerateCoverPage(_coverSection);
 		GenerateCoverPage(_pdfCoverSection);
 	}
 
 	[ObservableProperty]
-	private RichTextBox? _rtb;
+	private RichTextBoxContainer _rtbContainer = new RichTextBoxContainer();
 
 	[ObservableProperty]
 	private bool _readyToSavePdf = false;
@@ -155,21 +167,28 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 	[ObservableProperty]
 	private string _pdfPassword = "";
 
-	public ICommand ChangedCommand { get; set; }
+	[RelayCommand]
+	private void RichTextChanged()
+	{
+		if (_initilizingRtb) return;
+
+		_rtbChanged = true;
+	}
 
 	public void SetDirectoryEntries(Dictionary<string, DirectoryData>? directoryEntries)
 	{
 		_directoryEntries = directoryEntries;
 
+#pragma warning disable 4014
+		// Loading will automatically stop a previous invocation before proceeding
 		Loading();
+#pragma warning restore
 	}
 
 	public async Task SetDocument(
-		FlowDocument flowDocument,
-		RichTextBox richTextBox
+		FlowDocument flowDocument
 	)
 	{
-		Rtb = richTextBox;
 		var data = await _pdfDirectoryServices.GetAsync();
 		SelectedFont = data.Font;
 		SelectedSize = data.FontSize;
@@ -183,11 +202,9 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 
 		if (null != data.CoverRtf)
 		{
-			_coverRtf = new byte[data.CoverRtf.Length];
-			data.CoverRtf.CopyTo(_coverRtf, 0);
-			using var stream = new MemoryStream(data.CoverRtf);
-			var range = new TextRange(Rtb.Document.ContentStart, Rtb.Document.ContentEnd);
-			range.Load(stream, DataFormats.XamlPackage);
+			_initilizingRtb = true;
+			RtbContainer.SetRichText(data.CoverRtf);
+			_initilizingRtb = false;
 		}
 
 		_doc = flowDocument;
@@ -259,14 +276,7 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 
 	private void GenerateCoverPage(Section section)
 	{
-		section.Blocks.Clear();
-		TextRange range;
-		range = new TextRange(Rtb.Document.ContentStart, Rtb.Document.ContentEnd);
-		using var stream = new MemoryStream();
-		range.Save(stream, DataFormats.XamlPackage);
-
-		range = new TextRange(section.ContentStart, section.ContentEnd);
-		range.Load(stream, DataFormats.XamlPackage);
+		RtbContainer?.RichTextToSection(section);
 	}
 
 	public new async Task Leaving()
@@ -328,17 +338,9 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 			changed = true;
 		}
 
-        TextRange range;
-		range = new TextRange(Rtb.Document.ContentStart, Rtb.Document.ContentEnd);
-		using var stream = new MemoryStream();
-		range.Save(stream, DataFormats.XamlPackage);
-		byte[] buffer = new byte[stream.Length];
-		stream.Seek(0, SeekOrigin.Begin);
-		stream.Read(buffer, 0, (int)stream.Length);
-
-		if (buffer.Length != data.CoverRtf.Length || !buffer.SequenceEqual(data.CoverRtf))
+		if (_rtbChanged)
 		{
-			data.CoverRtf = buffer;
+			data.CoverRtf = RtbContainer?.GetRichText();
 			changed = true;
 		}
 

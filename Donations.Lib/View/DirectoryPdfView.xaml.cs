@@ -29,6 +29,6 @@ public partial class DirectoryPdfView : UserControl
 	private async void UserControl_DataContextChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
 	{
 		_viewModel = DataContext as DirectoryPdfViewModel;
-		await _viewModel!.SetDocument(DirectoryDocument, RichTextEditor.RTB);
+		await _viewModel!.SetDocument(DirectoryDocument);
 	}
 }

@@ -1,10 +1,12 @@
-﻿using Microsoft.Win32;
+﻿using Donations.Lib.ViewModel;
+using Microsoft.Win32;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -25,18 +27,47 @@ public partial class FlowDocTextFormattingView : UserControl
 			FontList.Add(font.Source);
 		}
 
-		RTB = _richTextBox;
-		DataContext = this;
+		if (null != RtbContainer)
+		RtbContainer.RichTextBox = _richTextBox;
 	}
 
-	public RichTextBox RTB
+	public RichTextBoxContainer RtbContainer
 	{
-		get { return (RichTextBox) GetValue(RTBProperty); }
-		set { SetValue(RTBProperty, value); }
+		get { return (RichTextBoxContainer)GetValue(RichTextBoxProperty); }
+		set { SetValue(RichTextBoxProperty, value); }
 	}
 
-	public static readonly DependencyProperty RTBProperty =
-		DependencyProperty.Register("RTB", typeof(RichTextBox), typeof(FlowDocTextFormattingView), new PropertyMetadata());
+	// Using a DependencyProperty as the backing store for RichTextBox.  This enables animation, styling, binding, etc...
+	public static readonly DependencyProperty RichTextBoxProperty =
+		DependencyProperty.Register("RtbContainer", typeof(RichTextBoxContainer), typeof(FlowDocTextFormattingView), new PropertyMetadata(OnRtbContainerPropertyChanged));
+
+	private static void OnRtbContainerPropertyChanged(DependencyObject source,
+		DependencyPropertyChangedEventArgs e)
+	{
+		FlowDocTextFormattingView? flowDocTextFormattingView = source as FlowDocTextFormattingView;
+
+		if (null != flowDocTextFormattingView)
+		{
+			flowDocTextFormattingView.RtbContainer.RichTextBox = flowDocTextFormattingView._richTextBox;
+		}
+	}
+
+	public ICommand RichTextChanged
+	{
+		get { return (ICommand)GetValue(RichTextChangedProperty); }
+		set { SetValue(RichTextChangedProperty, value); }
+	}
+
+	public static readonly DependencyProperty RichTextChangedProperty = DependencyProperty.Register(
+		"RichTextChanged",
+		typeof(ICommand),
+		typeof(FlowDocTextFormattingView));
+
+	private void _richTextBox_TextChanged(object sender, TextChangedEventArgs e)
+	{
+		if (true == RichTextChanged?.CanExecute(null))
+			RichTextChanged?.Execute(null);
+	}
 
 	public ObservableCollection<string> FontList { get; set; } = new ObservableCollection<string>();
 
@@ -218,9 +249,5 @@ public partial class FlowDocTextFormattingView : UserControl
 			_richTextBox.Paste();
 			Clipboard.SetDataObject(save);
 		}
-	}
-
-	private void _richTextBox_TextChanged(object sender, TextChangedEventArgs e)
-	{
 	}
 }
