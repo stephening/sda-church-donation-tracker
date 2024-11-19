@@ -231,7 +231,6 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 	private async Task AddEntry(Section section, string key, string basePictureUrl)
 	{
 		DirectoryData data = _directoryEntries[key];
-		var figure = new Figure();
 		var table = new Table() { BorderThickness = new Thickness(2), BorderBrush = new SolidColorBrush(Colors.Black)};
 		table.RowGroups.Add(new TableRowGroup());
 		var row = new TableRow() { FontFamily = new FontFamily(SelectedFont), FontSize = SelectedSize };
@@ -240,13 +239,11 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 		column = new TableColumn() { Width = new GridLength(2, GridUnitType.Star) };
 		table.Columns.Add(column);
 
-		string source = "";
-		Image cellImage = new Image() { Stretch = Stretch.Uniform, Height = _width / 6, HorizontalAlignment = HorizontalAlignment.Left };
+		Image cellImage = new Image() { Stretch = Stretch.Uniform, Width = _width / 3, HorizontalAlignment = HorizontalAlignment.Left };
 		if (!string.IsNullOrEmpty(data.Picture))
 		{
 			cellImage.Source = new BitmapImage(new Uri(basePictureUrl + data.Picture, UriKind.Absolute));
-			source = basePictureUrl + data.Picture;
-			await Task.Delay(100);
+			await Task.Delay(20);
 		}
 
 		row.Cells.Add(new TableCell(new BlockUIContainer(cellImage)));
@@ -269,7 +266,7 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 			entry += "\r\n" + data.Phone;
 		}
 
-		row.Cells.Add(new TableCell(new Paragraph(new Run(entry))) { TextAlignment = TextAlignment.Left });
+		row.Cells.Add(new TableCell(new Paragraph(new Run(entry))) { TextAlignment = TextAlignment.Left, Padding = new Thickness(PrintOptionsView._dpi * 0.05) });
 
 		table.RowGroups[0].Rows.Add(row);
 		section.Blocks.Add(table);
