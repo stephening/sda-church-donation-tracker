@@ -31,8 +31,12 @@
 					</WrapPanel>
 				</GroupBox>
 				<GroupBox Header="Cover page" Grid.Row="1">
-					<local:FlowDocTextFormattingView Margin="5" RtbContainer="{Binding RtbContainer}"
-													 RichTextChanged="{Binding RichTextChangedCommand}"/>
+					<local:RichTextBoxEditView Margin="5" RtbContainer="{Binding RtbContainer}"
+											   PageWidth="{Binding PageWidth, Mode=TwoWay}"
+											   PageHeight="{Binding PageHeight, Mode=TwoWay}"
+											   LeftMargin="{Binding LeftMargin, Mode=TwoWay}"
+											   OtherMargins="{Binding OtherMargins, Mode=TwoWay}"
+											   RichTextChanged="{Binding RichTextChangedCommand}"/>
 				</GroupBox>
 			</Grid>
 			<Grid Grid.Row="0" Grid.Column="1" Margin="10,0,0,0">

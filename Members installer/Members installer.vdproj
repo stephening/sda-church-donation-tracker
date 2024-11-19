@@ -652,7 +652,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Church member database manager"
         "ProductCode" = "8:{D77B49E1-08C1-42B6-A93B-F9652EF1F15A}"
-        "PackageCode" = "8:{6E6A02FE-F104-4914-8F8C-17F2A24055F0}"
+        "PackageCode" = "8:{3108E845-D680-4A7E-BDA3-96365BF25D37}"
         "UpgradeCode" = "8:{B5A39CE9-DF2C-4046-9388-EFB29163967C}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
@@ -778,12 +778,12 @@
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
+            "IconIndex" = "3:32512"
             "Transitive" = "11:FALSE"
             "Target" = "8:_4AD9CEC8E05A4DD4B7C0503FD93086E3"
             "Folder" = "8:_4D7CA66A4A614EB885AA3817DE13188F"
             "WorkingFolder" = "8:_0D306AB84EFA4546A1B8E5BBC8F424C1"
-            "Icon" = "8:"
+            "Icon" = "8:_4AD9CEC8E05A4DD4B7C0503FD93086E3"
             "Feature" = "8:"
             }
         }

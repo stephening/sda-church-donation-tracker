@@ -3,11 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Windows.Documents;
-using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using System.Windows;
 using System.Linq;
-using System.Windows.Controls;
 using BlockCollection = System.Windows.Documents.BlockCollection;
 using CommunityToolkit.Mvvm.ComponentModel;
 

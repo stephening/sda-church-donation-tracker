@@ -55,6 +55,7 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 	private byte[]? _coverRtf;
 	private bool _initilizingRtb = false;
 	private bool _rtbChanged = false;
+	private RichTextBoxEditView _richTextBoxEditView;
 
 	public DirectoryPdfViewModel(
 		IFileSystem fileSystem,

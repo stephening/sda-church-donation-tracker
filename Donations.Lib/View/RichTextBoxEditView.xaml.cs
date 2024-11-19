@@ -1,5 +1,4 @@
-﻿using Donations.Lib.ViewModel;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -13,12 +12,12 @@ using System.Windows.Media.Imaging;
 namespace Donations.Lib.View;
 
 /// <summary>
-/// Interaction logic for FlowDocTextFormattingView.xaml
+/// Interaction logic for RichTextBoxEditView.xaml
 /// https://brianlagunas.com/create-your-own-format-bar-for-the-wpf-richtextbox/
 /// </summary>
-public partial class FlowDocTextFormattingView : UserControl
+public partial class RichTextBoxEditView : UserControl
 {
-	public FlowDocTextFormattingView()
+	public RichTextBoxEditView()
 	{
 		InitializeComponent();
 
@@ -26,9 +25,59 @@ public partial class FlowDocTextFormattingView : UserControl
 		{
 			FontList.Add(font.Source);
 		}
+	}
 
-		if (null != RtbContainer)
-		RtbContainer.RichTextBox = _richTextBox;
+
+
+	public double PageWidth
+	{
+		get { return (double)GetValue(PageWidthProperty); }
+		set { SetValue(PageWidthProperty, value); }
+	}
+
+	// Using a DependencyProperty as the backing store for PageWidth.  This enables animation, styling, binding, etc...
+	public static readonly DependencyProperty PageWidthProperty =
+		DependencyProperty.Register("PageWidth", typeof(double), typeof(RichTextBoxEditView), new PropertyMetadata(OnPageSizeOrMarginsChanged));
+
+	public double PageHeight
+	{
+		get { return (double)GetValue(PageHeightProperty); }
+		set { SetValue(PageHeightProperty, value); }
+	}
+
+	// Using a DependencyProperty as the backing store for PageHeight.  This enables animation, styling, binding, etc...
+	public static readonly DependencyProperty PageHeightProperty =
+		DependencyProperty.Register("PageHeight", typeof(double), typeof(RichTextBoxEditView), new PropertyMetadata(OnPageSizeOrMarginsChanged));
+
+	public double LeftMargin
+	{
+		get { return (double)GetValue(LeftMarginProperty); }
+		set { SetValue(LeftMarginProperty, value); }
+	}
+
+	// Using a DependencyProperty as the backing store for LeftMargin.  This enables animation, styling, binding, etc...
+	public static readonly DependencyProperty LeftMarginProperty =
+		DependencyProperty.Register("LeftMargin", typeof(double), typeof(RichTextBoxEditView), new PropertyMetadata(OnPageSizeOrMarginsChanged));
+
+	public double OtherMargins
+	{
+		get { return (double)GetValue(OtherMarginsProperty); }
+		set { SetValue(OtherMarginsProperty, value); }
+	}
+
+	// Using a DependencyProperty as the backing store for OtherMargins.  This enables animation, styling, binding, etc...
+	public static readonly DependencyProperty OtherMarginsProperty =
+		DependencyProperty.Register("OtherMargins", typeof(double), typeof(RichTextBoxEditView), new PropertyMetadata(OnPageSizeOrMarginsChanged));
+
+	private static void OnPageSizeOrMarginsChanged(DependencyObject source,
+		DependencyPropertyChangedEventArgs e)
+	{
+		RichTextBoxEditView? richTextBoxEditView = source as RichTextBoxEditView;
+
+		if (null != richTextBoxEditView)
+		{
+			richTextBoxEditView._richTextBox.Width = PrintOptionsView._dpi * (richTextBoxEditView.PageWidth - richTextBoxEditView.LeftMargin - richTextBoxEditView.OtherMargins);
+		}
 	}
 
 	public RichTextBoxContainer RtbContainer
@@ -39,16 +88,16 @@ public partial class FlowDocTextFormattingView : UserControl
 
 	// Using a DependencyProperty as the backing store for RichTextBox.  This enables animation, styling, binding, etc...
 	public static readonly DependencyProperty RichTextBoxProperty =
-		DependencyProperty.Register("RtbContainer", typeof(RichTextBoxContainer), typeof(FlowDocTextFormattingView), new PropertyMetadata(OnRtbContainerPropertyChanged));
+		DependencyProperty.Register("RtbContainer", typeof(RichTextBoxContainer), typeof(RichTextBoxEditView), new PropertyMetadata(OnRtbContainerPropertyChanged));
 
 	private static void OnRtbContainerPropertyChanged(DependencyObject source,
 		DependencyPropertyChangedEventArgs e)
 	{
-		FlowDocTextFormattingView? flowDocTextFormattingView = source as FlowDocTextFormattingView;
+		RichTextBoxEditView? richTextBoxEditView = source as RichTextBoxEditView;
 
-		if (null != flowDocTextFormattingView)
+		if (null != richTextBoxEditView)
 		{
-			flowDocTextFormattingView.RtbContainer.RichTextBox = flowDocTextFormattingView._richTextBox;
+			richTextBoxEditView.RtbContainer.RichTextBox = richTextBoxEditView._richTextBox;
 		}
 	}
 
@@ -61,7 +110,7 @@ public partial class FlowDocTextFormattingView : UserControl
 	public static readonly DependencyProperty RichTextChangedProperty = DependencyProperty.Register(
 		"RichTextChanged",
 		typeof(ICommand),
-		typeof(FlowDocTextFormattingView));
+		typeof(RichTextBoxEditView));
 
 	private void _richTextBox_TextChanged(object sender, TextChangedEventArgs e)
 	{
@@ -222,9 +271,12 @@ public partial class FlowDocTextFormattingView : UserControl
 		var img = (_richTextBox.Selection?.Start?.Parent as BlockUIContainer)?.Child as Image;
 		if (null != img)
 		{
-			double scaleFactor = 720 / img.Width;
-			img.Width *= scaleFactor;
-			img.Height *= scaleFactor;
+			double scaleFactor = PrintOptionsView._dpi * (PageWidth - LeftMargin - OtherMargins - 0.25) / img.Width;
+			if (1 > scaleFactor)
+			{
+				img.Width *= scaleFactor;
+				img.Height *= scaleFactor;
+			}
 		}
 		else
 		{

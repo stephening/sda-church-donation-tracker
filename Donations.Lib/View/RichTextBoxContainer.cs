@@ -8,6 +8,7 @@ namespace Donations.Lib.View;
 public class RichTextBoxContainer
 {
 	public RichTextBox? RichTextBox { get; set; }
+
 	public void SetRichText(byte[]? richText)
 	{
 		if (null != RichTextBox)
