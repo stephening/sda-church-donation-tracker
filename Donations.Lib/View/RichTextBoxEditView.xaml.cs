@@ -97,7 +97,7 @@ public partial class RichTextBoxEditView : UserControl
 
 		if (null != richTextBoxEditView)
 		{
-			richTextBoxEditView.RtbContainer.RichTextBox = richTextBoxEditView._richTextBox;
+			richTextBoxEditView.RtbContainer.SetRichTextBox(richTextBoxEditView._richTextBox);
 		}
 	}
 

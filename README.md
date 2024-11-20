@@ -121,6 +121,9 @@ There are 7 top level tabs, and a few sub tabs.
   * Category map
   * Design tithe envelope
   * General
+* Create directory
+  * Pdf
+  * Html
 * About
 
 ### Batch browser
@@ -538,6 +541,28 @@ This Email password will be persisted locally only, unlike the other email setti
 In other words, other user's of the application sharing the same database, will see the same settings from this page except for the Email password.
 Each computer running the software that needs to use that functionality will need to enter the Email account password themselves.
 Having said that, this functionality is typically only used once a year and will probably be done by the head treasurer.
+
+### Create directory
+
+#### Pdf file
+![alt text](./Documentation/screens/DirectoryTab-Pdf.jpg "Pdf member directory")
+
+The top level directory tab will filter the database for donors that have the "Church member" option checked. 
+The progress of this step is tracked with the lower progress bar.
+When that completes, the Pdf progress bar will begin.
+This stage renders the cover and all the directory entries to a FlowDocument which can be viewed on the right half of the screen.
+The front cover of the document can be designed in the RichTextBox on the left side of the app.
+It is a WYSYWYG editor and can contain images.
+Image sizing is pretty limited, but when an image is added, it is automatically sized to fit between the margins.
+If for some reason, the image overflows the margins, selecting or clicking on it should size it to fit.
+If you want an image smaller than the full page width between margins, you can try making the image smaller.
+
+You have the option to omit or include the mailing address, email, or phone number from the directory.
+
+You have the option to encrypt the Pdf file with a password to provide some security for people's contact information.
+
+Finally, you have the option to specify the font, text size, as well as the page size for the generated Pdf.
+The internal layout of the Pdf is not customizable, but since this is open source, you can modify to code any way you want.
 
 ### About
 ![alt text](./Documentation/screens/AboutTab.jpg "About")

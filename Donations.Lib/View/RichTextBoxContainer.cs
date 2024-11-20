@@ -7,7 +7,18 @@ namespace Donations.Lib.View;
 
 public class RichTextBoxContainer
 {
+	private byte[]? _richText;
 	public RichTextBox? RichTextBox { get; set; }
+
+	public void SetRichTextBox(RichTextBox richTextBox)
+	{
+		RichTextBox = richTextBox;
+		if (null != RichTextBox && null != _richText)
+		{
+			SetRichText(_richText);
+			_richText = null;
+		}
+	}
 
 	public void SetRichText(byte[]? richText)
 	{
@@ -17,10 +28,19 @@ public class RichTextBoxContainer
 			var range = new TextRange(RichTextBox.Document.ContentStart, RichTextBox.Document.ContentEnd);
 			range.Load(stream, DataFormats.XamlPackage);
 		}
+		else
+		{
+			_richText = richText;
+		}
 	}
 
 	public byte[]? GetRichText()
 	{
+		if (null != RichTextBox && null != _richText)
+		{
+			SetRichText(_richText);
+		}
+		
 		if (null != RichTextBox)
 		{
 			TextRange range;
@@ -39,6 +59,11 @@ public class RichTextBoxContainer
 
 	public void RichTextToSection(Section section)
 	{
+		if (null != RichTextBox && null != _richText)
+		{
+			SetRichText(_richText);
+		}
+
 		if (null != RichTextBox)
 		{
 			section.Blocks.Clear();

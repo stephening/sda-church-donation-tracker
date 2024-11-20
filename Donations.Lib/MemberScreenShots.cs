@@ -65,6 +65,7 @@ public class MemberScreenShots : ScreenShotBase
 		var td = new TestData();
 
 		WindowContainer windowContainer = new WindowContainer();
+		windowContainer.Title = "Member maintenance";
 
 		_mainWindowMembersControl.DataContext = _mainWindowMembersViewModel;
 		windowContainer.Main.Content = _mainWindowMembersControl;
@@ -85,25 +86,17 @@ public class MemberScreenShots : ScreenShotBase
 		await SaveScreenshot(donorSelectionView, destination_folder, "DonorSelectionView.jpg");
 		donorSelectionView.Close();
 
-		var confirmDonorMergeViewFactory = _confirmDonorMergeViewFactory(td.DonorList[0], td.DonorList[1], await _donationServices.GetDonationsByDonorId(td.DonorList[1].Id));
-
-		confirmDonorMergeViewFactory.Show();
-		await SaveScreenshot(confirmDonorMergeViewFactory, destination_folder, "ConfirmDonorMergeView.jpg");
-		confirmDonorMergeViewFactory.Close();
-
-		var donorModalView = _donorModalViewFactory(td.DonorList[0]);
+		var donorModalView = _donorModalViewFactory(td.DonorList[0], false);
 
 		donorModalView.Show();
 
 		await SaveScreenshot(donorModalView, destination_folder, "DonorModalView.jpg");
 
-		//_mainWindowMembersControl.MainTabControl.SelectedItem = _mainWindowMembersControl.DirectoryPdfTab;
+		donorModalView.Close();
 
-		//await SaveScreenshot(windowContainer, destination_folder, "Directory-PdfTab.jpg");
+		_mainWindowMembersControl.MainTabControl.SelectedItem = _mainWindowMembersControl.DirectoryTabs;
 
-		//_mainWindowMembersControl.MainTabControl.SelectedItem = _mainWindowMembersControl.DirectoryHtmlTab;
-
-		//await SaveScreenshot(windowContainer, destination_folder, "Directory-HtmlTab.jpg");
+		await SaveScreenshot(windowContainer, destination_folder, "DirectoryTab-Pdf.jpg");
 
 		_wizardMainWindow.Show();
 

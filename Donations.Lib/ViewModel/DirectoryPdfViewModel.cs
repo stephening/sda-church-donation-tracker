@@ -52,10 +52,8 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 	private Semaphore _loading = new Semaphore(1, 1);
 	private Section _coverSection = new Section();
 	private Section _pdfCoverSection = new Section();
-	private byte[]? _coverRtf;
 	private bool _initilizingRtb = false;
 	private bool _rtbChanged = false;
-	private RichTextBoxEditView _richTextBoxEditView;
 
 	public DirectoryPdfViewModel(
 		IFileSystem fileSystem,
@@ -485,7 +483,7 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 		}
 		catch (Exception ex)
 		{
-			MessageBox.Show(ex.Message);
+			MessageBox.Show(ex.Message, "DirectoryPdfViewModel.cs");
 		}
 
 		Mouse.OverrideCursor = save;

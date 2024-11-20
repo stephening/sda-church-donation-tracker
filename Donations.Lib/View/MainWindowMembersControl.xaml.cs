@@ -1,6 +1,8 @@
-﻿using Donations.Lib.ViewModel;
+﻿using Donations.Lib.Model;
+using Donations.Lib.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Donations.Lib.View;
 
@@ -30,18 +32,6 @@ public partial class MainWindowMembersControl : UserControl
 	/// <param name="e"></param>
 	private async void MainWindowControl_Unloaded(object sender, RoutedEventArgs e)
 	{
-		//if ((MainTabControl.SelectedItem as TabItem) == ReportsTab)
-		//{
-		//	// if on the Reports tab save settings
-		//	await (ReportsView.DataContext as ReportsViewModel)!.Leaving();
-		//}
-
-		//if ((MainTabControl.SelectedItem as TabItem) == MaintenanceMainTab && ((MaintenanceTabs.SelectedItem as TabItem) == MaintenanceGeneralTab))
-		//{
-		//	// if open to the Maintenance General tab, save settings
-		//	await _mainWindowViewModel?.GeneralViewModel?.Leaving();
-		//}
-
 		_helpView?.ForceClose();
 	}
 
@@ -52,7 +42,42 @@ public partial class MainWindowMembersControl : UserControl
 
 	private void UserControl_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
 	{
+		if (Key.F1 == e.Key)
+		{
+			var tabItem = MainTabControl.SelectedItem as TabItem;
+			string target = "";
+			string s;
 
+			if (true == tabItem?.Header.Equals(s = (string)FindResource("MemberTabHeader")))
+			{
+				target = s.Replace(" ", "-");
+			}
+			else if (true == tabItem?.Header.Equals(s = (string)FindResource("DirectoryTabHeader")))
+			{
+				string baseTarget = s.Replace(" ", "-");
+				TabControl? tab = (tabItem.Content as DirectoryTabView)?.DirectoryTabs;
+				if (null != tab)
+				{
+					var item = tab.SelectedItem as TabItem;
+
+					if (-1 == tab.SelectedIndex || true == item?.Header.Equals(s = (string)FindResource("DirectoryPdfTabHeader")))
+					{
+						target = baseTarget + '-' + s.Replace(" ", "-");
+					}
+					else if (true == item?.Header.Equals(s = (string)FindResource("DirectoryHtmlTabHeader")))
+					{
+						target = baseTarget + '-' + s.Replace(" ", "-");
+					}
+				}
+			}
+			else if (true == tabItem?.Header.Equals(s = (string)FindResource("AboutTabHeader")))
+			{
+				target = s.Replace(" ", "-");
+			}
+
+			_helpView.ShowTarget(target);
+			e.Handled = true;
+		}
 	}
 
 	private async void DirectoryTab_Selected(object sender, RoutedEventArgs e)

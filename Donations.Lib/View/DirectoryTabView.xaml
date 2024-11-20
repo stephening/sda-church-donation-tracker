@@ -20,7 +20,7 @@
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
-		<TabControl Grid.Row="0">
+		<TabControl Grid.Row="0" x:Name="DirectoryTabs">
 			<TabItem x:Name="DirectoryPdfTab" Header="{StaticResource DirectoryPdfTabHeader}" Selector.Selected="DirectoryPdfTab_Selected" Selector.Unselected="DirectoryPdfTab_Unselected">
 				<local:DirectoryPdfView DataContext="{Binding DirectoryPdfViewModel}"/>
 			</TabItem>

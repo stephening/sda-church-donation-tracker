@@ -50,7 +50,7 @@
 			<Button Grid.Row="0" Grid.Column="3" Content="_Add donor" Padding="20,5" Margin="20,0,20,20"
 							Click="AddDonor_Click" IsEnabled="{Binding AddEnabled}"/>
 			<Button Grid.Row="0" Grid.Column="4" Content="_Select donor to merge into this one..." Padding="20,5" Margin="20,0,20,20"
-							Click="SelectDonorToMerge_Click" IsEnabled="{Binding UpdateEnabled}"/>
+							Click="SelectDonorToMerge_Click" IsEnabled="{Binding UpdateEnabled}" Visibility="{Binding DonationsVisibility}"/>
 			<Button Grid.Row="0" Grid.Column="5" Content="_Delete this donor..." Padding="20,5" Margin="20,0,0,20"
 							Click="DeleteDonor_Click" IsEnabled="{Binding UpdateEnabled}"/>
 

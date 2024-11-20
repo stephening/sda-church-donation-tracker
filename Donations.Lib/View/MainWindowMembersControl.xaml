@@ -20,7 +20,7 @@
 			<TabItem x:Name="MemberTab" Header="{StaticResource MemberTabHeader}">
 				<local:DonorView x:Name="DonorView" DataContext="{Binding DonorViewModel}"/>
 			</TabItem>
-			<TabItem Header="{StaticResource DirectoryTabHeader}" Selector.Selected="DirectoryTab_Selected">
+			<TabItem x:Name="DirectoryTabs" Header="{StaticResource DirectoryTabHeader}" Selector.Selected="DirectoryTab_Selected">
 				<local:DirectoryTabView DataContext="{Binding DirectoryViewModel}"/>
 			</TabItem>
 		</TabControl>

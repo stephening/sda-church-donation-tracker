@@ -139,6 +139,7 @@ public static class DependencyInjection
 		Builder.RegisterType<TestDataPictureServices>().As<IPictureServices>().SingleInstance();
 		Builder.RegisterType<TestDataPrintSettingsServices>().As<IPrintSettingsServices>().SingleInstance();
 		Builder.RegisterType<TestDataTitheEnvelopeServices>().As<ITitheEnvelopeServices>().SingleInstance();
+		Builder.RegisterType<TestPdfDirectoryServices>().As<IPdfDirectoryServices>().SingleInstance();
 
 		return Builder;
 	}

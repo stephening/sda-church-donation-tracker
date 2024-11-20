@@ -85,7 +85,7 @@ namespace Donations.Lib.View
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show(ex.Message);
+				MessageBox.Show(ex.Message, "DonorInputView.xaml.cs");
 			}
 		}
 

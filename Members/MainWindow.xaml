@@ -8,7 +8,7 @@
         mc:Ignorable="d"
 		KeyDown="Window_KeyDown"
 		Closing="Window_Closing"
-        Title="Beaverton SDA church member maintenance" MinHeight="450" MaxHeight="{Binding System.Windows.SystemParameters.WorkArea.Height}" Width="1100">
+        Title="Member maintenance" MinHeight="450" MaxHeight="{Binding System.Windows.SystemParameters.WorkArea.Height}" Width="1100">
 	<Grid>
 		<view:MainWindowMembersControl/>
 	</Grid>

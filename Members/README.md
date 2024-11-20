@@ -48,8 +48,10 @@ The main application is called Members.exe.
   * Html
 * About
 
+### Member
+
 #### Donor
-![alt text](./Documentation/screens/MemberTab.jpg "Member add/update")
+![alt text](./Documentation/screens/MemberTab.jpg "Member maintenance")
 
 This tab is where donor records are edited, or new donors added.
 
@@ -75,13 +77,6 @@ The way pictures are done is to simply specify a picture file name which will be
 (Pictures are optional)
 The table below the family members will be a list of all donations given by all designated family members.
 
-##### Merge donors
-It would probably be a rare occurrence but if you somehow inadvertently ended up with two records for the same person,
-with donations assiated with each, there is a way to merge the two donors into a single record, consolidating the donations as well.
-Merge action will be confirmed with the following dialog prompt.
-
-![alt text](./Documentation/screens/ConfirmDonorMergeView.jpg "Confirm donor merge")
-
 ##### View family member
 If the selected donor has family associated with them in the database, they will be shown in the list on the right under the picture field.
 If a family member is double-clicked on, it will popup a donor view just like the current one.
@@ -93,9 +88,27 @@ On that popup view, changes can be made in the same way changes are made in the 
 
 This view is the same as the Maintenance Tab's Donor view, except that it is in a popup window, allowing multiple instances so different donors can be edited at the same time.
 
-#### Donor changes
-Again on the right side at the bottom is a view of changes made to the donor record, when they occurred and who made the changes.
-If no changes have been made since the record was entered, the list will be empty.
+### Create directory
+
+#### Pdf file
+![alt text](./Documentation/screens/DirectoryTab-Pdf.jpg "Pdf member directory")
+
+The top level directory tab will filter the database for donors that have the "Church member" option checked. 
+The progress of this step is tracked with the lower progress bar.
+When that completes, the Pdf progress bar will begin.
+This stage renders the cover and all the directory entries to a FlowDocument which can be viewed on the right half of the screen.
+The front cover of the document can be designed in the RichTextBox on the left side of the app.
+It is a WYSYWYG editor and can contain images.
+Image sizing is pretty limited, but when an image is added, it is automatically sized to fit between the margins.
+If for some reason, the image overflows the margins, selecting or clicking on it should size it to fit.
+If you want an image smaller than the full page width between margins, you can try making the image smaller.
+
+You have the option to omit or include the mailing address, email, or phone number from the directory.
+
+You have the option to encrypt the Pdf file with a password to provide some security for people's contact information.
+
+Finally, you have the option to specify the font, text size, as well as the page size for the generated Pdf.
+The internal layout of the Pdf is not customizable, but since this is open source, you can modify to code any way you want.
 
 ## Database setup wizard
 

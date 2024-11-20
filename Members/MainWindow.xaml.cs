@@ -3,6 +3,7 @@ using Donations.Lib.ViewModel;
 using Members;
 using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Donors
@@ -77,7 +78,7 @@ namespace Donors
 		{
 			if (Key.F1 == e.Key)
 			{
-				_helpView.ShowTarget("");
+				_helpView.ShowTarget("Member");
 			}
 		}
 	}

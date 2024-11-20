@@ -267,6 +267,24 @@ public partial class MainWindowControl : UserControl
 					target = baseTarget + '-' + s.Replace(" ", "-");
 				}
 			}
+			else if (true == tabItem?.Header.Equals(s = (string)FindResource("DirectoryTabHeader")))
+			{
+				string baseTarget = s.Replace(" ", "-");
+				TabControl? tab = (tabItem.Content as DirectoryTabView)?.DirectoryTabs;
+				if (null != tab)
+				{
+					var item = tab.SelectedItem as TabItem;
+
+					if (-1 == tab.SelectedIndex || true == item?.Header.Equals(s = (string)FindResource("DirectoryPdfTabHeader")))
+					{
+						target = baseTarget + '-' + s.Replace(" ", "-");
+					}
+					else if (true == item?.Header.Equals(s = (string)FindResource("DirectoryHtmlTabHeader")))
+					{
+						target = baseTarget + '-' + s.Replace(" ", "-");
+					}
+				}
+			}
 			else if (true == tabItem?.Header.Equals(s = (string)FindResource("AboutTabHeader")))
 			{
 				target = s.Replace(" ", "-");

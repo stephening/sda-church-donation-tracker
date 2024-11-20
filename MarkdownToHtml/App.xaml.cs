@@ -123,7 +123,7 @@ namespace MarkdownToHtml
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show(ex.Message);
+				MessageBox.Show(ex.Message, "MarkdownToHtml.App.Startup");
 			}
 
 			Current.Shutdown();
