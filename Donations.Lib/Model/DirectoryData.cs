@@ -8,4 +8,5 @@ public class DirectoryData
 	public string? Phone { get; set; }
 	public string? Email { get; set; }
 	public string? Picture { get; set; }
+	public bool? Member { get; set; }
 }

@@ -49,6 +49,9 @@ public partial class DirectoryViewModel : BaseViewModel
 		await Task.Run(() => _loading.WaitOne());
 		_cancelLoading = false;
 
+		// if directory rendering is in progress, cancel it
+		DirectoryPdfViewModel.Cancel();
+
 		_directoryEntries.Clear();
 		Progress = 0;
 
@@ -79,6 +82,7 @@ public partial class DirectoryViewModel : BaseViewModel
 			string phones = "";
 			string email = "";
 			string picture = "";
+			bool churchMember = false;
 
 			await Task.Yield();
 
@@ -103,6 +107,12 @@ public partial class DirectoryViewModel : BaseViewModel
 
 						_loading.Release();
 						return;
+					}
+
+
+					if (true == member.ChurchMember)
+					{
+						churchMember = true;
 					}
 
 					_donorDone[member.Id] = true;
@@ -207,7 +217,8 @@ public partial class DirectoryViewModel : BaseViewModel
 				Address = address,
 				Phone = phones,
 				Email = email,
-				Picture = picture
+				Picture = picture,
+				Member = churchMember
 			};
 
 			if (familyName.Equals(""))
@@ -235,6 +246,8 @@ public partial class DirectoryViewModel : BaseViewModel
 		DirectoryPdfViewModel.SetDirectoryEntries(_directoryEntries);
 
 		Status = "Completed database query";
+
+		_loading.Release();
 	}
 
 	private string GetAddress(Donor donor)

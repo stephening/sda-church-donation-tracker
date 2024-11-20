@@ -148,6 +148,16 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 	}
 
 	[ObservableProperty]
+	private bool _nonMembers;
+	partial void OnNonMembersChanged(bool value)
+	{
+#pragma warning disable 4014
+		// Loading will automatically stop a previous invocation before proceeding
+		Loading();
+#pragma warning restore
+	}
+
+	[ObservableProperty]
 	private string? _coverText;
 	partial void OnCoverTextChanged(string? value)
 	{
@@ -208,6 +218,11 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 #pragma warning restore
 	}
 
+	public void Cancel()
+	{
+		_cancelLoading = true;
+	}
+
 	public async Task SetDocument(
 		FlowDocument flowDocument
 	)
@@ -222,6 +237,7 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 		Address = data.IncludeAddress;
 		Email = data.IncludeEmail;
 		PhoneNumber = data.IncludePhone;
+		NonMembers = data.IncludeNonMembers;
 
 		if (null != data.CoverRtf)
 		{
@@ -253,6 +269,10 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 	private async Task AddEntry(Section section, string key, string basePictureUrl)
 	{
 		DirectoryData data = _directoryEntries[key];
+		if (!NonMembers && false == data.Member)
+		{
+			return;
+		}
 		var table = new Table() { BorderThickness = new Thickness(2), BorderBrush = new SolidColorBrush(Colors.Black)};
 		table.RowGroups.Add(new TableRowGroup());
 		var row = new TableRow() { FontFamily = new FontFamily(SelectedFont), FontSize = SelectedSize };
@@ -358,6 +378,12 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 			changed = true;
 		}
 
+		if (NonMembers != data.IncludeNonMembers)
+		{
+			data.IncludeNonMembers = NonMembers;
+			changed = true;
+		}
+
 		if (_rtbChanged)
 		{
 			data.CoverRtf = RtbContainer?.GetRichText();
@@ -425,8 +451,10 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 				c++;
 				if (_cancelLoading)
 				{
+					Status = "Rendering directory entries cancelled";
 					_cancelLoading = false;
-					break;
+					_loading.Release();
+					return;
 				}
 				await AddEntry(section, key, basePictureUrl);
 				await AddEntry(pdfSection, key, basePictureUrl);

@@ -28,6 +28,7 @@
 						<CheckBox Content="Address" IsChecked="{Binding Address}"/>
 						<CheckBox Content="Email" IsChecked="{Binding Email}" Margin="20,0,0,0"/>
 						<CheckBox Content="Phone number" IsChecked="{Binding PhoneNumber}" Margin="20,0,0,0"/>
+						<CheckBox Content="Include non-members" IsChecked="{Binding NonMembers}" Margin="20,0,0,0"/>
 					</WrapPanel>
 				</GroupBox>
 				<GroupBox Header="Cover page" Grid.Row="1">

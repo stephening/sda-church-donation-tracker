@@ -406,6 +406,7 @@ CREATE TABLE [dbo].[PdfDirectory](
 	[IncludeAddress] [bit] NOT NULL,
 	[IncludePhone] [bit] NOT NULL,
 	[IncludeEmail] [bit] NOT NULL,
+	[IncludeNonMembers] [bit] NOT NULL,
 	[CoverRtf] [varbinary](max) NOT NULL,
  CONSTRAINT [PK_PdfDirectory] PRIMARY KEY CLUSTERED 
 (
