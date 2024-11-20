@@ -31,6 +31,7 @@ using System.Windows.Input;
 using System.Windows.Documents.Serialization;
 using System.Threading;
 using CommunityToolkit.Mvvm.Input;
+using System.Windows.Threading;
 
 namespace Donations.Lib.ViewModel;
 
@@ -68,6 +69,9 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 		_appSettingsServices = appSettingsServices;
 		_pdfDirectoryServices = pdfDirectoryServices;
 		_dispatcherWrapper = dispatcherWrapper;
+
+		_delayedUpdateSettingsTimer.Tick += new EventHandler(UpdateSettings!);
+		_delayedUpdateSettingsTimer.Interval = new TimeSpan(0, 0, 5);
 	}
 
 	[ObservableProperty]
@@ -172,11 +176,31 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 		if (_initilizingRtb) return;
 
 		_rtbChanged = true;
+
+		_delayedUpdateSettingsTimer.Stop();
+		_delayedUpdateSettingsTimer.Start();
 	}
 
 	public void SetDirectoryEntries(Dictionary<string, DirectoryData>? directoryEntries)
 	{
 		_directoryEntries = directoryEntries;
+
+#pragma warning disable 4014
+		// Loading will automatically stop a previous invocation before proceeding
+		Loading();
+#pragma warning restore
+	}
+
+	/// <summary>
+	/// When this one second timer expires, then the settings will be written to the database.
+	/// If a change in these fields is detected before the timer expires,
+	/// the unexpired timer will be canceled and a new 1 second timer will be started.
+	/// </summary>
+	private DispatcherTimer _delayedUpdateSettingsTimer = new DispatcherTimer();
+
+	private async void UpdateSettings(object sender, EventArgs e)
+	{
+		_delayedUpdateSettingsTimer.Stop();
 
 #pragma warning disable 4014
 		// Loading will automatically stop a previous invocation before proceeding

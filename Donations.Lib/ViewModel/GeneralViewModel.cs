@@ -46,24 +46,19 @@ public partial class GeneralViewModel : BaseViewModel
 		_categoryServices = categoryServices;
 		_pictureServices = pictureServices;
 		_appSettingsServices = appSettingsServices;
-
-		OrganizationLogo = _pictureServices.GetLogo();
-		_appSettings = _appSettingsServices.Get();
-		SyncFusionLicenseKey = _appSettings.SyncFusionLicenseKey;
-		PictureBaseUrl = _appSettings.PictureBaseUrl;
-		EmailAccount = _appSettings.EmailAccount;
-		EmailSmtpServer = _appSettings.EmailSmtpServer;
-		EmailServerPort = _appSettings.EmailServerPort;
-		EmailEnableSsl = _appSettings.EmailEnableSsl;
-
-		_delayedUpdateSettingsTimer.Tick += new EventHandler(UpdateSettings!);
-		_delayedUpdateSettingsTimer.Interval = new TimeSpan(0, 0, 2);
 	}
 
 	public new async Task Loading()
 	{
 		OrganizationLogo = _pictureServices.GetLogo();
-		_appSettings = _appSettingsServices.Get();
+		var data = _appSettingsServices.Get();
+		SyncFusionLicenseKey = data.SyncFusionLicenseKey;
+		PictureBaseUrl = data.PictureBaseUrl;
+		EmailAccount = data.EmailAccount;
+		EmailSmtpServer = data.EmailSmtpServer;
+		EmailServerPort = data.EmailServerPort;
+		EmailEnableSsl = data.EmailEnableSsl;
+
 		InitPasswordBox();
 	}
 
@@ -81,66 +76,70 @@ public partial class GeneralViewModel : BaseViewModel
 
 		Persist.Default.Save();
 
-		await _appSettingsServices.Save();
+		bool changed = false;
+		var data = _appSettingsServices.Get();
+		if (SyncFusionLicenseKey != data.SyncFusionLicenseKey)
+		{
+			_appSettingsServices.Get().SyncFusionLicenseKey = SyncFusionLicenseKey;
+			changed = true;
+		}
+		
+		if (EmailAccount != data.EmailAccount)
+		{
+			_appSettingsServices.Get().EmailAccount = EmailAccount;
+			changed = true;
+		}
+
+		if (PictureBaseUrl != data.PictureBaseUrl)
+		{
+			_appSettingsServices.Get().PictureBaseUrl = PictureBaseUrl;
+			changed = true;
+		}
+
+		if (EmailSmtpServer != data.EmailSmtpServer)
+		{
+			_appSettingsServices.Get().EmailSmtpServer = EmailSmtpServer;
+			changed = true;
+		}
+
+		if (EmailServerPort != data.EmailServerPort)
+		{
+			_appSettingsServices.Get().EmailServerPort = EmailServerPort;
+			changed = true;
+		}
+
+		if (EmailEnableSsl != data.EmailEnableSsl)
+		{
+			_appSettingsServices.Get().EmailEnableSsl = EmailEnableSsl;
+			changed = true;
+		}
+
+		if (changed)
+		{
+			await _appSettingsServices.Save();
+		}
 	}
 
 	[ObservableProperty]
 	private Picture? _organizationLogo;
 
-	private AppSettings? _appSettings;
-
-	private void RestartUpdateTimer()
-	{
-		_delayedUpdateSettingsTimer.Stop();
-		_delayedUpdateSettingsTimer.Start();
-	}
-
 	[ObservableProperty]
 	private string? _syncFusionLicenseKey;
-	partial void OnSyncFusionLicenseKeyChanged(string? value)
-	{
-		_appSettings!.SyncFusionLicenseKey = SyncFusionLicenseKey;
-	}
 
 	[ObservableProperty]
 	private string? _pictureBaseUrl;
 
-	partial void OnPictureBaseUrlChanged(string? value)
-	{
-		_appSettings.PictureBaseUrl = PictureBaseUrl;
-	}
-
 	[ObservableProperty]
 	private string? _EmailSmtpServer;
-
-	partial void OnEmailSmtpServerChanged(string? value)
-	{
-		_appSettings.EmailSmtpServer = EmailSmtpServer;
-	}
 
 	[ObservableProperty]
 	private int? _EmailServerPort;
 
-	partial void OnEmailServerPortChanged(int? value)
-	{
-		_appSettings.EmailServerPort = EmailServerPort;
-	}
-
 	[ObservableProperty]
 	private bool _EmailEnableSsl;
 
-	partial void OnEmailEnableSslChanged(bool value)
-	{
-		_appSettings.EmailEnableSsl = EmailEnableSsl;
-	}
-
 	[ObservableProperty]
 	private string? _EmailAccount;
-
-	partial void OnEmailAccountChanged(string? value)
-	{
-		_appSettings.EmailAccount = EmailAccount;
-	}
 
 	private PasswordBox? _passwordBox = null;
 	public void PasswordChanged(PasswordBox password)
@@ -169,37 +168,37 @@ public partial class GeneralViewModel : BaseViewModel
 		InitPasswordBox();
 	}
 
-	/// <summary>
-	/// When this one second timer expires, then the settings will be written to the database.
-	/// If a change in these fields is detected before the timer expires,
-	/// the unexpired timer will be canceled and a new 1 second timer will be started.
-	/// </summary>
-	private DispatcherTimer _delayedUpdateSettingsTimer = new DispatcherTimer();
+	///// <summary>
+	///// When this one second timer expires, then the settings will be written to the database.
+	///// If a change in these fields is detected before the timer expires,
+	///// the unexpired timer will be canceled and a new 1 second timer will be started.
+	///// </summary>
+	//private DispatcherTimer _delayedUpdateSettingsTimer = new DispatcherTimer();
 
-	private async void UpdateSettings(object sender, EventArgs e)
-	{
-		_delayedUpdateSettingsTimer.Stop();
+	//private async void UpdateSettings(object sender, EventArgs e)
+	//{
+	//	_delayedUpdateSettingsTimer.Stop();
 
-		_appSettings!.SyncFusionLicenseKey = SyncFusionLicenseKey;
-		_appSettings.PictureBaseUrl = PictureBaseUrl;
+	//	_appSettings!.SyncFusionLicenseKey = SyncFusionLicenseKey;
+	//	_appSettings.PictureBaseUrl = PictureBaseUrl;
 
-		_appSettings.EmailSmtpServer = EmailSmtpServer;
-		_appSettings.EmailServerPort = EmailServerPort;
-		_appSettings.EmailEnableSsl = EmailEnableSsl;
-		_appSettings.EmailAccount = EmailAccount;
-		if (string.IsNullOrEmpty(_passwordBox?.Password))
-		{
-			Persist.Default.EncryptedEmailPassword = "";
-		}
-		else
-		{
-			Persist.Default.EncryptedEmailPassword = string.Join(' ', ProtectedData.Protect(Encoding.Default.GetBytes(_passwordBox.Password), s_additionalEntropy, DataProtectionScope.CurrentUser));
-		}
+	//	_appSettings.EmailSmtpServer = EmailSmtpServer;
+	//	_appSettings.EmailServerPort = EmailServerPort;
+	//	_appSettings.EmailEnableSsl = EmailEnableSsl;
+	//	_appSettings.EmailAccount = EmailAccount;
+	//	if (string.IsNullOrEmpty(_passwordBox?.Password))
+	//	{
+	//		Persist.Default.EncryptedEmailPassword = "";
+	//	}
+	//	else
+	//	{
+	//		Persist.Default.EncryptedEmailPassword = string.Join(' ', ProtectedData.Protect(Encoding.Default.GetBytes(_passwordBox.Password), s_additionalEntropy, DataProtectionScope.CurrentUser));
+	//	}
 
-		Persist.Default.Save();
+	//	Persist.Default.Save();
 
-		await _appSettingsServices.Save();
-	}
+	//	await _appSettingsServices.Save();
+	//}
 	public async Task LoadDonors()
 	{
 		_donors = await _donorServices.LoadDonors();
