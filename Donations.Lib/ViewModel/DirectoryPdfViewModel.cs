@@ -372,7 +372,7 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 
 	public new async Task Loading()
 	{
-		// we don't want multipla instances of Loading() running simultaneously,
+		// we don't want multiple instances of Loading() running simultaneously,
 		// so try canceling if one is running and then take the resource
 		_cancelLoading = true;
 		await Task.Run(() => _loading.WaitOne());

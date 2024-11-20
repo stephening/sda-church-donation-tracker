@@ -2,6 +2,7 @@
 using Donations.Lib.Interfaces;
 using Donations.Lib.Model;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -11,6 +12,8 @@ public partial class DirectoryViewModel : BaseViewModel
 {
 	private readonly IDonorServices _donorServices;
 	private Dictionary<string, DirectoryData> _directoryEntries = new Dictionary<string, DirectoryData>();
+	private bool _cancelLoading = false;
+	private Semaphore _loading = new Semaphore(1, 1);
 
 	public DirectoryViewModel(
 		IDonorServices donorServices,
@@ -40,10 +43,14 @@ public partial class DirectoryViewModel : BaseViewModel
 
 	public new async Task Loading()
 	{
-		Progress = 0;
+		// we don't want multiple instances of Loading() running simultaneously,
+		// so try canceling if one is running and then take the resource
+		_cancelLoading = true;
+		await Task.Run(() => _loading.WaitOne());
+		_cancelLoading = false;
 
-		Cursor save = Mouse.OverrideCursor;
-		Mouse.OverrideCursor = Cursors.Wait;
+		_directoryEntries.Clear();
+		Progress = 0;
 
 		Dictionary<int, bool> _donorDone = new Dictionary<int, bool>();
 
@@ -56,6 +63,13 @@ public partial class DirectoryViewModel : BaseViewModel
 
 		foreach (var donor in donors)
 		{
+			if (_cancelLoading)
+			{
+				_cancelLoading = false;
+
+				_loading.Release();
+				return;
+			}
 			Progress = 100 * c / total;
 			c++;
 
@@ -83,6 +97,14 @@ public partial class DirectoryViewModel : BaseViewModel
 				var family = await _donorServices.GetDonorsByFamilyId(donor.FamilyId.Value);
 				foreach (var member in family)
 				{
+					if (_cancelLoading)
+					{
+						_cancelLoading = false;
+
+						_loading.Release();
+						return;
+					}
+
 					_donorDone[member.Id] = true;
 					if (member.FamilyRelationship == enumFamilyRelationship.Husband)
 					{
@@ -212,7 +234,6 @@ public partial class DirectoryViewModel : BaseViewModel
 
 		DirectoryPdfViewModel.SetDirectoryEntries(_directoryEntries);
 
-		Mouse.OverrideCursor = save;
 		Status = "Completed database query";
 	}
 
