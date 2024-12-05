@@ -162,14 +162,16 @@ public class DonorInputViewModelTests : TestBase
 		obj.TotalSum = 0;
 
 		// Assert again
-		Assert.False(obj.SubmitEnabled);
+		Assert.True(obj.SubmitEnabled);
+		Assert.False(obj.SubmitBatchEnabled);
 
 		// Act again
 		obj.TotalSum = 10;
 		obj.BatchDate = "";
 
 		// Assert again
-		Assert.False(obj.SubmitEnabled);
+		Assert.True(obj.SubmitEnabled);
+		Assert.False(obj.SubmitBatchEnabled);
 
 		// Act again
 		obj.BatchDate = "1/1/1980";
@@ -177,12 +179,14 @@ public class DonorInputViewModelTests : TestBase
 
 		// Assert again
 		Assert.False(obj.SubmitEnabled);
+		Assert.False(obj.SubmitBatchEnabled);
 
 		// Act again
 		obj.MethodOptions = enumMethod.Cash;
 
 		// Assert again
 		Assert.True(obj.SubmitEnabled);
+		Assert.False(obj.SubmitBatchEnabled);
 
 		// Act again
 		obj.MethodOptions = enumMethod.Check;
@@ -190,12 +194,14 @@ public class DonorInputViewModelTests : TestBase
 
 		// Assert again
 		Assert.False(obj.SubmitEnabled);
+		Assert.False(obj.SubmitBatchEnabled);
 
 		// Act again
 		obj.CheckNumber = "10000";
 
 		// Assert again
 		Assert.True(obj.SubmitEnabled);
+		Assert.False(obj.SubmitBatchEnabled);
 	}
 
 	[Fact]

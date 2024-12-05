@@ -85,7 +85,7 @@ public class BatchPrintViewModelTests : TestBase
 		Assert.Equal(expected, actual);
 	}
 
-	[Fact]
+	[StaFact]
 	public async Task Loaded()
 	{
 		// Arrange
