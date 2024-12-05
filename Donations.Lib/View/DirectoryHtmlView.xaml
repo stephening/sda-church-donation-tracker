@@ -43,6 +43,16 @@
 							<TextBlock Text="Html file:"/>
 							<TextBox Text="{Binding OrderByFirstFilename, UpdateSourceTrigger=PropertyChanged}" MinWidth="200" IsEnabled="{Binding OrderByFirstFilenameEnabled}"/>
 						</StackPanel>
+						<Grid Margin="0,2">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"/>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="Auto"/>
+							</Grid.ColumnDefinitions>
+							<TextBlock Text="Output folder:" Grid.Column="0" VerticalAlignment="Center"/>
+							<TextBox Grid.Column="1" Text="{Binding OutputFolder, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Stretch" IsReadOnly="True"/>
+							<Button Grid.Column="2" Content="..." Padding="5,2" VerticalAlignment="Center" Command="{Binding BrowseOutputFolderCommand}"/>
+						</Grid>
 					</StackPanel>
 				</GroupBox>
 				<GroupBox Header="Header" Grid.Row="1">

@@ -8,6 +8,7 @@ public class HtmlDirectory
 	public bool OrderByFirst { get; set; } = true;
 	public string OrderByFirstFilename { get; set; } = "FirstNamesPhotoDirectory.html";
 	public string OrderByLastFilename { get; set; } = "LastNamesPhotoDirectory.html";
+	public string OutputFolder { get; set; } = "";
 	public string PicturePath { get; set; } = "./pictures/";
 	public string Header { get; set; } = "";
 	public string Template { get; set; } = "";

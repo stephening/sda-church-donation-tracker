@@ -402,6 +402,7 @@ CREATE TABLE [dbo].[HtmlDirectory](
 	[OrderByFirst] [bit] NOT NULL,
 	[OrderByLastFilename] [nvarchar](50) NOT NULL,
 	[OrderByFirstFilename] [nvarchar](50) NOT NULL,
+	[OutputFolder] [nvarchar](500) NOT NULL,
 	[PicturePath] [nvarchar](50) NOT NULL,
 	[Header] [nvarchar](max) NOT NULL,
 	[Template] [nvarchar](max) NOT NULL,

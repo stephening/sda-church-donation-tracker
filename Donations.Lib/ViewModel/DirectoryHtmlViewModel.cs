@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Donations.Lib.Interfaces;
 using Donations.Lib.Model;
+using Microsoft.Win32;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -8,6 +10,7 @@ using System.IO.Abstractions;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Threading;
 
 namespace Donations.Lib.ViewModel;
@@ -31,6 +34,9 @@ public partial class DirectoryHtmlViewModel : BaseViewModel
 		_fileSystem = fileSystem;
 		_logger = logger;
 		_htmlDirectoryServices = htmlDirectoryServices;
+
+		_delayedUpdateSettingsTimer.Tick += new EventHandler(UpdateSettings);
+		_delayedUpdateSettingsTimer.Interval = new TimeSpan(0, 0, 2);
 	}
 
 
@@ -41,10 +47,9 @@ public partial class DirectoryHtmlViewModel : BaseViewModel
 	private bool _nonMembers;
 	partial void OnNonMembersChanged(bool value)
 	{
-#pragma warning disable 4014
-		// Loading will automatically stop a previous invocation before proceeding
-		Loading();
-#pragma warning restore
+		// Delay action until a certain time has past since the last change
+		_delayedUpdateSettingsTimer.Stop();
+		_delayedUpdateSettingsTimer.Start();
 	}
 
 	[ObservableProperty]
@@ -59,10 +64,9 @@ public partial class DirectoryHtmlViewModel : BaseViewModel
 		{
 			OrderByLastFilenameEnabled = false;
 		}
-#pragma warning disable 4014
-		// Loading will automatically stop a previous invocation before proceeding
-		Loading();
-#pragma warning restore
+		// Delay action until a certain time has past since the last change
+		_delayedUpdateSettingsTimer.Stop();
+		_delayedUpdateSettingsTimer.Start();
 	}
 
 	[ObservableProperty]
@@ -77,37 +81,45 @@ public partial class DirectoryHtmlViewModel : BaseViewModel
 		{
 			OrderByFirstFilenameEnabled = false;
 		}
-#pragma warning disable 4014
-		// Loading will automatically stop a previous invocation before proceeding
-		Loading();
-#pragma warning restore
+		// Delay action until a certain time has past since the last change
+		_delayedUpdateSettingsTimer.Stop();
+		_delayedUpdateSettingsTimer.Start();
 	}
 
 	[ObservableProperty]
 	private string _orderByLastFilename = "";
 	partial void OnOrderByLastFilenameChanged(string value)
 	{
-
+		// Delay action until a certain time has past since the last change
+		_delayedUpdateSettingsTimer.Stop();
+		_delayedUpdateSettingsTimer.Start();
 	}
 
 	[ObservableProperty]
 	private string _orderByFirstFilename = "";
 	partial void OnOrderByFirstFilenameChanged(string value)
 	{
-#pragma warning disable 4014
-		// Loading will automatically stop a previous invocation before proceeding
-		Loading();
-#pragma warning restore
+		// Delay action until a certain time has past since the last change
+		_delayedUpdateSettingsTimer.Stop();
+		_delayedUpdateSettingsTimer.Start();
 	}
 
 	[ObservableProperty]
 	private string _picturePath = "";
 	partial void OnPicturePathChanged(string value)
 	{
-#pragma warning disable 4014
-		// Loading will automatically stop a previous invocation before proceeding
-		Loading();
-#pragma warning restore
+		// Delay action until a certain time has past since the last change
+		_delayedUpdateSettingsTimer.Stop();
+		_delayedUpdateSettingsTimer.Start();
+	}
+
+	[ObservableProperty]
+	private string _outputFolder = "";
+	partial void OnOutputFolderChanged(string value)
+	{
+		// Delay action until a certain time has past since the last change
+		_delayedUpdateSettingsTimer.Stop();
+		_delayedUpdateSettingsTimer.Start();
 	}
 
 	[ObservableProperty]
@@ -149,6 +161,23 @@ public partial class DirectoryHtmlViewModel : BaseViewModel
 
 	[ObservableProperty]
 	private double _progress = 0;
+
+	[RelayCommand]
+	private void BrowseOutputFolder()
+	{
+		OpenFolderDialog openFolderDialog = new OpenFolderDialog();
+		if (true == openFolderDialog.ShowDialog())
+		{
+			if (openFolderDialog.FolderName.EndsWith(_fileSystem.Path.DirectorySeparatorChar))
+			{
+				OutputFolder = openFolderDialog.FolderName;
+			}
+			else
+			{
+				OutputFolder = openFolderDialog.FolderName + _fileSystem.Path.DirectorySeparatorChar;
+			}
+		}
+	}
 
 	public void SetDirectoryEntries(Dictionary<string, DirectoryData>? directoryEntries)
 	{
@@ -214,6 +243,12 @@ public new async Task Leaving()
 		if (OrderByFirstFilename != data.OrderByFirstFilename)
 		{
 			data.OrderByFirstFilename = OrderByFirstFilename;
+			changed = true;
+		}
+
+		if (OutputFolder != data.OutputFolder)
+		{
+			data.OutputFolder = OutputFolder;
 			changed = true;
 		}
 
@@ -310,7 +345,7 @@ public new async Task Leaving()
 
 		Status = "Rendering directory entries by last name";
 
-		using var stream = _fileSystem.File.CreateText(OrderByLastFilename);
+		using var stream = _fileSystem.File.CreateText(OutputFolder + OrderByLastFilename);
 
 		stream.Write(Header);
 
@@ -404,7 +439,7 @@ public new async Task Leaving()
 
 		Status = "Rendering directory entries by first name";
 
-		using var stream = _fileSystem.File.CreateText(OrderByFirstFilename);
+		using var stream = _fileSystem.File.CreateText(OutputFolder + OrderByFirstFilename);
 
 		stream.Write(Header);
 
@@ -438,46 +473,72 @@ public new async Task Leaving()
 		// so try canceling if one is running and then take the resource
 		await Task.Run(() => _loading.WaitOne());
 
-		if (null == _htmlData)
+		try
 		{
-			_htmlData = await _htmlDirectoryServices.GetAsync();
-			NonMembers = _htmlData.IncludeNonMembers;
-			OrderByLast = _htmlData.OrderByLast;
-			OrderByFirst = _htmlData.OrderByFirst;
-			OrderByLastFilename = _htmlData.OrderByLastFilename;
-			OrderByFirstFilename = _htmlData.OrderByFirstFilename;
-			PicturePath = _htmlData.PicturePath;
-			Header = _htmlData.Header;
-			Template = _htmlData.Template;
-			Footer = _htmlData.Footer;
-		}
-
-		var length = PicturePath.Length;
-		string picturePath = PicturePath;
-		if (!string.IsNullOrEmpty(PicturePath) && (PicturePath[length - 1] == '/' || PicturePath[length - 1] == '\\'))
-		{
-			picturePath = PicturePath.Substring(0, length - 1);
-		}
-
-		string body = "";
-		if (null != _directoryEntries)
-		{
-			double total = _directoryEntries.Count;
-
-			double c = 0;
-			double step = 1.0 / 2 * total;
-
-			if (OrderByLast)
+			if (null == _htmlData)
 			{
-				OutputByLast(step, picturePath);
+				_htmlData = await _htmlDirectoryServices.GetAsync();
+				NonMembers = _htmlData.IncludeNonMembers;
+				OrderByLast = _htmlData.OrderByLast;
+				OrderByFirst = _htmlData.OrderByFirst;
+				OrderByLastFilename = _htmlData.OrderByLastFilename;
+				OrderByFirstFilename = _htmlData.OrderByFirstFilename;
+				OutputFolder = _htmlData.OutputFolder;
+				PicturePath = _htmlData.PicturePath;
+				Header = _htmlData.Header;
+				Template = _htmlData.Template;
+				Footer = _htmlData.Footer;
 			}
 
-			if (OrderByFirst)
+			if (string.IsNullOrEmpty(OutputFolder))
 			{
-				OutputByFirst(step, picturePath);
+				return;
 			}
-		}
 
-		_loading.Release();
+			if (!OutputFolder.EndsWith('/') && !OutputFolder.EndsWith('\\'))
+			{
+				OutputFolder += _fileSystem.Path.DirectorySeparatorChar;
+			}
+
+			if (!_fileSystem.Directory.Exists(OutputFolder))
+			{
+				return;
+			}
+
+			var length = PicturePath.Length;
+			string picturePath = PicturePath;
+			if (!string.IsNullOrEmpty(PicturePath) && (PicturePath[length - 1] == '/' || PicturePath[length - 1] == '\\'))
+			{
+				picturePath = PicturePath.Substring(0, length - 1);
+			}
+
+			if (null != _directoryEntries)
+			{
+				double total = _directoryEntries.Count;
+
+				double c = 0;
+				double step = 1.0 / 2 * total;
+
+				if (OrderByLast)
+				{
+					OutputByLast(step, picturePath);
+				}
+
+				if (OrderByFirst)
+				{
+					OutputByFirst(step, picturePath);
+				}
+			}
+
+			HomePage = "File://" + OutputFolder.Replace("\\", "/") + OrderByLastFilename;
+		}
+		catch (Exception ex)
+		{
+			MessageBox.Show(ex.Message, "DirectoryHtmlViewModel.Loading()");
+		}
+		finally
+		{
+			_loading.Release();
+		}
 	}
 }

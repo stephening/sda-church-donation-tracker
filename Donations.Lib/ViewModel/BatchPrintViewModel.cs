@@ -167,6 +167,12 @@ public partial class BatchPrintViewModel : BaseViewModel
 		LeftMargin = settings.LeftMargin;
 		OtherMargins = settings.OtherMargins;
 
+		if (string.IsNullOrEmpty(SelectedFont))
+		{
+			MessageBox.Show("Font cannot be null or empty");
+			return;
+		}
+
 		_printAreaWidth = (8.5 - LeftMargin - OtherMargins) * PrintOptionsView._dpi;
 
 		_doc = doc;

@@ -288,6 +288,12 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 		LeftMargin = settings.LeftMargin;
 		OtherMargins = settings.OtherMargins;
 
+		if (string.IsNullOrEmpty(SelectedFont))
+		{
+			MessageBox.Show("Font cannot be null or empty");
+			return;
+		}
+
 		_individualReport = await _individualReportServices.Get();
 
 		TemplateText = _individualReport.TemplateText;

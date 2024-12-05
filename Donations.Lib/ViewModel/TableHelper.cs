@@ -1,4 +1,5 @@
 ﻿using Donations.Lib.Model;
+using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,49 +17,57 @@ public class TableHelper
 	/// </summary>
 	public Table? CreateCategorySumsTable(CollectionViewSource categorySumCollection, string? font, double size)
 	{
-		if (0 == categorySumCollection.View.Cast<CategorySum>().Count()) return null;
-
-		var table = new Table();
-
-		double[] colsize = new double[2];
-		var col0 = new TableColumn();
-		var col1 = new TableColumn();
-		table.Columns.Add(col0);
-		table.Columns.Add(col1);
-
-		table.RowGroups.Add(new TableRowGroup());
-
-		TableRow currentRow = new TableRow() { FontFamily = new FontFamily(font), FontSize = size, FontWeight = FontWeights.Bold };
-
-		// Add the first (title) row.
-		table.RowGroups[0].Rows.Add(currentRow);
-
-		// Add cells with content to the second row.
-		AddCell(currentRow, colsize, 0, "Category");
-		AddCell(currentRow, colsize, 0, "Subtotal", TextAlignment.Right);
-
-		int i = 0;
-		foreach (var item in categorySumCollection.View)
+		try
 		{
-			CategorySum? catsum = item as CategorySum;
+			if (0 == categorySumCollection.View.Cast<CategorySum>().Count()) return null;
 
-			currentRow = new TableRow() { FontFamily = new FontFamily(font), FontSize = size };
+			var table = new Table();
+
+			double[] colsize = new double[2];
+			var col0 = new TableColumn();
+			var col1 = new TableColumn();
+			table.Columns.Add(col0);
+			table.Columns.Add(col1);
+
+			table.RowGroups.Add(new TableRowGroup());
+
+			TableRow currentRow = new TableRow() { FontFamily = new FontFamily(font), FontSize = size, FontWeight = FontWeights.Bold };
 
 			// Add the first (title) row.
 			table.RowGroups[0].Rows.Add(currentRow);
 
-			currentRow.Background = (0 == (i % 2)) ? new SolidColorBrush(Color.FromArgb(0xff, 0xdf, 0xef, 0xdf)) : Brushes.White;
+			// Add cells with content to the second row.
+			AddCell(currentRow, colsize, 0, "Category");
+			AddCell(currentRow, colsize, 0, "Subtotal", TextAlignment.Right);
 
-			AddCell(currentRow, colsize, 0, catsum?.Category);
-			AddCell(currentRow, colsize, 1, catsum?.Sum.ToString("C2"), TextAlignment.Right);
+			int i = 0;
+			foreach (var item in categorySumCollection.View)
+			{
+				CategorySum? catsum = item as CategorySum;
 
-			i++;
+				currentRow = new TableRow() { FontFamily = new FontFamily(font), FontSize = size };
+
+				// Add the first (title) row.
+				table.RowGroups[0].Rows.Add(currentRow);
+
+				currentRow.Background = (0 == (i % 2)) ? new SolidColorBrush(Color.FromArgb(0xff, 0xdf, 0xef, 0xdf)) : Brushes.White;
+
+				AddCell(currentRow, colsize, 0, catsum?.Category);
+				AddCell(currentRow, colsize, 1, catsum?.Sum.ToString("C2"), TextAlignment.Right);
+
+				i++;
+			}
+
+			col0.Width = new GridLength(colsize[0] + 20, GridUnitType.Pixel);
+			col1.Width = new GridLength(colsize[1] + 20, GridUnitType.Pixel);
+
+			return table;
 		}
-
-		col0.Width = new GridLength(colsize[0] + 20, GridUnitType.Pixel);
-		col1.Width = new GridLength(colsize[1] + 20, GridUnitType.Pixel);
-
-		return table;
+		catch (Exception ex)
+		{
+			MessageBox.Show(ex.Message, "TableHelper.CreateDonationDetailsTable()");
+		}
+		return null;
 	}
 
 	/// <summary>
@@ -68,85 +77,92 @@ public class TableHelper
 	/// </summary>
 	public Table? CreateDonationDetailsTable(CollectionViewSource donationDetailsCollection, string? font, double size, double printAreaWidth)
 	{
-		if (0 == donationDetailsCollection.View.Cast<Donation>().Count()) return null;
-
-		var table = new Table();
-		int numCols = 6;
-
-		double[] colsize = new double[numCols];
-		TableColumn[] cols = new TableColumn[numCols];
-
-		int i;
-
-		for (i = 0; i < numCols; i++)
+		try
 		{
-			cols[i] = new TableColumn();
-			table.Columns.Add(cols[i]);
-		}
+			if (0 == donationDetailsCollection.View.Cast<Donation>().Count()) return null;
 
-		table.RowGroups.Add(new TableRowGroup());
+			var table = new Table();
+			int numCols = 6;
 
-		TableRow currentRow = new TableRow() { FontFamily = new FontFamily(font), FontSize = size, FontWeight = FontWeights.Bold };
+			double[] colsize = new double[numCols];
+			TableColumn[] cols = new TableColumn[numCols];
 
-		// Add the first (title) row.
-		table.RowGroups[0].Rows.Add(currentRow);
+			int i;
 
-		// Global formatting for the header row.
-		currentRow.FontWeight = FontWeights.Bold;
+			for (i = 0; i < numCols; i++)
+			{
+				cols[i] = new TableColumn();
+				table.Columns.Add(cols[i]);
+			}
 
-		// Add cells with content to the second row.
-		i = 0;
-		AddCell(currentRow, colsize, i++, "Date");
-		AddCell(currentRow, colsize, i++, "Category");
-		AddCell(currentRow, colsize, i++, "Amount", TextAlignment.Right);
-		AddCell(currentRow, colsize, i++, "Method", TextAlignment.Right);
-		AddCell(currentRow, colsize, i++, "Tx/Ck #");
-		AddCell(currentRow, colsize, i++, "Note");
+			table.RowGroups.Add(new TableRowGroup());
 
-		int row = 0;
-		foreach (var item in donationDetailsCollection.View)
-		{
-			Donation donation = item as Donation;
-
-			currentRow = new TableRow() { FontFamily = new FontFamily(font), FontSize = size };
+			TableRow currentRow = new TableRow() { FontFamily = new FontFamily(font), FontSize = size, FontWeight = FontWeights.Bold };
 
 			// Add the first (title) row.
 			table.RowGroups[0].Rows.Add(currentRow);
 
-			currentRow.Background = (0 == (row % 2)) ? new SolidColorBrush(Color.FromArgb(0xff, 0xdf, 0xef, 0xdf)) : Brushes.White;
+			// Global formatting for the header row.
+			currentRow.FontWeight = FontWeights.Bold;
 
-			// Add cells with content to the row.
+			// Add cells with content to the second row.
 			i = 0;
+			AddCell(currentRow, colsize, i++, "Date");
+			AddCell(currentRow, colsize, i++, "Category");
+			AddCell(currentRow, colsize, i++, "Amount", TextAlignment.Right);
+			AddCell(currentRow, colsize, i++, "Method", TextAlignment.Right);
+			AddCell(currentRow, colsize, i++, "Tx/Ck #");
+			AddCell(currentRow, colsize, i++, "Note");
 
-			AddCell(currentRow, colsize, i++, donation?.Date);
-			AddCell(currentRow, colsize, i++, donation?.Category);
-			AddCell(currentRow, colsize, i++, donation?.Value.ToString("C2"), TextAlignment.Right);
-			AddCell(currentRow, colsize, i++, donation?.Method.ToString(), TextAlignment.Right);
-			AddCell(currentRow, colsize, i++, donation?.TransactionNumber);
-			string note = "";
-			if ("Adventist Giving" != donation?.Note)
+			int row = 0;
+			foreach (var item in donationDetailsCollection.View)
 			{
-				note = donation?.Note;
+				Donation donation = item as Donation;
+
+				currentRow = new TableRow() { FontFamily = new FontFamily(font), FontSize = size };
+
+				// Add the first (title) row.
+				table.RowGroups[0].Rows.Add(currentRow);
+
+				currentRow.Background = (0 == (row % 2)) ? new SolidColorBrush(Color.FromArgb(0xff, 0xdf, 0xef, 0xdf)) : Brushes.White;
+
+				// Add cells with content to the row.
+				i = 0;
+
+				AddCell(currentRow, colsize, i++, donation?.Date);
+				AddCell(currentRow, colsize, i++, donation?.Category);
+				AddCell(currentRow, colsize, i++, donation?.Value.ToString("C2"), TextAlignment.Right);
+				AddCell(currentRow, colsize, i++, donation?.Method.ToString(), TextAlignment.Right);
+				AddCell(currentRow, colsize, i++, donation?.TransactionNumber);
+				string note = "";
+				if ("Adventist Giving" != donation?.Note)
+				{
+					note = donation?.Note;
+				}
+				AddCell(currentRow, colsize, i++, note);
+
+				row++;
 			}
-			AddCell(currentRow, colsize, i++, note);
 
-			row++;
+			var width = printAreaWidth;
+
+			for (i = 0; i < numCols; i++)
+			{
+				width -= colsize[i] + 10; // add 10 extra pixels for margin
+				cols[i].Width = new GridLength(colsize[i] + 10, GridUnitType.Pixel);
+			}
+			if (0 > width)
+			{
+				// table is too wide so reduce category column
+				cols[1].Width = new GridLength(colsize[1] + width, GridUnitType.Pixel);
+			}
+			return table;
 		}
-
-		var width = printAreaWidth;
-
-		for (i = 0; i < numCols; i++)
+		catch (Exception ex)
 		{
-			width -= colsize[i] + 10; // add 10 extra pixels for margin
-			cols[i].Width = new GridLength(colsize[i] + 10, GridUnitType.Pixel);
+			MessageBox.Show(ex.Message, "TableHelper.CreateDonationDetailsTable()");
 		}
-		if (0 > width)
-		{
-			// table is too wide so reduce category column
-			cols[1].Width = new GridLength(colsize[1] + width, GridUnitType.Pixel);
-		}
-
-		return table;
+		return null;
 	}
 
 	/// <summary>
