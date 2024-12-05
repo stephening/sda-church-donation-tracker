@@ -15,7 +15,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Xps.Packaging;
 using System.Windows.Xps;
-using Figure = System.Windows.Documents.Figure;
 using Table = System.Windows.Documents.Table;
 using TableRow = System.Windows.Documents.TableRow;
 using TableRowGroup = System.Windows.Documents.TableRowGroup;
@@ -282,7 +281,7 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 		table.Columns.Add(column);
 
 		Image cellImage = new Image() { Stretch = Stretch.Uniform, Width = _width / 3, HorizontalAlignment = HorizontalAlignment.Left };
-		if (!string.IsNullOrEmpty(data.Picture))
+		if (!string.IsNullOrEmpty(data.Picture) && !string.IsNullOrEmpty(basePictureUrl))
 		{
 			cellImage.Source = new BitmapImage(new Uri(basePictureUrl + data.Picture, UriKind.Absolute));
 			await Task.Delay(20);
@@ -461,7 +460,6 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 			}
 
 			ReadyToSavePdf = true;
-			Status = "Completed rendering directory entries";
 		}
 
 		_loading.Release();

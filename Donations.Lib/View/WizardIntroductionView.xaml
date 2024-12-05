@@ -14,7 +14,7 @@
 		</ResourceDictionary>
 	</UserControl.Resources>
 	<FlowDocumentScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-		<FlowDocument Style="{StaticResource WizardFlowDocumentStyle}">
+		<FlowDocument Style="{StaticResource WizardFlowDocumentStyle}" TextAlignment="Left">
 			<Paragraph>
 				This database setup wizard is part of a donor tracking open source software package.
 				Please feel free to get the source code and make whatever modification you want to it.
@@ -41,7 +41,7 @@
 					<BulletDecorator.Bullet>
 						<Ellipse Height="5" Width="5" Fill="Black"/>
 					</BulletDecorator.Bullet>
-					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 						Categories - money that comes into tax exempt organizations are usually designated for certain causes.
 						Each of these causes will have a numeric code and a word description.
 						For this import, the csv file should have a number column and a description column.
@@ -52,7 +52,7 @@
 					<BulletDecorator.Bullet>
 						<Ellipse Height="5" Width="5" Fill="Black"/>
 					</BulletDecorator.Bullet>
-					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 						Donors - donors that give to tax exempt organizations need to get receipts for their tax filing purposes.
 						So contact information is needed along with the amounts given, in order to provide a year end giving report.
 						Details of the format required will be specified later, but hopefully you will be able to rename columns and massage data in a spreadsheet before exporting a suitable csv file.
@@ -63,7 +63,7 @@
 					<BulletDecorator.Bullet>
 						<Ellipse Height="5" Width="5" Fill="Black"/>
 					</BulletDecorator.Bullet>
-					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 						Donations - of course there should a a database table for donations which also tracks the funds they are destined for.
 						Donations will be tied back to donors, and hence should have either a donor id mapping back to a donor record, or at the very least should have donor name and contact information.
 						Details of the format required will be specified later, but hopefully you will be able to rename columns and massage data in a spreadsheet before exporting a suitable csv file.

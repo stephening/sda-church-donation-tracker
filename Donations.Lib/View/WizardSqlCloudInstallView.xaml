@@ -20,7 +20,7 @@
 					<BulletDecorator.Bullet>
 						<Ellipse Height="5" Width="5" Fill="Black"/>
 					</BulletDecorator.Bullet>
-					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 						Ideally, ask a qualified IT person to perform the MS SQL install for you.
 					</TextBlock>
 				</BulletDecorator>
@@ -30,7 +30,7 @@
 					<BulletDecorator.Bullet>
 						<Ellipse Height="5" Width="5" Fill="Black"/>
 					</BulletDecorator.Bullet>
-					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 						If you do not have someone that can do this for you,
 						setup or get administrator access to a system that will be accessible on the Internet.
 					</TextBlock>
@@ -41,7 +41,7 @@
 					<BulletDecorator.Bullet>
 						<Ellipse Height="5" Width="5" Fill="Black"/>
 					</BulletDecorator.Bullet>
-					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 						The following steps are to be followed on the cloud based system.
 					</TextBlock>
 				</BulletDecorator>
@@ -50,7 +50,7 @@
 					<BulletDecorator.Bullet>
 						<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 					</BulletDecorator.Bullet>
-					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 						Browse to the following URL:<LineBreak/>
 						<Hyperlink NavigateUri="https://www.microsoft.com/en-us/sql-server/sql-server-downloads?rtc=1" RequestNavigate="Hyperlink_RequestNavigate">
 							https://www.microsoft.com/en-us/sql-server/sql-server-downloads?rtc=1
@@ -63,7 +63,7 @@
 					<BulletDecorator.Bullet>
 						<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 					</BulletDecorator.Bullet>
-					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 						Then under "download a free specialized edition," click on the blue "Download now" button under Express.
 					</TextBlock>
 				</BulletDecorator>
@@ -72,7 +72,7 @@
 					<BulletDecorator.Bullet>
 						<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 					</BulletDecorator.Bullet>
-					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 						Select the "Basic" installation type.
 					</TextBlock>
 				</BulletDecorator>
@@ -81,7 +81,7 @@
 					<BulletDecorator.Bullet>
 						<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 					</BulletDecorator.Bullet>
-					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 						When the Installation has completed successfully! you will be notified with a screen telling you that.
 						On that screen, there will be a CONNECTION STRING, and 3 folders for logs, media, and resources.
 						It may be useful to install SSMS, one of the four buttons at the bottom of the page.
@@ -92,7 +92,7 @@
 					<BulletDecorator.Bullet>
 						<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 					</BulletDecorator.Bullet>
-					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 						The connection string will probably need to be assembled from the following:
 					</TextBlock>
 				</BulletDecorator>
@@ -101,7 +101,7 @@
 					<BulletDecorator.Bullet>
 						<Rectangle Height="5" Width="5" Fill="Black"/>
 					</BulletDecorator.Bullet>
-					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 						Server&lt;server name&gt;,&lt;port number&gt;
 					</TextBlock>
 				</BulletDecorator>
@@ -110,7 +110,7 @@
 					<BulletDecorator.Bullet>
 						<Rectangle Height="5" Width="5" Fill="Black"/>
 					</BulletDecorator.Bullet>
-					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 						Database=master;
 					</TextBlock>
 				</BulletDecorator>
@@ -119,7 +119,7 @@
 					<BulletDecorator.Bullet>
 						<Rectangle Height="5" Width="5" Fill="Black"/>
 					</BulletDecorator.Bullet>
-					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 						TrustServerCertificate=True; if your server is self signed.
 					</TextBlock>
 				</BulletDecorator>
@@ -128,7 +128,7 @@
 					<BulletDecorator.Bullet>
 						<Rectangle Height="5" Width="5" Fill="Black"/>
 					</BulletDecorator.Bullet>
-					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 						Encrypt=True;
 					</TextBlock>
 				</BulletDecorator>
@@ -137,7 +137,7 @@
 					<BulletDecorator.Bullet>
 						<Rectangle Height="5" Width="5" Fill="Black"/>
 					</BulletDecorator.Bullet>
-					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 						Connection Timeout=30;
 					</TextBlock>
 				</BulletDecorator>
@@ -146,7 +146,7 @@
 					<BulletDecorator.Bullet>
 						<Rectangle Height="5" Width="5" Fill="Black"/>
 					</BulletDecorator.Bullet>
-					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 						User ID&lt;user name&gt;;
 					</TextBlock>
 				</BulletDecorator>
@@ -155,7 +155,7 @@
 					<BulletDecorator.Bullet>
 						<Rectangle Height="5" Width="5" Fill="Black"/>
 					</BulletDecorator.Bullet>
-					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 						Password&lt;password&gt;;
 					</TextBlock>
 				</BulletDecorator>

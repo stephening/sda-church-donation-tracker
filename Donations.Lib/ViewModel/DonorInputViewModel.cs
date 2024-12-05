@@ -250,7 +250,6 @@ public partial class DonorInputViewModel : BaseViewModel
 	/// </summary>
 	public bool SubmitEnabled => (
 		!string.IsNullOrEmpty(Name)
-		&& !string.IsNullOrEmpty(BatchDate)
 		&& (MethodOptions == enumMethod.Cash || !string.IsNullOrEmpty(CheckNumber) || MethodOptions == enumMethod.AdventistGiving)
 		);
 

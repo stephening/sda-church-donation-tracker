@@ -11,4 +11,9 @@ public partial class DirectoryHtmlView : UserControl
 	{
 		InitializeComponent();
 	}
+
+	private void UserControl_DataContextChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
+	{
+
+	}
 }

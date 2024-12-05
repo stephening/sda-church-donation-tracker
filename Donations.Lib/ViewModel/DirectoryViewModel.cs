@@ -91,13 +91,14 @@ public partial class DirectoryViewModel : BaseViewModel
 				continue;
 			}
 
+			string wife = "";
+			string husband = "";
+			string primary = "";
+			string lastName = "";
+			string firstName = donor.FirstName;
+
 			if (null != donor.FamilyId && donor.FamilyRelationship != enumFamilyRelationship.None)
 			{
-				string wife = "";
-				string husband = "";
-				string primary = "";
-				string lastName = "";
-
 				var family = await _donorServices.GetDonorsByFamilyId(donor.FamilyId.Value);
 				foreach (var member in family)
 				{
@@ -204,6 +205,7 @@ public partial class DirectoryViewModel : BaseViewModel
 			else
 			{
 				familyName = donor.Name;
+				lastName = donor.LastName;
 				address = GetAddress(donor);
 				phones = GetPhoneNumber("", donor);
 				email = GetEmail("", donor);
@@ -212,6 +214,8 @@ public partial class DirectoryViewModel : BaseViewModel
 
 			var data = new DirectoryData()
 			{
+				LastName = lastName,
+				FirstName = firstName,
 				Name = familyName,
 				OtherFamilyMembers = otherFamilyMembers,
 				Address = address,
@@ -243,6 +247,7 @@ public partial class DirectoryViewModel : BaseViewModel
 			}
 		}
 
+		DirectoryHtmlViewModel.SetDirectoryEntries(_directoryEntries);
 		DirectoryPdfViewModel.SetDirectoryEntries(_directoryEntries);
 
 		Status = "Completed database query";

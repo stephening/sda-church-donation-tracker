@@ -14,7 +14,7 @@
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 		<StackPanel Grid.Row="0" Orientation="Vertical">
-			<TextBlock>
+			<TextBlock TextWrapping="Wrap" TextAlignment="Left">
 				This tab shows and allows editing of the categories shown in the default tithe envelope for manual donor entry.
 				You can leave blank lines between entires if you want which will be reflected on the entry page.
 				When entering data, those blank lines can be filled with write-ins if needed.
@@ -23,7 +23,7 @@
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 					Delete an entry by right-clicking on the the row and selecting 'Delete row' from the context menu.
 				</TextBlock>
 			</BulletDecorator>

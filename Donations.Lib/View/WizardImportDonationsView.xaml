@@ -17,7 +17,7 @@
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 		<StackPanel Grid.Row="0" Orientation="Vertical">
-			<TextBlock>
+			<TextBlock TextWrapping="Wrap" TextAlignment="Left">
 				On this tab you can import a pre-existing donation database which can then be used and added to using this program.
 					Only (*.csv) text file import is supported at this time.
 			</TextBlock>
@@ -25,7 +25,7 @@
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 					First make sure your csv column headers matching the table below.
 					If they don't match, rename them accordingly.
 					Order does not matter.
@@ -35,37 +35,37 @@
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">DonorId - Corresponds to the Id in the donor table.</TextBlock>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">DonorId - Corresponds to the Id in the donor table.</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="25,0,0,0">
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">BatchId - this will be assigned automatically based on dates.</TextBlock>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">BatchId - this will be assigned automatically based on dates.</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="40,0,0,0">
 				<BulletDecorator.Bullet>
 					<Rectangle Height="5" Width="5" Fill="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">All Adventist Giving donations from the first of the month through the 15th will be assigned to a batch.</TextBlock>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">All Adventist Giving donations from the first of the month through the 15th will be assigned to a batch.</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="40,0,0,0">
 				<BulletDecorator.Bullet>
 					<Rectangle Height="5" Width="5" Fill="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Adventist Giving donations from the 16th through the end of the month will be assigned to another batch.</TextBlock>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">Adventist Giving donations from the 16th through the end of the month will be assigned to another batch.</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="40,0,0,0">
 				<BulletDecorator.Bullet>
 					<Rectangle Height="5" Width="5" Fill="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">All other types of donations will be grouped into batches by date.</TextBlock>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">All other types of donations will be grouped into batches by date.</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="25,0,0,0">
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 					First/LastName - while this seems redundant given the DonorId field, this data allows for the donation record to
 					stand on it's own even if the DonorId was purged from the database.
 				</TextBlock>
@@ -74,13 +74,13 @@
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Value - dollar amount of the donation to the specified category.</TextBlock>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">Value - dollar amount of the donation to the specified category.</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="25,0,0,0">
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 					Category - this field is a string containing the CategoryCode and Description to which the donation was designated.
 					One might wonder, why not just store the CategoryCode and look up the description when making the report.
 					The reason for this is that, in the event donation categories are retired, the donation record is still functional.
@@ -90,7 +90,7 @@
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 					TaxDeductible - this field is also something that is stored in the Category table, but it is duplicated here for
 					the same reason that the category description is included.
 					This field should be true/false (case insensetive).
@@ -100,7 +100,7 @@
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 					TransactionNumber - this field is not required, but if available, should contain the Adventist Giving "Transaction ID,"
 					or check number.
 				</TextBlock>
@@ -109,7 +109,7 @@
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 					Method - this field is also not required, but if available, should contain:
 				</TextBlock>
 			</BulletDecorator>
@@ -117,49 +117,49 @@
 				<BulletDecorator.Bullet>
 					<Rectangle Height="5" Width="5" Fill="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">AdventistGiving</TextBlock>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">AdventistGiving</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="40,0,0,0">
 				<BulletDecorator.Bullet>
 					<Rectangle Height="5" Width="5" Fill="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Check</TextBlock>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">Check</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="40,0,0,0">
 				<BulletDecorator.Bullet>
 					<Rectangle Height="5" Width="5" Fill="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Cash</TextBlock>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">Cash</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="40,0,0,0">
 				<BulletDecorator.Bullet>
 					<Rectangle Height="5" Width="5" Fill="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Mixed</TextBlock>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">Mixed</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="40,0,0,0">
 				<BulletDecorator.Bullet>
 					<Rectangle Height="5" Width="5" Fill="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Card</TextBlock>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">Card</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="40,0,0,0">
 				<BulletDecorator.Bullet>
 					<Rectangle Height="5" Width="5" Fill="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Online</TextBlock>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">Online</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="40,0,0,0">
 				<BulletDecorator.Bullet>
 					<Rectangle Height="5" Width="5" Fill="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Unknown</TextBlock>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">Unknown</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="25,0,0,0">
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 					Note - this field is also not required, but if available, can contain any text describing the donation.
 				</TextBlock>
 			</BulletDecorator>
@@ -167,7 +167,7 @@
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Finally, choose the file to import from.</TextBlock>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">Finally, choose the file to import from.</TextBlock>
 			</BulletDecorator>
 		</StackPanel>
 		<StackPanel Grid.Row="1" Margin="0,20,0,0" Orientation="Horizontal">

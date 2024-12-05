@@ -392,6 +392,41 @@ CREATE TABLE [dbo].[IndividualReport](
 		}
 	}
 
+	public async Task CreateHtmlDirectoryTable()
+	{
+		var create_script = @"
+CREATE TABLE [dbo].[HtmlDirectory](
+	[Id] [tinyint] IDENTITY(1,1) NOT NULL,
+	[IncludeNonMembers] [bit] NOT NULL,
+	[OrderByLast] [bit] NOT NULL,
+	[OrderByFirst] [bit] NOT NULL,
+	[OrderByLastFilename] [nvarchar](50) NOT NULL,
+	[OrderByFirstFilename] [nvarchar](50) NOT NULL,
+	[PicturePath] [nvarchar](50) NOT NULL,
+	[Header] [nvarchar](max) NOT NULL,
+	[Template] [nvarchar](max) NOT NULL,
+	[Footer] [nvarchar](max) NOT NULL,
+ CONSTRAINT [PK_HtmlDirectory] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+";
+
+		try
+		{
+			using IDbConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[SqlHelper.DbKey]?.ConnectionString);
+			{
+				await conn.ExecuteAsync(create_script, commandTimeout: 300);
+			}
+		}
+		catch (Exception ex)
+		{
+
+		}
+	}
+
+
 	public async Task CreatePdfDirectoryTable()
 	{
 		var create_script = @"

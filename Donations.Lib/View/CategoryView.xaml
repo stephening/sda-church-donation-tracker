@@ -14,7 +14,7 @@
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 		<StackPanel Grid.Row="0" Orientation="Vertical">
-			<TextBlock>
+			<TextBlock TextWrapping="Wrap" TextAlignment="Left">
 				On this tab you can edit the Category table.
 				These categories should be the active ones expected by the General Ledger program.
 				Deleting categories here will not affect historical donation data, since category descriptions are included in each donation record.
@@ -23,7 +23,7 @@
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 					Use the right-click context menu to insert and delete rows.
 				</TextBlock>
 			</BulletDecorator>
@@ -31,7 +31,7 @@
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Changes made on this page are not save or put into use unless the 'Save changes' button is clicked.</TextBlock>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">Changes made on this page are not save or put into use unless the 'Save changes' button is clicked.</TextBlock>
 			</BulletDecorator>
 
 			<StackPanel Orientation="Horizontal" Margin="0,20,0,0">

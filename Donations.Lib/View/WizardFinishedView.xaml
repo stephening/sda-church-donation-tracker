@@ -20,7 +20,7 @@
 					<BulletDecorator.Bullet>
 						<Ellipse Height="5" Width="5" Fill="Black"/>
 					</BulletDecorator.Bullet>
-					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 						If you want to run this wizard again, copy the connection string from Donation-tracker.dll.config then delete the file.
 						Then right-click on Donation-tracker.exe and run as Administrator.
 						At some point the connection string that was copied will be pasted and the database connection made.
@@ -32,7 +32,7 @@
 					<BulletDecorator.Bullet>
 						<Ellipse Height="5" Width="5" Fill="Black"/>
 					</BulletDecorator.Bullet>
-					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 						If starting from scratch, the import steps can be done from the Import tab on the main application.
 					</TextBlock>
 				</BulletDecorator>
@@ -42,7 +42,7 @@
 					<BulletDecorator.Bullet>
 						<Ellipse Height="5" Width="5" Fill="Black"/>
 					</BulletDecorator.Bullet>
-					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 						Run the setup file that was downloaded.
 					</TextBlock>
 				</BulletDecorator>
@@ -52,7 +52,7 @@
 					<BulletDecorator.Bullet>
 						<Ellipse Height="5" Width="5" Fill="Black"/>
 					</BulletDecorator.Bullet>
-					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+					<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 						Click Quit or Finish and then re-launch Donation-tracker.exe (in user mode).
 					</TextBlock>
 				</BulletDecorator>

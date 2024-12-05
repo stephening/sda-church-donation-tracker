@@ -14,7 +14,7 @@
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 		<StackPanel Grid.Row="0" Orientation="Vertical">
-			<TextBlock>
+			<TextBlock TextWrapping="Wrap" TextAlignment="Left">
 				This tab shows and allows editing of the Category maping between the Adventist Giving record and the local database.
 				You can remove individual mappings, or you can change the category on the right side that the AG record is currently mapped to.
 			</TextBlock>
@@ -22,7 +22,7 @@
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 					Delete an entry by right-clicking on the the row and selecting 'Delete row' from the context menu.
 				</TextBlock>
 			</BulletDecorator>
@@ -30,7 +30,7 @@
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Change the local category mapping by clicking anywhere on the row and then selecting a new destination category.</TextBlock>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">Change the local category mapping by clicking anywhere on the row and then selecting a new destination category.</TextBlock>
 			</BulletDecorator>
 
 			<StackPanel Orientation="Horizontal" Margin="0,20,0,0">

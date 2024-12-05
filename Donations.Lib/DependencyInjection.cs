@@ -64,6 +64,7 @@ public static class DependencyInjection
 		Builder.RegisterType<SqlCategoryServices>().As<ICategoryServices>().SingleInstance();
 		Builder.RegisterType<SqlIndividualReportServices>().As<IIndividualReportServices>().SingleInstance();
 		Builder.RegisterType<SqlPictureServices>().As<IPictureServices>().SingleInstance();
+		Builder.RegisterType<SqlHtmlDirectoryServices>().As<IHtmlDirectoryServices>().SingleInstance();
 		Builder.RegisterType<SqlPdfDirectoryServices>().As<IPdfDirectoryServices>().SingleInstance();
 		Builder.RegisterType<SqlPrintSettingsServices>().As<IPrintSettingsServices>().SingleInstance();
 		Builder.RegisterType<SqlCreateTables>().SingleInstance();

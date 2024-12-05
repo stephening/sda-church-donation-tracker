@@ -2,11 +2,69 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
              xmlns:local="clr-namespace:Donations.Lib.View"
              mc:Ignorable="d" 
+			 DataContextChanged="UserControl_DataContextChanged"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-		<TextBlock>Html View</TextBlock>  
-    </Grid>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		<Grid Grid.Row="0" Margin="20">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="1*"/>
+				<ColumnDefinition Width="1*"/>
+			</Grid.ColumnDefinitions>
+			<Grid Grid.Row="0" Grid.Column="0" Margin="0,0,10,0">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<GroupBox Header="Options" Grid.Row="0">
+					<StackPanel Orientation="Vertical" Margin="5">
+						<StackPanel Orientation="Horizontal" Margin="0,2">
+							<CheckBox Content="Include non-members" IsChecked="{Binding NonMembers}" Margin="0,3"/>
+							<TextBlock Text="Picture path:" Margin=" 20,0,0,0"/>
+							<TextBox Text="{Binding PicturePath, UpdateSourceTrigger=PropertyChanged}" MinWidth="200"/>
+						</StackPanel>
+						<StackPanel Orientation="Horizontal" Margin="0,2">
+							<CheckBox Content="Order by last name, " IsChecked="{Binding OrderByLast}"/>
+							<TextBlock Text="Html file:"/>
+							<TextBox Text="{Binding OrderByLastFilename, UpdateSourceTrigger=PropertyChanged}" MinWidth="200" IsEnabled="{Binding OrderByLastFilenameEnabled}"/>
+						</StackPanel>
+						<StackPanel Orientation="Horizontal" Margin="0,2">
+							<CheckBox Content="Also order by first name, " IsChecked="{Binding OrderByFirst}"/>
+							<TextBlock Text="Html file:"/>
+							<TextBox Text="{Binding OrderByFirstFilename, UpdateSourceTrigger=PropertyChanged}" MinWidth="200" IsEnabled="{Binding OrderByFirstFilenameEnabled}"/>
+						</StackPanel>
+					</StackPanel>
+				</GroupBox>
+				<GroupBox Header="Header" Grid.Row="1">
+					<TextBox Text="{Binding Header, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True"/>
+				</GroupBox>
+				<GroupBox Header="Individual template" Grid.Row="2">
+					<TextBox Text="{Binding Template, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True"/>
+				</GroupBox>
+				<GroupBox Header="Footer" Grid.Row="3">
+					<TextBox Text="{Binding Footer, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True"/>
+				</GroupBox>
+			</Grid>
+			<Grid Grid.Row="0" Grid.Column="1" Margin="10,0,0,0">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<wv2:WebView2 Grid.Row="2" Margin="0,10,0,0" Source="{Binding HomePage}"/>
+			</Grid>
+		</Grid>
+		<ProgressBar Grid.Row="1" Minimum="0" Maximum="100" Value="{Binding Progress}" Height="10" />
+		<TextBlock Grid.Row="2" Text="{Binding Status}" Background="LightGray" Padding="2"/>
+	</Grid>
 </UserControl>

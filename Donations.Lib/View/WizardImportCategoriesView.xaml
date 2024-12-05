@@ -15,7 +15,7 @@
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 		<StackPanel Grid.Row="0" Orientation="Vertical">
-			<TextBlock>
+			<TextBlock TextWrapping="Wrap" TextAlignment="Left">
 				On this tab you can import a table of donation categories which can then be used going forward for mapping donations to the accounting software.
 					Only (*.csv) text file import is supported at this time.
 			</TextBlock>
@@ -23,7 +23,7 @@
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 					First make sure your csv column headers matching the table below.
 					If they don't match, rename them accordingly.
 					Order does not matter.
@@ -33,7 +33,7 @@
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 					Code - This is a number associated with a department or a fund used in the accounting software.
 				</TextBlock>
 			</BulletDecorator>
@@ -41,13 +41,13 @@
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Description - this is simply text that described the category in words.</TextBlock>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">Description - this is simply text that described the category in words.</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="25,0,0,0">
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 					TaxDeductible - this field is also something that is stored in the Donation table, but it originated here.
 					This field should be true/false (case insensetive).
 				</TextBlock>
@@ -56,7 +56,7 @@
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Finally, choose the file to import from.</TextBlock>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">Finally, choose the file to import from.</TextBlock>
 			</BulletDecorator>
 		</StackPanel>
 		<StackPanel Grid.Row="1" Margin="0,20,0,0" Orientation="Horizontal">

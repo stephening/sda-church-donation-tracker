@@ -17,7 +17,7 @@
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 		<StackPanel Grid.Row="0" Orientation="Vertical">
-			<TextBlock>
+			<TextBlock TextWrapping="Wrap" TextAlignment="Left">
 				On this tab you can import a pre-existing donor database which can then be used and added to using this program.
 					Only (*.csv) text file import is supported at this time.
 			</TextBlock>
@@ -25,7 +25,7 @@
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">
 					First make sure your csv column headers matching the table below.
 					If they don't match, rename them accordingly.
 					Order does not matter.
@@ -35,75 +35,75 @@
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Id - unique donor Id.</TextBlock>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">Id - unique donor Id.</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="25,0,0,0">
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">FamilyId - a number that is shared by all family members.</TextBlock>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">FamilyId - a number that is shared by all family members.</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="25,0,0,0">
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">FamilyRelationship - the only field that is really important here is 'Primary' if a family is sharing a year-end donor report.
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">FamilyRelationship - the only field that is really important here is 'Primary' if a family is sharing a year-end donor report.
 					All kinds of other relationships can be specified but are not relevant to the accounting software.</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="40,0,0,0">
 				<BulletDecorator.Bullet>
 					<Rectangle Height="5" Width="5" Fill="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">None, Primary, Husband, Wife, Son, Daughter, Mother, Father, Brother, Sister, 
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">None, Primary, Husband, Wife, Son, Daughter, Mother, Father, Brother, Sister, 
 					Grandfather, Grandmother, Granddaughter, Grandson, Stepson, Stepdaughter</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="25,0,0,0">
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">FirstName - first name of the donor.</TextBlock>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">FirstName - first name of the donor.</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="25,0,0,0">
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">PreferredName - can be omitted, not used by this accounting software.</TextBlock>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">PreferredName - can be omitted, not used by this accounting software.</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="25,0,0,0">
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">LastName - last name of the donor.</TextBlock>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">LastName - last name of the donor.</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="25,0,0,0">
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Gender - can be omitted, not used by this accounting software.</TextBlock>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">Gender - can be omitted, not used by this accounting software.</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="40,0,0,0">
 				<BulletDecorator.Bullet>
 					<Rectangle Height="5" Width="5" Fill="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Unknown, Male, Female</TextBlock>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">Unknown, Male, Female</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="25,0,0,0">
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Email - donor email address, used for sending the year end donor report.</TextBlock>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">Email - donor email address, used for sending the year end donor report.</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="25,0,0,0">
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Email2 - alternate email address.</TextBlock>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">Email2 - alternate email address.</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="25,0,0,0">
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">HomePhone, MobilePhone, WorkPhone - three separate columns, none of which are required by the accounting function.
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">HomePhone, MobilePhone, WorkPhone - three separate columns, none of which are required by the accounting function.
 					But a contact number is useful if there is a problem with a donation.
 				</TextBlock>
 			</BulletDecorator>
@@ -111,7 +111,7 @@
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">AddressType - applies to the following physical address use.
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">AddressType - applies to the following physical address use.
 					Both means Mailing and Residential and is usually used if no alternate address is specified.
 					Mailing or Both is the address used for sending the year-end donor report if a hard copy is necessary.
 					Residential can be used if the donor report is to be sent to a P.O. box or other address.
@@ -122,13 +122,13 @@
 				<BulletDecorator.Bullet>
 					<Rectangle Height="5" Width="5" Fill="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Unspecified, Both, Mailing, Residential</TextBlock>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">Unspecified, Both, Mailing, Residential</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="25,0,0,0">
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Address, Address2, City, State, Zip, Country - 6 separate columns, used to specify a physical address for the donor.
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">Address, Address2, City, State, Zip, Country - 6 separate columns, used to specify a physical address for the donor.
 					Address2 is usually blank and is only needed if two lines are used to specify the address.
 					For example, a business name could go in Address, and the physical address is Address2.
 					Country is not necessary and can be omitted.
@@ -139,7 +139,7 @@
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">AltAddressType, AltAddress, AltAddress2, AltCity, AltState, AltZip, AltCountry - six columns as specified.
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">AltAddressType, AltAddress, AltAddress2, AltCity, AltState, AltZip, AltCountry - six columns as specified.
 					Not needed if the primary address is always the mailing address.
 				</TextBlock>
 			</BulletDecorator>
@@ -147,7 +147,7 @@
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Birthday, Baptism, Deathday - three columns as specified.
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">Birthday, Baptism, Deathday - three columns as specified.
 					Can be omitted, not used by this accounting software.
 				</TextBlock>
 			</BulletDecorator>
@@ -155,7 +155,7 @@
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">GroupGiving - True/False field that is used together with the FamilyId,
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">GroupGiving - True/False field that is used together with the FamilyId,
 					to send the year-end donor report to the Primary family member for all donations from people sharing the FamilyId and GroupGiving=True.
 				</TextBlock>
 			</BulletDecorator>
@@ -163,41 +163,41 @@
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">ChurchMember - True/False. Can be omitted, not used by this accounting software.
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">ChurchMember - True/False. Can be omitted, not used by this accounting software.
 				</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="25,0,0,0">
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">MaritalStatus - can be omitted, not used by this accounting software.
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">MaritalStatus - can be omitted, not used by this accounting software.
 				</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="40,0,0,0">
 				<BulletDecorator.Bullet>
 					<Rectangle Height="5" Width="5" Fill="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Uknown, Single, Married</TextBlock>
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">Uknown, Single, Married</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="25,0,0,0">
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">Notes - may be used to store anything you want, but can be omitted, not used by this accounting software.
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">Notes - may be used to store anything you want, but can be omitted, not used by this accounting software.
 				</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="25,0,0,0">
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">ActiveGroups - may be used to store anything you want, but can be omitted, not used by this accounting software.
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">ActiveGroups - may be used to store anything you want, but can be omitted, not used by this accounting software.
 				</TextBlock>
 			</BulletDecorator>
 			<BulletDecorator Margin="25,0,0,0">
 				<BulletDecorator.Bullet>
 					<Ellipse Height="5" Width="5" Fill="Transparent" Stroke="Black"/>
 				</BulletDecorator.Bullet>
-				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap">LastUpdated - may be used to store anything you want, but can be omitted, not used by this accounting software.
+				<TextBlock Margin="10,0,0,0" TextWrapping="Wrap" TextAlignment="Left">LastUpdated - may be used to store anything you want, but can be omitted, not used by this accounting software.
 				</TextBlock>
 			</BulletDecorator>
 		</StackPanel>
