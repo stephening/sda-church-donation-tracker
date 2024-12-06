@@ -4,8 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+             xmlns:enumhelpers="clr-namespace:Donations.Lib.EnumHelpers"
              xmlns:local="clr-namespace:Donations.Lib.View"
              mc:Ignorable="d" 
+             xmlns:m="clr-namespace:Donations.Lib.Model"
 			 DataContextChanged="UserControl_DataContextChanged"
              d:DesignHeight="450" d:DesignWidth="800">
 	<Grid>
@@ -59,7 +61,16 @@
 					<TextBox Text="{Binding Header, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True"/>
 				</GroupBox>
 				<GroupBox Header="Individual template" Grid.Row="2">
-					<TextBox Text="{Binding Template, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True"/>
+					<StackPanel Orientation="Vertical">
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="Insertable merge fields:" VerticalAlignment="Center"/>
+							<ComboBox x:Name="MergeFields" Margin="5" SelectionChanged="MergeFields_SelectionChanged"
+							  DisplayMemberPath="DisplayName" Width="150" VerticalAlignment="Center"
+							  ItemsSource="{enumhelpers:DirectoryMergeFieldDescriptionGetter {x:Type m:enumDirectoryMergeFields}}">
+							</ComboBox>
+						</StackPanel>
+						<TextBox x:Name="MergableTemplate" Text="{Binding Template, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True"/>
+					</StackPanel>
 				</GroupBox>
 				<GroupBox Header="Footer" Grid.Row="3">
 					<TextBox Text="{Binding Footer, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True"/>

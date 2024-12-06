@@ -169,3 +169,18 @@ public enum enumSqlChoiceOptions
 	Import
 }
 
+public enum enumDirectoryMergeFields
+{
+	[Description("{IndexLetter} First letter of the searchable name for the first instance of the letter, empty thereafter")]
+	IndexLetter,
+	[Description("{PictureUrl} Relative or http: url of the picture folder")]
+	PictureUrl,
+	[Description("{FullName} LastName, FirstName[ & SpouseName]")]
+	FullName,
+	[Description("{SortName} LastName or FirstName depending on sort order")]
+	SortName,
+	[Description("{OtherName} If ordered by Last, FirstName[ & SpouseName], if by First, it will be LastName")]
+	OtherName,
+	[Description("{ThirdLine} If ordered by Last, other family members, if by First, Last, Parents, children")]
+	ThirdLine,
+}

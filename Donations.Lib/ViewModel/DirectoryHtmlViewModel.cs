@@ -24,6 +24,7 @@ public partial class DirectoryHtmlViewModel : BaseViewModel
 	private Dictionary<string, DirectoryData>? _directoryEntries;
 	private bool _cancelLoading = false;
 	private Semaphore _loading = new Semaphore(1, 1);
+	private bool _loaded = false;
 
 	public DirectoryHtmlViewModel(
 		IFileSystem fileSystem,
@@ -211,8 +212,11 @@ public partial class DirectoryHtmlViewModel : BaseViewModel
 		_cancelLoading = true;
 	}
 
-public new async Task Leaving()
+	public new async Task Leaving()
 	{
+		// don't save anything if nothing was loaded
+		if (!_loaded) { return; }
+
 		var data = await _htmlDirectoryServices.GetAsync();
 
 		bool changed = false;
@@ -475,6 +479,8 @@ public new async Task Leaving()
 
 		try
 		{
+			HomePage = "";
+
 			if (null == _htmlData)
 			{
 				_htmlData = await _htmlDirectoryServices.GetAsync();
@@ -488,6 +494,7 @@ public new async Task Leaving()
 				Header = _htmlData.Header;
 				Template = _htmlData.Template;
 				Footer = _htmlData.Footer;
+				_loaded = true;
 			}
 
 			if (string.IsNullOrEmpty(OutputFolder))

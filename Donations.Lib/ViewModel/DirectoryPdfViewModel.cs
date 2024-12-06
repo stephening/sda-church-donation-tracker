@@ -54,6 +54,7 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 	private Section _pdfCoverSection = new Section();
 	private bool _initilizingRtb = false;
 	private bool _rtbChanged = false;
+	private bool _loaded = false;
 
 	public DirectoryPdfViewModel(
 		IFileSystem fileSystem,
@@ -237,6 +238,7 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 		Email = data.IncludeEmail;
 		PhoneNumber = data.IncludePhone;
 		NonMembers = data.IncludeNonMembers;
+		_loaded = true;
 
 		if (null != data.CoverRtf)
 		{
@@ -320,6 +322,9 @@ public partial class DirectoryPdfViewModel : BaseViewModel
 
 	public new async Task Leaving()
 	{
+		// don't save anything if nothing was loaded
+		if (!_loaded) { return; }
+
 		var data = await _pdfDirectoryServices.GetAsync();
 
 		bool changed = false;

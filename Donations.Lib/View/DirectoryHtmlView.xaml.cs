@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace Donations.Lib.View;
 
@@ -16,4 +17,14 @@ public partial class DirectoryHtmlView : UserControl
 	{
 
 	}
+
+	private void MergeFields_SelectionChanged(object sender, SelectionChangedEventArgs e)
+	{
+		dynamic selection = MergeFields.SelectedItem;
+
+		var save = Clipboard.GetDataObject();
+		Clipboard.SetText($"{{{selection.Value}}}");
+		MergableTemplate.Paste();
+		Clipboard.SetDataObject(save);
+    }
 }

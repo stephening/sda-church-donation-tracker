@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Donations.Lib.Interfaces;
 using Donations.Lib.Model;
-using System;
 using System.Collections.ObjectModel;
 using System.IO.Abstractions;
 using System.Linq;
@@ -9,7 +8,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Threading;
 
 namespace Donations.Lib.ViewModel;
 
@@ -27,7 +25,7 @@ public partial class GeneralViewModel : BaseViewModel
 	private readonly ICategoryServices _categoryServices;
 	private readonly IPictureServices _pictureServices;
 	private readonly IAppSettingsServices _appSettingsServices;
-
+	private bool _loaded = false;
 
 	public GeneralViewModel(
 		IFileSystem fileSystem,
@@ -58,12 +56,16 @@ public partial class GeneralViewModel : BaseViewModel
 		EmailSmtpServer = data.EmailSmtpServer;
 		EmailServerPort = data.EmailServerPort;
 		EmailEnableSsl = data.EmailEnableSsl;
+		_loaded = true;
 
 		InitPasswordBox();
 	}
 
 	public new async Task Leaving()
 	{
+		// don't save anything if we haven't even entered this tab
+		if (!_loaded) { return; }
+
 		await _pictureServices.SaveLogo(OrganizationLogo);
 		if (string.IsNullOrEmpty(_passwordBox.Password))
 		{
