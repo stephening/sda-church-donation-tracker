@@ -5,6 +5,7 @@ using System.IO;
 using System.IO.Abstractions;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 
 namespace Donations.Lib;
@@ -97,6 +98,12 @@ public class MemberScreenShots : ScreenShotBase
 		_mainWindowMembersControl.MainTabControl.SelectedItem = _mainWindowMembersControl.DirectoryTabs;
 
 		await SaveScreenshot(windowContainer, destination_folder, "DirectoryTab-Pdf.jpg");
+
+		TabItem? tabItem = _mainWindowMembersControl.DirectoryTabs as TabItem;
+		DirectoryTabView? dirView = tabItem?.Content as DirectoryTabView;
+		dirView!.DirectoryTabs.SelectedItem = dirView.DirectoryHtmlTab;
+
+		await SaveScreenshot(windowContainer, destination_folder, "DirectoryTab-Html.jpg");
 
 		_wizardMainWindow.Show();
 

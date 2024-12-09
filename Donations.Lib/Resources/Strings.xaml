@@ -24,7 +24,7 @@
 	<system:String x:Key="MemberTabHeader">Member</system:String>
 	<system:String x:Key="DirectoryTabHeader">Create directory</system:String>
 	<system:String x:Key="DirectoryPdfTabHeader">Pdf file</system:String>
-	<system:String x:Key="DirectoryHtmlTabHeader">Html</system:String>
+	<system:String x:Key="DirectoryHtmlTabHeader">Html file</system:String>
 
 	<system:String x:Key="BatchReviewByCategoryTabHeader">By category</system:String>
 	<system:String x:Key="BatchReviewByDonorTabHeader">By donor</system:String>

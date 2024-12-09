@@ -21,7 +21,7 @@
 				<local:DonorView x:Name="DonorView" DataContext="{Binding DonorViewModel}"/>
 			</TabItem>
 			<TabItem x:Name="DirectoryTabs" Header="{StaticResource DirectoryTabHeader}" Selector.Selected="DirectoryTab_Selected">
-				<local:DirectoryTabView DataContext="{Binding DirectoryViewModel}"/>
+				<local:DirectoryTabView x:Name="DirTabsView" DataContext="{Binding DirectoryViewModel}"/>
 			</TabItem>
 		</TabControl>
 	</Grid>

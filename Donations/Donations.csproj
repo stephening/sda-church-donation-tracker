@@ -12,8 +12,8 @@
     <Description>SDA church donation tracking software.</Description>
     <AssemblyName>Donation-tracker</AssemblyName>
     <BaseOutputPath>$(SolutionDir)bin\</BaseOutputPath>
-	  <AssemblyVersion>2.0.0</AssemblyVersion>
-	  <FileVersion>2.0.0</FileVersion>
+	  <AssemblyVersion>2.0.3</AssemblyVersion>
+	  <FileVersion>2.0.3</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

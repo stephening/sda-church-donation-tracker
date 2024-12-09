@@ -28,6 +28,7 @@ namespace Donations.Lib
 		public ObservableCollection<DonorChange>? donorChanges = new ObservableCollection<DonorChange>();
 		public ObservableCollection<NamedDonorReport>? namedDonorReports = new ObservableCollection<NamedDonorReport>();
 		public PdfDirectory? PdfDirectory = new PdfDirectory();
+		public HtmlDirectory? HtmlDirectory = new HtmlDirectory();
 
 		public string AdventistGivingCsv;
 		public string CategoriesCsv;
@@ -209,6 +210,111 @@ namespace Donations.Lib
 			PdfDirectory.PageHeight = 8.0;
 			PdfDirectory.PageWidth = 5.5;
 			PdfDirectory.CoverRtf = bytes.ToArray();
+
+			HtmlDirectory.IncludeNonMembers = true;
+			HtmlDirectory.OrderByLast = true;
+			HtmlDirectory.OrderByFirst = true;
+			HtmlDirectory.Header = @"
+<!DOCTYPE HTML>
+
+<html>
+<head>
+ <title>Beaverton SDA Church Photo Directory</title>
+ <meta http-equiv=""Content-Type"" content=""text/html; charset=UTF-8"" />
+ <meta name=""robots"" content=""noindex"" />
+ <meta name=""viewport"" content=""width=device-width, initial-scale=1"" />
+ <script type=""text/javascript"" src=""js/jquery.js""></script>
+ <script type=""text/javascript"" src=""js/jquery.fancybox.js?v=2.1.5""></script>
+ <script type=""text/javascript"" src=""js/jquery.fancybox-buttons.js?v=1.0.5""></script>
+ <script type=""text/javascript"" src=""js/SmoothScroll.js""></script>
+ <link rel=""stylesheet"" type=""text/css"" href=""css/bootstrap.css"" />
+ <link rel=""stylesheet"" type=""text/css"" href=""css/styles.css"" />
+ <link rel=""stylesheet"" type=""text/css"" href=""css/jquery.fancybox.css?v=2.1.5"" media=""screen"" />
+ <link rel=""stylesheet"" type=""text/css"" href=""css/jquery.fancybox-buttons.css?v=1.0.5"" />
+ <script type=""text/javascript"">
+  $(document).ready(function () {
+   $(""body"").css(""display"", ""none"");
+   $(""body"").fadeIn(700);
+   $("".fancybox"").fancybox({
+    padding: 10,
+    margin: 5,
+    openEffect: 'elastic',
+    openSpeed: 250,
+    closeEffect: 'elastic',
+    closeSpeed: 250,
+    closeClick: true,
+    helpers: {
+     overlay: {
+      closeClick: false
+     },
+     title: {
+      type: 'inside', position: 'bottom'
+     }
+    }
+   });
+  });
+ </script>
+</head>
+<body>
+ <script src=""js/bootstrap.js""></script>
+
+ <div class=""row"">
+";
+			HtmlDirectory.Template = @"
+        <div class=""col-lg-3 col-md-4 col-sm-6 col-xs-12"">
+            <div class=""person-box"">
+                <div class=""person-img"">
+                    <a name=""{IndexLetter}""></a>
+                    <a href=""{PictureUrl}"" class=""fancybox"" title=""{FullName}""><img src=""{PictureUrl}""></a>
+                </div>
+                <div class=""person_txt"">
+                    <div class=""SortName"">{SortName}</div>
+                    <div class=""OtherName"">{OtherName}</div>
+                    <div class=""ThirdLine"">{ThirdLine}</div>
+                </div>
+            </div>
+        </div>
+";
+			HtmlDirectory.Footer = @"
+ </div>
+
+ <nav class=""navbar navbar-inverse navbar-fixed-bottom"">
+  <div class=""container"">
+   <div class=""btn-group"" role=""group"">
+    <a class=""btn btn-info navbar-btn"" href=""#A""><strong>A</strong></a>
+    <a class=""btn btn-info navbar-btn"" href=""#B""><strong>B</strong></a>
+    <a class=""btn btn-info navbar-btn"" href=""#C""><strong>C</strong></a>
+    <a class=""btn btn-info navbar-btn"" href=""#D""><strong>D</strong></a>
+    <a class=""btn btn-info navbar-btn"" href=""#E""><strong>E</strong></a>
+    <a class=""btn btn-info navbar-btn"" href=""#F""><strong>F</strong></a>
+    <a class=""btn btn-info navbar-btn"" href=""#G""><strong>G</strong></a>
+    <a class=""btn btn-info navbar-btn"" href=""#H""><strong>H</strong></a>
+    <a class=""btn btn-info navbar-btn"" href=""#I""><strong>I</strong></a>
+    <a class=""btn btn-info navbar-btn"" href=""#J""><strong>J</strong></a>
+    <a class=""btn btn-info navbar-btn"" href=""#K""><strong>K</strong></a>
+    <a class=""btn btn-info navbar-btn"" href=""#L""><strong>L</strong></a>
+    <a class=""btn btn-info navbar-btn"" href=""#M""><strong>M</strong></a>
+    <a class=""btn btn-info navbar-btn"" href=""#N""><strong>N</strong></a>
+    <a class=""btn btn-info navbar-btn"" href=""#O""><strong>O</strong></a>
+    <a class=""btn btn-info navbar-btn"" href=""#P""><strong>P</strong></a>
+    <a class=""btn btn-info navbar-btn"" href=""#R""><strong>R</strong></a>
+    <a class=""btn btn-info navbar-btn"" href=""#S""><strong>S</strong></a>
+    <a class=""btn btn-info navbar-btn"" href=""#T""><strong>T</strong></a>
+    <a class=""btn btn-info navbar-btn"" href=""#U""><strong>U</strong></a>
+    <a class=""btn btn-info navbar-btn"" href=""#V""><strong>V</strong></a>
+    <a class=""btn btn-info navbar-btn"" href=""#W""><strong>W</strong></a>
+    <a class=""btn btn-info navbar-btn"" href=""#Y""><strong>Y</strong></a>
+    <a class=""btn btn-info navbar-btn"" href=""#Z""><strong>Z</strong></a>
+
+    <a class=""btn btn-info navbar-btn"" href=""LastNamesPhotoDirectory.html"">LAST Names <span class=""glyphicon glyphicon-sort-by-alphabet"" aria-hidden=""true""></span></a>
+    <a class=""btn btn-info navbar-btn"" href=""FirstNamesPhotoDirectory.html"">FIRST Names <span class=""glyphicon glyphicon-sort-by-alphabet"" aria-hidden=""true""></span></a>
+   </div>
+  </div>
+ </nav>
+
+</body>
+</html>
+";
 		}
 
 		public static implicit operator ValueTask(TestData v)

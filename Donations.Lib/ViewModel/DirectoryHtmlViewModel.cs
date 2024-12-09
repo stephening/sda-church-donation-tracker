@@ -479,7 +479,7 @@ public partial class DirectoryHtmlViewModel : BaseViewModel
 
 		try
 		{
-			HomePage = "";
+			HomePage = null;
 
 			if (null == _htmlData)
 			{
@@ -541,7 +541,10 @@ public partial class DirectoryHtmlViewModel : BaseViewModel
 		}
 		catch (Exception ex)
 		{
-			MessageBox.Show(ex.Message, "DirectoryHtmlViewModel.Loading()");
+			if (!ex.Message.StartsWith("The Source property cannot be set to null"))
+			{
+				MessageBox.Show(ex.Message, "DirectoryHtmlViewModel.Loading()");
+			}
 		}
 		finally
 		{

@@ -544,25 +544,57 @@ Having said that, this functionality is typically only used once a year and will
 
 ### Create directory
 
+In the database, there is a Directory option that can be checked, unchecked, or unspecified.
+This tab will first filter for donors which have the Directory option checked.
+The progress bar at the bottom of this tab show that progress, and when it is complete, the results can be fed to either of the subtabs for further filtering.
+
 #### Pdf file
 ![alt text](./Documentation/screens/DirectoryTab-Pdf.jpg "Pdf member directory")
 
-The top level directory tab will filter the database for donors that have the "Church member" option checked. 
-The progress of this step is tracked with the lower progress bar.
-When that completes, the Pdf progress bar will begin.
-This stage renders the cover and all the directory entries to a FlowDocument which can be viewed on the right half of the screen.
+The Pdf creation tab has a few options.
+
+* Address - will determine whether the mailing address will be included in the Pdf directory
+* Email - will determine whether the email address will be included in the Pdf directory
+* Phone number - will determine whether the phone number will be included in the Pdf directory
+* Include non-members -  in the database, there is a "Church "member" check box that can be checked, unchecked or unspecified.
+The Pdf directory can be created with either option.
+
+The progress of this subtab will be tracked with the upper progress bar, and when that completes, the "Save as Pdf..." button will be enabled.
+This stage renders the cover and all the directory entries to a FlowDocument which can be pre-viewed on the right half of the screen.
+
 The front cover of the document can be designed in the RichTextBox on the left side of the app.
 It is a WYSYWYG editor and can contain images.
 Image sizing is pretty limited, but when an image is added, it is automatically sized to fit between the margins.
 If for some reason, the image overflows the margins, selecting or clicking on it should size it to fit.
 If you want an image smaller than the full page width between margins, you can try making the image smaller.
 
-You have the option to omit or include the mailing address, email, or phone number from the directory.
-
 You have the option to encrypt the Pdf file with a password to provide some security for people's contact information.
 
 Finally, you have the option to specify the font, text size, as well as the page size for the generated Pdf.
 The internal layout of the Pdf is not customizable, but since this is open source, you can modify to code any way you want.
+
+#### Html file
+![alt text](./Documentation/screens/DirectoryTab-Html.jpg "Html member directory")
+
+This tab will render one or two Html pages, ordered by last or first name.
+The options at the top of the page can be used to configure a few options.
+
+* Include non-members - in the database, there is a member option that can be checked, unchecked or unspecified.
+The Html directory can include either
+* Pcture path - each donoe record can have a picture file name. There are file names that should be found in the picture path.
+The path can be relative the the top level Html file, or it can be a fully specified http:// URL to which the picture file name will be appended.
+* Order by last name - This option will usually be checked because that is how directories are usually ordered.
+If checked the Html file name should be specified.
+This file will be placed in the OutputFolder (see option).
+* Optionally, a different Html file can be created with people ordered by first name.
+In this case, a different file name should be specified.
+If you want to link to either html file from the Header of Footer of the completed page, those links should reference the names specified here.
+* OutputFolder - this is a local directory where the Html pages will be rendered.
+You may have some folders of support file already in that folder such as css, style, js, pictures.
+If you have all the necessary files for the Html pages to work, then the left side of the page will show a preview of the web page when it is complete.
+
+This NOT is a server rendered web page constructed on the fly from the data base entries.
+It is a static web page rendered in its entireity.
 
 ### About
 ![alt text](./Documentation/screens/AboutTab.jpg "About")

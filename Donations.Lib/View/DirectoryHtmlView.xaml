@@ -61,16 +61,20 @@
 					<TextBox Text="{Binding Header, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True"/>
 				</GroupBox>
 				<GroupBox Header="Individual template" Grid.Row="2">
-					<StackPanel Orientation="Vertical">
-						<StackPanel Orientation="Horizontal">
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="*"/>
+						</Grid.RowDefinitions>
+						<StackPanel Orientation="Horizontal" Grid.Row="0">
 							<TextBlock Text="Insertable merge fields:" VerticalAlignment="Center"/>
 							<ComboBox x:Name="MergeFields" Margin="5" SelectionChanged="MergeFields_SelectionChanged"
 							  DisplayMemberPath="DisplayName" Width="150" VerticalAlignment="Center"
 							  ItemsSource="{enumhelpers:DirectoryMergeFieldDescriptionGetter {x:Type m:enumDirectoryMergeFields}}">
 							</ComboBox>
 						</StackPanel>
-						<TextBox x:Name="MergableTemplate" Text="{Binding Template, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True"/>
-					</StackPanel>
+						<TextBox x:Name="MergableTemplate" Grid.Row="1" Text="{Binding Template, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True"/>
+					</Grid>
 				</GroupBox>
 				<GroupBox Header="Footer" Grid.Row="3">
 					<TextBox Text="{Binding Footer, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True"/>
