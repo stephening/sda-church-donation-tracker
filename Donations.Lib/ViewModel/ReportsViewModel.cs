@@ -72,6 +72,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 	private ObservableCollection<CategorySum>? _categorySums = new ObservableCollection<CategorySum>();
 	private ObservableCollection<NamedDonorReport>? _namedDonorReports;
 	private ObservableCollection<NamedDonorReport>? _mockRunCollection;
+	private bool _loaded = false;
 
 	public ReportsViewModel(
 		IDispatcherWrapper dispatcherWrapper,
@@ -309,6 +310,8 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 		_namedDonorReports = new ObservableCollection<NamedDonorReport>(await _donorReportsServices.LoadNamed());
 		DonorReportView.Source = _namedDonorReports;
 
+		_loaded = true;
+
 		await DateChanged();
 	}
 
@@ -317,6 +320,9 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 	/// </summary>
 	public new async Task Leaving()
 	{
+		// don't save anything if we haven't even entered this tab
+		if (!_loaded) { return; }
+
 		PrintSettings settings = new PrintSettings()
 		{
 			PrintoutType = (int)enumPrintout.DonorReport,
