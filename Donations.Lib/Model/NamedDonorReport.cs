@@ -43,4 +43,5 @@ public class NamedDonorReport
 
 	public string? Action { get; set; }
 
+	public bool AdventistGiving { get; set; }
 }

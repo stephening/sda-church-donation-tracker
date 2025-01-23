@@ -29,6 +29,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Xps;
 using System.Windows.Xps.Packaging;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 using Paragraph = System.Windows.Documents.Paragraph;
 using Table = System.Windows.Documents.Table;
 using TableCell = System.Windows.Documents.TableCell;
@@ -1056,8 +1057,9 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 		foreach (var donorId in _donorIds)
 		{
 			Donor donor = await _donorServices.GetDonorByIdAsync(donorId);
-
 			await SetDonor(donor);
+
+			var usesAdventistGiving = _donations.Any(x => x.Method == enumMethod.AdventistGiving && x.DonorId == donorId);
 
 			NamedDonorReport namedDonorReport = new NamedDonorReport()
 			{
@@ -1067,6 +1069,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 				DontEmailReport = donor.DontEmailReport,
 				Email = donor.Email,
 				MobilePhone = donor.MobilePhone,
+				AdventistGiving = usesAdventistGiving
 			};
 
 			// donor could have been done by inclusion in a shared family report
