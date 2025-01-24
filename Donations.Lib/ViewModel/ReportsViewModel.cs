@@ -222,18 +222,10 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 	[ObservableProperty]
 	[NotifyPropertyChangedFor(nameof(ActionEnabled))]
 	private string _emailSubject;
-	partial void OnEmailSubjectChanged(string value)
-	{
-		_individualReport.EmailSubject = value;
-	}
 
 	[ObservableProperty]
 	[NotifyPropertyChangedFor(nameof(ActionEnabled))]
 	private string _emailBody;
-	partial void OnEmailBodyChanged(string value)
-	{
-		_individualReport.EmailBody = value;
-	}
 
 	[ObservableProperty]
 	private bool _encrypt;
@@ -1120,6 +1112,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 
 	public async Task PrintIndividual(PrintDialog pd, Thickness margins)
 	{
+		_doc = _visibleFlowDoc;
 		_doc.PageWidth = pd.PrintableAreaWidth;
 		_doc.PageHeight = pd.PrintableAreaHeight;
 		_doc.ColumnWidth = _doc.PageWidth;
@@ -1146,7 +1139,7 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 		Total = _donorIds.Count;
 		Current = 1;
 
-		_doc = new FlowDocument();
+		_doc = _visibleFlowDoc;
 		_doc.PageWidth = pd.PrintableAreaWidth;
 		_doc.PageHeight = pd.PrintableAreaHeight;
 		_doc.ColumnWidth = _doc.PageWidth;
@@ -1283,7 +1276,8 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 			password = dlg.PasswordBox;
 		}
 
-		_doc = new FlowDocument();
+		//_doc = new FlowDocument();
+		_doc = _visibleFlowDoc;
 		_doc.PageWidth = pd.PrintableAreaWidth;
 		_doc.PageHeight = pd.PrintableAreaHeight;
 		_doc.ColumnWidth = _doc.PageWidth;
