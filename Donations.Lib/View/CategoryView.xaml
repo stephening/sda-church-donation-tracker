@@ -60,7 +60,7 @@
 				<DataGridTemplateColumn Header="Tax deductible">
 					<DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
-							<CheckBox IsChecked="{Binding TaxDeductible}" HorizontalAlignment="Center"/>
+							<CheckBox IsChecked="{Binding TaxDeductible, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Click="CheckBox_Click"/>
 						</DataTemplate>
 					</DataGridTemplateColumn.CellTemplate>
 				</DataGridTemplateColumn>

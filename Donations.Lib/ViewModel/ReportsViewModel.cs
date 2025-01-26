@@ -560,15 +560,23 @@ public partial class ReportsViewModel : BaseTimeWindowViewModel
 				not_primary = family.Where(x => x.GroupGiving == true);
 			}
 
-			foreach (var member in not_primary)
+			if (not_primary.Any(x => x.LastName != last))
 			{
-				if (member.LastName == last)
+				name = primary.First().FirstName + " " + last;
+				foreach (var member in not_primary)
+				{
+					name += " & " + member.FirstName + " " + member.LastName;
+				}
+			}
+			else
+			{
+				foreach (var member in not_primary)
 				{
 					name += " & " + member.FirstName;
 				}
-			}
 
-			name += " " + last;
+				name += " " + last;
+			}
 		}
 
 		return name;

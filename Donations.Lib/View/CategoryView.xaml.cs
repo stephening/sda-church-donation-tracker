@@ -35,5 +35,12 @@ namespace Donations.Lib.View
 		{
 			_viewModel = DataContext as CategoryViewModel;
 		}
+
+		private void CheckBox_Click(object sender, System.Windows.RoutedEventArgs e)
+		{
+			if (null != _viewModel)
+				_viewModel.HasChanges = true;
+			e.Handled = false;
+		}
 	}
 }
