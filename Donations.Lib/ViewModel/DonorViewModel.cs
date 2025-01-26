@@ -170,6 +170,12 @@ public partial class DonorViewModel : BaseViewModel
 			DonorChanges.Source = await _donorChangeServices.GetDonorChangesByDonorId(SelectedDonor.Id);
 			DonorChanges.View.SortDescriptions.Add(new SortDescription("WhenChanged", ListSortDirection.Descending));
 		}
+		else
+		{
+			FamilyMembers.Source = null;
+			Donations.Source = null;
+			DonorChanges.Source = null;
+		}
 	}
 
 	/// <summary>
@@ -326,7 +332,7 @@ public partial class DonorViewModel : BaseViewModel
 				}
 
 				// refresh donor mappings in maint. tab
-				_donorMapViewModel.Loading();
+				await _donorMapViewModel.Loading();
 
 				_updating = false;
 				Clear();

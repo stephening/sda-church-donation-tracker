@@ -45,7 +45,10 @@ public partial class EmailAccountPasswordView : Window
 
 	private void Window_KeyDown(object sender, KeyEventArgs e)
 	{
-		_helpView.ShowTarget("Email-account-password-popup");
+		if (e.Key == Key.F1)
+		{
+			_helpView.ShowTarget("Email-reports");
+		}
 	}
 
 	private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

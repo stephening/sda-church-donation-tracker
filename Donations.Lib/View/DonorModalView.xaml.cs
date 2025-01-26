@@ -60,7 +60,10 @@ namespace Donations.Lib.View
 
 		private void Window_KeyDown(object sender, KeyEventArgs e)
 		{
-			_helpView.ShowTarget("Donor-modal-view");
+			if (e.Key == Key.F1)
+			{
+				_helpView.ShowTarget("Donor-popup-view");
+			}
 		}
 	}
 }

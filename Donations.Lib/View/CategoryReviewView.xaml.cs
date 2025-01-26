@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Documents;
+using System.Windows.Input;
 
 namespace Donations.Lib.View;
 
@@ -65,7 +66,10 @@ public partial class CategoryReviewView : Window
 
 	private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
 	{
-		_helpView.ShowTarget(_helpTarget);
+		if (Key.F1 == e.Key)
+		{
+			_helpView.ShowTarget(_helpTarget);
+		}
 	}
 
 	private void Window_Loaded(object sender, RoutedEventArgs e)

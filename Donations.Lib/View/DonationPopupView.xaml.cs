@@ -3,6 +3,7 @@ using Donations.Lib.ViewModel;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Donations.Lib.View;
 
@@ -32,7 +33,10 @@ public partial class DonationPopupView : Window
 
 	private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
 	{
-		_helpView.ShowTarget("Donation-popup-view");
+		if (Key.F1 == e.Key)
+		{
+			_helpView.ShowTarget("Donation-popup-view");
+		}
 	}
 
 	private void Window_Loaded(object sender, RoutedEventArgs e)

@@ -40,7 +40,10 @@ namespace Donations.Lib.View
 
 		private void Window_KeyDown(object sender, KeyEventArgs e)
 		{
-			_helpView.ShowTarget("Confirm-donor-merge");
+			if (Key.F1 == e.Key)
+			{
+				_helpView.ShowTarget("Confirm-donor-merge");
+			}
 		}
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

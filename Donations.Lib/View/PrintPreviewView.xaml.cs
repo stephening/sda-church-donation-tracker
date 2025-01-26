@@ -3,6 +3,7 @@ using Donations.Lib.ViewModel;
 using System;
 using System.Windows;
 using System.Windows.Documents;
+using System.Windows.Input;
 
 namespace Donations.Lib.View;
 
@@ -36,7 +37,10 @@ public partial class PrintPreviewView : Window
 
 	private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
 	{
-		_helpView.ShowTarget(_helpTarget);
+		if (e.Key == Key.F1)
+		{
+			_helpView.ShowTarget(_helpTarget);
+		}
 	}
 
 	private void Window_Loaded(object sender, RoutedEventArgs e)

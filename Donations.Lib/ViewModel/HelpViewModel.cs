@@ -83,7 +83,10 @@ public partial class HelpViewModel : ObservableObject
 			{
 				if (_fileSystem.File.Exists(HtmlContent.Replace("file://", "")))
 				{
-					webBrowser.Navigate(HtmlContent + target);
+					if (target.StartsWith("#"))
+					{
+						webBrowser.Navigate(HtmlContent + target);
+					}
 				}
 			}
 			catch (Exception ex)
